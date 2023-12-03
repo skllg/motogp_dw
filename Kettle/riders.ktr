@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>pilotos</name>
+    <name>riders</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -494,6 +495,101 @@
     </hop>
   </order>
   <step>
+    <name>Add constants</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>year</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>2003</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>class</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>motogp</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Add constants</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>des_team</leftvalue>
+        <function>&lt;></function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>String</type>
+          <text>Source:</text>
+          <length>-1</length>
+          <precision>-1</precision>
+          <isnull>N</isnull>
+          <mask/>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Insert / update</name>
     <type>InsertUpdate</type>
     <description/>
@@ -552,7 +648,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\Stratebi\Desktop\cosas\TFG\MOTOGP\Excels\2003.xlsx</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\2003.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -701,7 +797,7 @@
     <append>N</append>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>C:\Users\Stratebi\Desktop\cosas\TFG\MOTOGP\Excels\outputs test\pilotos_output</name>
+      <name>${Internal.Entry.Current.Directory}\outputs_test\riders_output</name>
       <extention>xls</extention>
       <do_not_open_newfile_init>N</do_not_open_newfile_init>
       <create_parent_folder>N</create_parent_folder>
@@ -726,17 +822,17 @@
     </template>
     <fields>
       <field>
-        <name>piloto_nombre</name>
+        <name>rider_name</name>
         <type>String</type>
         <format/>
       </field>
       <field>
-        <name>piloto_apellidos</name>
+        <name>rider_lastname</name>
         <type>String</type>
         <format/>
       </field>
       <field>
-        <name>des_equipo</name>
+        <name>des_team</name>
         <type>String</type>
         <format/>
       </field>
@@ -746,12 +842,17 @@
         <format/>
       </field>
       <field>
-        <name>numero</name>
+        <name>number</name>
         <type>String</type>
         <format/>
       </field>
       <field>
-        <name>año</name>
+        <name>year</name>
+        <type>Integer</type>
+        <format>#</format>
+      </field>
+      <field>
+        <name>class</name>
         <type>String</type>
         <format/>
       </field>
@@ -801,7 +902,7 @@
     <fields>
       <field>
         <name>Team</name>
-        <rename>des_equipo</rename>
+        <rename>des_team</rename>
       </field>
       <field>
         <name>Constructor</name>
@@ -809,11 +910,11 @@
       </field>
       <field>
         <name>No.</name>
-        <rename>numero</rename>
+        <rename>number</rename>
       </field>
       <field>
         <name>Rider</name>
-        <rename>des_piloto</rename>
+        <rename>des_rider</rename>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -832,45 +933,6 @@
     </GUI>
   </step>
   <step>
-    <name>Unique rows</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field>id_piloto</count_field>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>des_piloto</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-      <field>
-        <name>des_equipo</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>384</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Split fields</name>
     <type>FieldSplitter</type>
     <description/>
@@ -881,12 +943,12 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <splitfield>des_piloto</splitfield>
+    <splitfield>des_rider</splitfield>
     <delimiter> </delimiter>
     <enclosure/>
     <fields>
       <field>
-        <name>piloto_nombre</name>
+        <name>rider_name</name>
         <id/>
         <idrem>N</idrem>
         <type>String</type>
@@ -901,7 +963,7 @@
         <trimtype>none</trimtype>
       </field>
       <field>
-        <name>piloto_apellidos</name>
+        <name>rider_lastname</name>
         <id/>
         <idrem>N</idrem>
         <type>String</type>
@@ -931,8 +993,8 @@
     </GUI>
   </step>
   <step>
-    <name>Add constants</name>
-    <type>Constant</type>
+    <name>Unique rows</name>
+    <type>Unique</type>
     <description/>
     <distribute>N</distribute>
     <custom_distribution/>
@@ -941,18 +1003,18 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <count_rows>N</count_rows>
+    <count_field>id_piloto</count_field>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
     <fields>
       <field>
-        <name>año</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>2003</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
+        <name>des_rider</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>des_team</name>
+        <case_insensitive>N</case_insensitive>
       </field>
     </fields>
     <attributes/>
@@ -964,51 +1026,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Add constants</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>des_equipo</leftvalue>
-        <function>&lt;></function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>Source:</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
+      <xloc>384</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
