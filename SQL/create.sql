@@ -14,3 +14,33 @@ create table teams (
 	rounds varchar(15),
 	"year" integer not null
 );
+
+create table tracks (
+	id_track serial primary key,
+	des_track varchar(50) not null,
+	loc_track varchar(50),
+	country_track varchar(50),
+	len_track integer,
+	num_corners integer
+);
+
+create table grand_prix(
+	id_grandprix serial primary key,
+	id_track integer not null,
+	des_grandprix varchar(50) not null,
+	"round" integer,
+	num_laps integer,
+	"year" integer not null,
+	"date" varchar(50)
+);
+
+create table riders(
+	id_rider serial primary key,
+	id_team integer not null,
+	rider_name varchar(20) not null,
+	rider_lastname varchar(20) not null,
+	"year" integer not null,
+	rider_number integer,
+	"class" varchar(10) not null
+	
+);
