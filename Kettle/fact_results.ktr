@@ -435,6 +435,48 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>cuidado con el tipo de carrera</note>
+      <xloc>416</xloc>
+      <yloc>224</yloc>
+      <width>168</width>
+      <heigth>26</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>mirar el id_postition_fk</note>
+      <xloc>832</xloc>
+      <yloc>448</yloc>
+      <width>130</width>
+      <heigth>26</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>motogp_dw</name>
@@ -515,17 +557,22 @@
     </hop>
     <hop>
       <from>Database lookup 2</from>
-      <to>Modified JavaScript value</to>
-      <enabled>N</enabled>
+      <to>Database lookup 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup 2 2</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>Table output</to>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Split fields</from>
       <to>Database lookup</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Database lookup 2</from>
-      <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -561,6 +608,18 @@
         <decimal/>
         <group/>
         <nullif>motogp</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>race_type</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>main</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -623,7 +682,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
+      <xloc>816</xloc>
       <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
@@ -677,7 +736,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
+      <xloc>976</xloc>
       <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1070,43 +1129,6 @@
     </GUI>
   </step>
   <step>
-    <name>Modified JavaScript value</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1008</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Row normaliser 2</name>
     <type>Normaliser</type>
     <description/>
@@ -1342,8 +1364,8 @@
     </GUI>
   </step>
   <step>
-    <name>Insert / update</name>
-    <type>InsertUpdate</type>
+    <name>Table output</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1353,11 +1375,146 @@
       <schema_name/>
     </partitioning>
     <connection>motogp_dw</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
+    <schema>public</schema>
+    <table>fact_results</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>num_round</column_name>
+        <stream_name>num_round</stream_name>
+      </field>
+      <field>
+        <column_name>id_result</column_name>
+        <stream_name>id_position</stream_name>
+      </field>
+      <field>
+        <column_name>season</column_name>
+        <stream_name>year</stream_name>
+      </field>
+      <field>
+        <column_name>racing_class</column_name>
+        <stream_name>class</stream_name>
+      </field>
+      <field>
+        <column_name>race_type</column_name>
+        <stream_name>race_type</stream_name>
+      </field>
+      <field>
+        <column_name>id_rider_fk</column_name>
+        <stream_name>id_rider</stream_name>
+      </field>
+      <field>
+        <column_name>id_grand_prix_fk</column_name>
+        <stream_name>id_grandprix</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>id_grandprix</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>id_position</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup 2 2</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>motogp_dw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
     <lookup>
-      <schema/>
-      <table>lookup table</table>
+      <schema>public</schema>
+      <table>dim_postions</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>result</name>
+        <field>final_position</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id_position</name>
+        <rename>id_position</rename>
+        <default/>
+        <type>None</type>
+      </value>
     </lookup>
     <attributes/>
     <cluster_schema/>
@@ -1368,8 +1525,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>288</yloc>
+      <xloc>976</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

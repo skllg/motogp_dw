@@ -75,47 +75,80 @@ create table IF NOT EXISTS dim_riders(
 	
 );
 
-create table IF NOT EXISTS dim_riders(
+create table IF NOT EXISTS fact_results(
 	id_result serial primary key,
 	id_rider_fk integer not null,
 	id_grand_prix_fk integer not null,
+	id_position_fk integer not null,
 	num_round integer,
-	final_result integer,
-	--points integer,
+	points integer,
 	season integer,
 	racing_class varchar(10),
 	race_type varchar(10),
 	pole bool,
 	fastest_lap bool,
-	constraint fk_id_team
-		foreign key(id_team_fk)
-		references dim_teams(id_team)
+	constraint fk_id_rider
+		foreign key(id_rider_fk)
+		references dim_riders(id_rider)
 		ON DELETE SET null,
 	constraint fk_id_grand_prix
 		foreign key(id_grand_prix_fk)
-		references dim_grand_prix(id_grand_prix)
+		references dim_grand_prix(id_grandprix)
+		ON DELETE SET null,
+	constraint fk_id_position
+		foreign key(id_position_fk)
+		references dim_postions(id_position)
 		ON DELETE SET NULL
 );
 
 
+create table IF NOT EXISTS dim_postions(
+	id_position serial primary key,
+	final_position varchar(5),
+	race_type varchar(10),
+	num_points integer
+);
 
 
+insert into dim_postions(final_position,race_type,num_points)
+values ('1','main',25),('2','main',20),('3','main',16),('4','main',13),('5','main',11),('6','main',10),
+('7','main',9),('8','main',8),('9','main',7),
+('10','main',6),('11','main',5),('12','main',4),('13','main',3),('14','main',2),('15','main',1),
+('16','main',0),('17','main',0),('18','main',0),('19','main',0),('20','main',0),('21','main',0),
+('22','main',0),('23','main',0),('24','main',0),('25','main',0),('26','main',0),('27','main',0),
+('DNF','main',0), ('DNS','main',0), ('DSQ','main',0),
+('WD','main',0), ('NC','main',0), ('DNPQ','main',0),
+('DNP','main',0), ('DNA','main',0), ('EX','main',0), ('Ret','main',0),(null,'main',0;
+
+
+      
 drop table dim_constructors cascade;
 drop table dim_teams cascade;
 drop table dim_riders cascade;
 drop table dim_grand_prix  cascade;
 drop table dim_tracks cascade;
+drop table fact_results cascade;
+drop table dim_postions cascade;
+
 
 truncate table dim_constructors cascade;
 truncate table dim_teams cascade;
 truncate table dim_riders cascade;
 truncate table dim_grand_prix  cascade;
 truncate table dim_tracks cascade;
+truncate table fact_results cascade;
+truncate table dim_postions cascade;
+
 
 select * from dim_constructors;
 select * from dim_teams ;
 select * from dim_riders ;
 select * from dim_grand_prix  ;
 select * from dim_tracks ;
+select * from fact_results ;
+select * from dim_postions  ;
 
 
+select dr.rider_full_name, dgp.des_grandprix, r.final_result from fact_results r
+left join dim_riders dr  on dr.id_rider = r.id_rider_fk
+left join dim_grand_prix dgp on dgp.id_grandprix  = r.id_grand_prix_fk
