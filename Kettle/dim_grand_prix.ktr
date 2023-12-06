@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>riders</name>
+    <name>grand_prix</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -428,18 +428,39 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2023/10/22 11:45:41.059</created_date>
+    <created_date>2023/10/25 19:47:48.452</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2023/10/22 11:45:41.059</modified_date>
+    <modified_date>2023/10/25 19:47:48.452</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>cuando se pase a sql el id puede calcularse como un autogenerado al insertarse</note>
-      <xloc>448</xloc>
-      <yloc>432</yloc>
-      <width>428</width>
+      <note>faltaria por añadir ciudad/pais</note>
+      <xloc>240</xloc>
+      <yloc>80</yloc>
+      <width>169</width>
+      <heigth>26</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>faltaria por añadir la fecha correctamente en dd/mm/aaaa</note>
+      <xloc>432</xloc>
+      <yloc>80</yloc>
+      <width>317</width>
       <heigth>26</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
@@ -459,13 +480,13 @@
   </notepads>
   <connection>
     <name>motogp_dw</name>
-    <server>localhost</server>
+    <server>${MOTOGP_HOST}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>motogp_dw</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <database>${MOTOGP_DATABASE}</database>
+    <port>${MOTOGP_PORT}</port>
+    <username>${MOTOGP_USER}</username>
+    <password>${MOTOGP_PASS}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -484,7 +505,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
+        <attribute>${MOTOGP_PORT}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -515,28 +536,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>Unique rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Unique rows</from>
-      <to>Split fields</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Add constants</from>
+      <from>Filter rows</from>
       <to>Microsoft Excel output</to>
       <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Split fields</from>
-      <to>Filter rows</to>
+      <from>Select values</from>
+      <to>Replace in string</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Add constants</from>
-      <to>Database lookup</to>
+      <from>Replace in string</from>
+      <to>Add constants</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -545,13 +556,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
-      <to>Replace in string</to>
+      <from>Add constants</from>
+      <to>Modified JavaScript value</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string</from>
-      <to>Add constants</to>
+      <from>Modified JavaScript value</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -568,25 +584,13 @@
     </partitioning>
     <fields>
       <field>
-        <name>year</name>
+        <name>current_year</name>
         <type>Integer</type>
         <format>#</format>
         <currency/>
         <decimal/>
         <group/>
         <nullif>2003</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>class</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>motogp</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -601,8 +605,56 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>128</yloc>
+      <xloc>496</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>motogp_dw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_tracks</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>des_track</name>
+        <field>des_track</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id_track</name>
+        <rename>id_track</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -617,12 +669,12 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Replace in string</send_true_to>
+    <send_true_to>Database lookup</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>des_team</leftvalue>
+        <leftvalue>des_grand_prix</leftvalue>
         <function>&lt;></function>
         <rightvalue/>
         <value>
@@ -645,8 +697,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>128</yloc>
+      <xloc>800</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -666,53 +718,42 @@
     <update_bypassed>N</update_bypassed>
     <lookup>
       <schema>public</schema>
-      <table>riders</table>
+      <table>dim_grand_prix</table>
       <key>
-        <name>rider_name</name>
-        <field>rider_name</field>
+        <name>des_grand_prix</name>
+        <field>des_grandprix</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
-        <name>rider_lastname</name>
-        <field>rider_lastname</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>year</name>
+        <name>current_year</name>
         <field>year</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
         <name>year</name>
-        <rename>year</rename>
+        <rename>current_year</rename>
         <update>N</update>
       </value>
       <value>
-        <name>rider_name</name>
-        <rename>rider_name</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>rider_lastname</name>
-        <rename>rider_lastname</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>rider_number</name>
-        <rename>number</rename>
+        <name>id_track_fk</name>
+        <rename>id_track</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>id_team</name>
-        <rename>id_team</rename>
+        <name>date</name>
+        <rename>processed_date</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>class</name>
-        <rename>class</rename>
+        <name>des_grandprix</name>
+        <rename>des_grand_prix</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>round</name>
+        <rename>num_round</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -725,8 +766,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>368</yloc>
+      <xloc>800</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -765,55 +806,7 @@
     </file>
     <fields>
       <field>
-        <name>Team</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Constructor</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Motorcycle</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Tyre</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>No.</name>
+        <name>Round</name>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -825,7 +818,7 @@
         <group/>
       </field>
       <field>
-        <name>Rider</name>
+        <name>Date</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -837,7 +830,19 @@
         <group/>
       </field>
       <field>
-        <name>Rounds</name>
+        <name>Grand Prix</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>Circuit</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -851,7 +856,7 @@
     </fields>
     <sheets>
       <sheet>
-        <name>Equipos</name>
+        <name>Calendar</name>
         <startrow>0</startrow>
         <startcol>0</startcol>
       </sheet>
@@ -884,8 +889,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>16</xloc>
-      <yloc>128</yloc>
+      <xloc>112</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -906,7 +911,7 @@
     <append>N</append>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${Internal.Entry.Current.Directory}\outputs_test\riders_output</name>
+      <name>${Internal.Entry.Current.Directory}\outputs_test\grandprix_output</name>
       <extention>xls</extention>
       <do_not_open_newfile_init>N</do_not_open_newfile_init>
       <create_parent_folder>N</create_parent_folder>
@@ -931,27 +936,22 @@
     </template>
     <fields>
       <field>
-        <name>rider_name</name>
+        <name>num_round</name>
+        <type>Number</type>
+        <format>#</format>
+      </field>
+      <field>
+        <name>date_wo_cross</name>
         <type>String</type>
         <format/>
       </field>
       <field>
-        <name>rider_lastname</name>
+        <name>des_grand_prix</name>
         <type>String</type>
         <format/>
       </field>
       <field>
-        <name>des_team</name>
-        <type>String</type>
-        <format/>
-      </field>
-      <field>
-        <name>des_constructor</name>
-        <type>String</type>
-        <format/>
-      </field>
-      <field>
-        <name>number</name>
+        <name>des_track</name>
         <type>String</type>
         <format/>
       </field>
@@ -959,11 +959,6 @@
         <name>year</name>
         <type>Integer</type>
         <format>#</format>
-      </field>
-      <field>
-        <name>class</name>
-        <type>String</type>
-        <format/>
       </field>
     </fields>
     <custom>
@@ -992,14 +987,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>128</yloc>
+      <xloc>976</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
+    <name>Modified JavaScript value</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1008,83 +1003,39 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>// Get the input date field value
+var inputDate = date_wo_cross;
+
+// Get the parameter value from the previous step
+var parameterValue = current_year;
+
+// Parse the month name to its corresponding numerical value
+var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var monthIndex = monthNames.indexOf(inputDate.split(' ')[1]) + 1;
+
+// Format the date in the desired output format
+var outputDate = parameterValue + '-' + (monthIndex &lt; 10 ? '0' : '') + monthIndex + '-' + (inputDate.split(' ')[0] &lt; 10 ? '0' : '') + inputDate.split(' ')[0];
+
+// Set the output field value
+output_field = outputDate;
+
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
     <fields>
       <field>
-        <name>Team</name>
-        <rename>des_team</rename>
-      </field>
-      <field>
-        <name>Constructor</name>
-        <rename>des_constructor</rename>
-      </field>
-      <field>
-        <name>No.</name>
-        <rename>number</rename>
-      </field>
-      <field>
-        <name>Rider</name>
-        <rename>des_rider</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Split fields</name>
-    <type>FieldSplitter</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <splitfield>des_rider</splitfield>
-    <delimiter> </delimiter>
-    <enclosure/>
-    <fields>
-      <field>
-        <name>rider_name</name>
-        <id/>
-        <idrem>N</idrem>
+        <name>output_field</name>
+        <rename>processed_date</rename>
         <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
-      </field>
-      <field>
-        <name>rider_lastname</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
+        <replace>N</replace>
       </field>
     </fields>
     <attributes/>
@@ -1096,95 +1047,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Unique rows</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field>id_piloto</count_field>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>des_rider</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-      <field>
-        <name>des_team</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>motogp_dw</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>teams</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>des_team_trim</name>
-        <field>des_team</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>id_team</name>
-        <rename>id_team</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>240</yloc>
+      <xloc>624</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1201,10 +1065,10 @@
     </partitioning>
     <fields>
       <field>
-        <in_stream_name>des_team</in_stream_name>
-        <out_stream_name>des_team_trim</out_stream_name>
+        <in_stream_name>date_wo_year</in_stream_name>
+        <out_stream_name>date_wo_cross</out_stream_name>
         <use_regex>no</use_regex>
-        <replace_string>/ </replace_string>
+        <replace_string>††</replace_string>
         <replace_by_string/>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
@@ -1222,8 +1086,52 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>128</yloc>
+      <xloc>368</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>Round</name>
+        <rename>num_round</rename>
+      </field>
+      <field>
+        <name>Date</name>
+        <rename>date_wo_year</rename>
+      </field>
+      <field>
+        <name>Grand Prix</name>
+        <rename>des_grand_prix</rename>
+      </field>
+      <field>
+        <name>Circuit</name>
+        <rename>des_track</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

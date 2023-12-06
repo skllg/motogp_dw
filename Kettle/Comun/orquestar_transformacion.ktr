@@ -455,7 +455,7 @@
     <hop>
       <from>Settear Variables</from>
       <to>Registrar Carga</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Esperar "Ejecutar Transformacion"</from>
@@ -548,45 +548,25 @@
     <specification_method>filename</specification_method>
     <trans_object_id/>
     <trans_name/>
-    <filename>${PATH_PRINCIPAL}${SIGUIENTE_TRANSFORMACION}.ktr</filename>
+    <filename>${PATH_PRINCIPAL}${SIGUIENTE _TRANSFORMACION}.ktr</filename>
     <directory_path/>
     <group_size>1</group_size>
     <group_field/>
     <group_time/>
     <parameters>
       <variablemapping>
-        <variable>COMPETIVO</variable>
-        <field>COMPETITIVO</field>
+        <variable>SIGUIENTE_TRANSFORMACION</variable>
+        <field>SIGUIENTE_TRANSFORMACION</field>
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>CENTRO</variable>
-        <field>CENTRO</field>
+        <variable>TRANSFORMACION</variable>
+        <field>TRANSFORMACION</field>
         <input/>
       </variablemapping>
       <variablemapping>
-        <variable>TIPO_CARGA</variable>
-        <field>TIPO_CARGA</field>
-        <input/>
-      </variablemapping>
-      <variablemapping>
-        <variable>TIPO_VISTA</variable>
-        <field>TIPO_VISTA</field>
-        <input/>
-      </variablemapping>
-      <variablemapping>
-        <variable>USUARIO</variable>
-        <field>USUARIO</field>
-        <input/>
-      </variablemapping>
-      <variablemapping>
-        <variable>USUARIO_UPDATE</variable>
-        <field>USUARIO_UPDATE</field>
-        <input/>
-      </variablemapping>
-      <variablemapping>
-        <variable>USUARIO_INSERT</variable>
-        <field>USUARIO_INSERT</field>
+        <variable>JOB</variable>
+        <field>JOB</field>
         <input/>
       </variablemapping>
       <inherit_all_vars>Y</inherit_all_vars>
@@ -730,56 +710,8 @@
     </partitioning>
     <fields>
       <field>
-        <name>ID_JOB</name>
-        <variable>${ID_JOB}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>HOST</name>
-        <variable>${HOST}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>IP</name>
-        <variable>${IP}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>SIGUIENTE_TRANSFORMACION</name>
-        <variable>${SIGUIENTE_TRANSFORMACION}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>JOB</name>
-        <variable>${JOB}</variable>
+        <name>SIGUIENTE _TRANSFORMACION</name>
+        <variable>${SIGUIENTE _TRANSFORMACION}</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -802,93 +734,9 @@
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>COMPETITIVO</name>
-        <variable>${COMPETITIVO}</variable>
+        <name>JOB</name>
+        <variable>${JOB}</variable>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>CENTRO</name>
-        <variable>${CENTRO}</variable>
-        <type>None</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>COMPETITIVO</name>
-        <variable>${COMPETITIVO}</variable>
-        <type>None</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>TIPO_CARGA</name>
-        <variable>${TIPO_CARGA}</variable>
-        <type>None</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>TIPO_VISTA</name>
-        <variable>${TIPO_VISTA}</variable>
-        <type>None</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>USUARIO</name>
-        <variable>${USUARIO}</variable>
-        <type>None</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>USUARIO_UPDATE</name>
-        <variable>${USUARIO_UPDATE}</variable>
-        <type>None</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>USUARIO_INSERT</name>
-        <variable>${USUARIO_INSERT}</variable>
-        <type>None</type>
         <format/>
         <currency/>
         <decimal/>
