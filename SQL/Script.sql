@@ -149,6 +149,9 @@ select * from fact_results ;
 select * from dim_postions  ;
 
 
-select dr.rider_full_name, dgp.des_grandprix, r.final_result from fact_results r
+select dr.rider_full_name, r.season , sum(dp.num_points)   from fact_results r
 left join dim_riders dr  on dr.id_rider = r.id_rider_fk
 left join dim_grand_prix dgp on dgp.id_grandprix  = r.id_grand_prix_fk
+left join dim_postions dp on dp.id_position = r.id_position_fk
+group by dr.rider_full_name,r.season 
+order by sum(dp.num_points) desc

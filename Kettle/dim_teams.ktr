@@ -686,7 +686,7 @@
     </partitioning>
     <schema>public</schema>
     <table>constructors</table>
-    <connection>motogp_dw</connection>
+    <connection/>
     <commit>100</commit>
     <update>N</update>
     <fields>

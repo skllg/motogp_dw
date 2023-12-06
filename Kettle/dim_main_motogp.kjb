@@ -854,7 +854,7 @@ create table IF NOT EXISTS dim_riders(
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
       <sendOneStatement>T</sendOneStatement>
-      <connection>motogp_dw</connection>
+      <connection/>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
