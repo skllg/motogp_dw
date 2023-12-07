@@ -566,13 +566,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
-      <to>Table output</to>
+      <from>Split fields</from>
+      <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Split fields</from>
-      <to>Database lookup</to>
+      <from>Filter rows</from>
+      <to>Get variables</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get variables</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -863,7 +868,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\2003.xlsx</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1497,7 +1502,7 @@
       </field>
       <field>
         <column_name>season</column_name>
-        <stream_name>year</stream_name>
+        <stream_name>SEASON</stream_name>
       </field>
       <field>
         <column_name>racing_class</column_name>
@@ -1527,6 +1532,45 @@
     <GUI>
       <xloc>976</xloc>
       <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Get variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>SEASON</name>
+        <variable>${CURRENT_SEASON}</variable>
+        <type>Integer</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
