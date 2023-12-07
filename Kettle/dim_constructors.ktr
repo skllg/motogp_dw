@@ -627,7 +627,7 @@
       </key>
       <key>
         <name>year</name>
-        <field>year</field>
+        <field>season</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -637,7 +637,7 @@
         <update>Y</update>
       </value>
       <value>
-        <name>year</name>
+        <name>season</name>
         <rename>year</rename>
         <update>Y</update>
       </value>

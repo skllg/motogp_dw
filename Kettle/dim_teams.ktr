@@ -847,14 +847,14 @@
       </key>
       <key>
         <name>year</name>
-        <field>year</field>
+        <field>season</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
         <name>des_team</name>
         <rename>des_team</rename>
-        <update>Y</update>
+        <update>N</update>
       </value>
       <value>
         <name>des_motorcycle</name>
@@ -867,14 +867,14 @@
         <update>Y</update>
       </value>
       <value>
-        <name>rounds</name>
+        <name>rounds_participated</name>
         <rename>rounds</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>year</name>
+        <name>season</name>
         <rename>year</rename>
-        <update>Y</update>
+        <update>N</update>
       </value>
       <value>
         <name>id_constructor_fk</name>
@@ -892,7 +892,7 @@
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>432</yloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

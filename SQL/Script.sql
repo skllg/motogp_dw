@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS  dim_constructors (
     id_constructor SERIAL PRIMARY KEY,
     des_constructor VARCHAR(50) NOT NULL,
-    "year" integer NOT NULL
+    season integer NOT NULL
 );
 
 /*
@@ -16,8 +16,8 @@ create table IF NOT EXISTS dim_teams (
 	bool_independent boolean,
 	des_motorcycle varchar(15),
 	tyre_supplier varchar(15),
-	rounds varchar(15),
-	year integer not null,
+	rounds_participated varchar(15),
+	season integer not null,
 	constraint fk_id_constructor
 		foreign key(id_constructor_fk)
 		references dim_constructors(id_constructor)
@@ -43,10 +43,10 @@ create table IF NOT EXISTS dim_grand_prix(
 	id_grandprix serial primary key,
 	id_track_fk integer not null,
 	des_grandprix varchar(50) not null,
-	"round" integer,
+	num_round integer,
 	num_laps integer,
-	"year" integer not null,
-	"date" varchar(50),
+	season integer not null,
+	gp_date date,
 	constraint fk_id_track
 		foreign key(id_track_fk)
 		references dim_tracks(id_track)
@@ -65,9 +65,9 @@ create table IF NOT EXISTS dim_riders(
 	rider_full_name varchar(50) not null,
 	rider_name varchar(20) not null,
 	rider_lastname varchar(20) not null,
-	"year" integer not null,
+	season integer not null,
 	rider_number integer,
-	"class" varchar(10) not null,
+	racing_class varchar(10) not null,
 	constraint fk_id_team
 		foreign key(id_team_fk)
 		references dim_teams(id_team)
@@ -81,7 +81,6 @@ create table IF NOT EXISTS fact_results(
 	id_grand_prix_fk integer not null,
 	id_position_fk integer not null,
 	num_round integer,
-	points integer,
 	season integer,
 	racing_class varchar(10),
 	race_type varchar(10),
@@ -97,12 +96,12 @@ create table IF NOT EXISTS fact_results(
 		ON DELETE SET null,
 	constraint fk_id_position
 		foreign key(id_position_fk)
-		references dim_postions(id_position)
+		references dim_positions(id_position)
 		ON DELETE SET NULL
 );
 
 
-create table IF NOT EXISTS dim_postions(
+create table IF NOT EXISTS dim_positions(
 	id_position serial primary key,
 	final_position varchar(5),
 	race_type varchar(10),
@@ -110,7 +109,7 @@ create table IF NOT EXISTS dim_postions(
 );
 
 
-insert into dim_postions(final_position,race_type,num_points)
+insert into dim_positions(final_position,race_type,num_points)
 values ('1','main',25),('2','main',20),('3','main',16),('4','main',13),('5','main',11),('6','main',10),
 ('7','main',9),('8','main',8),('9','main',7),
 ('10','main',6),('11','main',5),('12','main',4),('13','main',3),('14','main',2),('15','main',1),
@@ -118,7 +117,7 @@ values ('1','main',25),('2','main',20),('3','main',16),('4','main',13),('5','mai
 ('22','main',0),('23','main',0),('24','main',0),('25','main',0),('26','main',0),('27','main',0),
 ('DNF','main',0), ('DNS','main',0), ('DSQ','main',0),
 ('WD','main',0), ('NC','main',0), ('DNPQ','main',0),
-('DNP','main',0), ('DNA','main',0), ('EX','main',0), ('Ret','main',0),(null,'main',0;
+('DNP','main',0), ('DNA','main',0), ('EX','main',0), ('Ret','main',0),(null,'main',0);
 
 
       
@@ -128,7 +127,7 @@ drop table dim_riders cascade;
 drop table dim_grand_prix  cascade;
 drop table dim_tracks cascade;
 drop table fact_results cascade;
-drop table dim_postions cascade;
+drop table dim_positions cascade;
 
 
 truncate table dim_constructors cascade;
@@ -137,7 +136,7 @@ truncate table dim_riders cascade;
 truncate table dim_grand_prix  cascade;
 truncate table dim_tracks cascade;
 truncate table fact_results cascade;
-truncate table dim_postions cascade;
+truncate table dim_positions cascade;
 
 
 select * from dim_constructors;
@@ -146,12 +145,7 @@ select * from dim_riders ;
 select * from dim_grand_prix  ;
 select * from dim_tracks ;
 select * from fact_results ;
-select * from dim_postions  ;
+select * from dim_positions  ;
 
 
-select dr.rider_full_name, r.season , sum(dp.num_points)   from fact_results r
-left join dim_riders dr  on dr.id_rider = r.id_rider_fk
-left join dim_grand_prix dgp on dgp.id_grandprix  = r.id_grand_prix_fk
-left join dim_postions dp on dp.id_position = r.id_position_fk
-group by dr.rider_full_name,r.season 
-order by sum(dp.num_points) desc
+

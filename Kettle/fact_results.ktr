@@ -710,13 +710,13 @@
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
         <name>num_round</name>
-        <field>round</field>
+        <field>num_round</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
         <name>year</name>
-        <field>year</field>
+        <field>season</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -758,7 +758,7 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema>public</schema>
-      <table>dim_postions</table>
+      <table>dim_positions</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>

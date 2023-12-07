@@ -830,12 +830,12 @@
       </key>
       <key>
         <name>year</name>
-        <field>year</field>
+        <field>season</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>year</name>
+        <name>season</name>
         <rename>year</rename>
         <update>N</update>
       </value>
@@ -860,7 +860,7 @@
         <update>Y</update>
       </value>
       <value>
-        <name>class</name>
+        <name>racing_class</name>
         <rename>class</rename>
         <update>Y</update>
       </value>

@@ -477,6 +477,27 @@
       <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
+    <notepad>
+      <note>se necesita este paso para pasar de varchar a date con el formato de postgres</note>
+      <xloc>848</xloc>
+      <yloc>224</yloc>
+      <width>415</width>
+      <heigth>26</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>motogp_dw</name>
@@ -567,6 +588,11 @@
     </hop>
     <hop>
       <from>Filter rows</from>
+      <to>Calculator</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calculator</from>
       <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
@@ -669,7 +695,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Database lookup</send_true_to>
+    <send_true_to>Calculator</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -727,12 +753,12 @@
       </key>
       <key>
         <name>current_year</name>
-        <field>year</field>
+        <field>season</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>year</name>
+        <name>season</name>
         <rename>current_year</rename>
         <update>N</update>
       </value>
@@ -742,8 +768,8 @@
         <update>Y</update>
       </value>
       <value>
-        <name>date</name>
-        <rename>processed_date</rename>
+        <name>gp_date</name>
+        <rename>final_date</rename>
         <update>Y</update>
       </value>
       <value>
@@ -752,7 +778,7 @@
         <update>N</update>
       </value>
       <value>
-        <name>round</name>
+        <name>num_round</name>
         <rename>num_round</rename>
         <update>Y</update>
       </value>
@@ -1132,6 +1158,47 @@ output_field = outputDate;
     <GUI>
       <xloc>240</xloc>
       <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calculator</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>final_date</field_name>
+      <calc_type>COPY_FIELD</calc_type>
+      <field_a>processed_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Date</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>yyyy-MM-dd</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
