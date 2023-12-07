@@ -436,27 +436,6 @@
   </info>
   <notepads>
     <notepad>
-      <note>cuando se pase a sql el id puede calcularse como un autogenerado al insertarse</note>
-      <xloc>512</xloc>
-      <yloc>576</yloc>
-      <width>428</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
       <note>AÑADIR AÑO DE FORMA DINAMICA</note>
       <xloc>352</xloc>
       <yloc>48</yloc>
@@ -546,16 +525,6 @@
       <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Unique rows</from>
-      <to>Add constants</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Add constants</from>
-      <to>Filter rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Filter rows</from>
       <to>Replace in string</to>
       <enabled>Y</enabled>
@@ -564,11 +533,6 @@
       <from>Replace in string</from>
       <to>Dimension lookup/update</to>
       <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Replace in string</from>
-      <to>Database lookup</to>
-      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Database lookup</from>
@@ -581,55 +545,26 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Group by</from>
-      <to>Get variables</to>
+      <from>Replace in string</from>
+      <to>Get variables 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get variables</from>
+      <from>Get variables 2</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Group by</from>
       <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Unique rows</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Add constants</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>year</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>2003</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>448</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Database lookup</name>
     <type>DBLookup</type>
@@ -657,6 +592,12 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>SEASON</name>
+        <field>season</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>id_constructor</name>
         <rename>id_constructor</rename>
@@ -674,7 +615,7 @@
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>176</yloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -785,7 +726,7 @@
     </GUI>
   </step>
   <step>
-    <name>Get variables</name>
+    <name>Get variables 2</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -819,7 +760,7 @@
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>400</yloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -862,7 +803,7 @@
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>336</yloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -936,7 +877,7 @@
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>480</yloc>
+      <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -967,7 +908,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\2003.xlsx</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1383,7 +1324,7 @@
     </remotesteps>
     <GUI>
       <xloc>688</xloc>
-      <yloc>240</yloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

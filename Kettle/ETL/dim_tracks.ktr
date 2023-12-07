@@ -579,7 +579,7 @@
       <value>
         <name>des_track</name>
         <rename>des_track</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
     </lookup>
     <attributes/>
@@ -623,7 +623,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\2003.xlsx</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
