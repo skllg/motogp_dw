@@ -547,6 +547,7 @@ create table IF NOT EXISTS dim_riders(
 	season integer not null,
 	rider_number integer,
 	racing_class varchar(10) not null,
+	rounds_participated varchar(30),
 	constraint fk_id_team
 		foreign key(id_team_fk)
 		references dim_teams(id_team)

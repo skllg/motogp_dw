@@ -878,6 +878,12 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>rounds</name>
+        <field>rounds_participated</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>season</name>
         <rename>SEASON</rename>
@@ -911,6 +917,11 @@
       <value>
         <name>rider_full_name</name>
         <rename>rider_full_name</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>rounds_participated</name>
+        <rename>rounds</rename>
         <update>N</update>
       </value>
     </lookup>
@@ -1323,6 +1334,30 @@
         <case_sensitive>no</case_sensitive>
         <is_unicode>no</is_unicode>
       </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Lee Hayden</replace_string>
+        <replace_by_string>Lee_Hayden</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>de Angelis</replace_string>
+        <replace_by_string>de_Angelis</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1429,6 +1464,10 @@
         <name>Rider</name>
         <rename>des_rider</rename>
       </field>
+      <field>
+        <name>Rounds</name>
+        <rename>rounds</rename>
+      </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
@@ -1527,6 +1566,10 @@
       </field>
       <field>
         <name>des_team</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+      <field>
+        <name>rounds</name>
         <case_insensitive>N</case_insensitive>
       </field>
     </fields>

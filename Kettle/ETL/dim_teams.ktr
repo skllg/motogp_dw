@@ -561,6 +561,11 @@
     </hop>
     <hop>
       <from>Unique rows</from>
+      <to>Replace in string 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Replace in string 2</from>
       <to>Filter rows</to>
       <enabled>Y</enabled>
     </hop>
@@ -836,6 +841,12 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>rounds</name>
+        <field>rounds_participated</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>des_team</name>
         <rename>des_team</rename>
@@ -854,7 +865,7 @@
       <value>
         <name>rounds_participated</name>
         <rename>rounds</rename>
-        <update>Y</update>
+        <update>N</update>
       </value>
       <value>
         <name>season</name>
@@ -1371,6 +1382,45 @@
     </remotesteps>
     <GUI>
       <xloc>320</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Replace in string 2</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>des_team</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Telefónica Movistar Suzuki Team Suzuki</replace_string>
+        <replace_by_string>Team Suzuki</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>448</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
