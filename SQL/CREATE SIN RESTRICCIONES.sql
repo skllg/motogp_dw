@@ -14,7 +14,7 @@ create table IF NOT EXISTS dim_teams (
 	id_constructor_fk integer ,
 	des_team varchar(50) ,
 	bool_independent boolean,
-	des_motorcycle varchar(15),
+	des_motorcycle varchar(30),
 	tyre_supplier varchar(15),
 	rounds_participated varchar(15),
 	season integer /*,
@@ -42,7 +42,7 @@ select * from dim_tracks
 create table IF NOT EXISTS dim_grand_prix(
 	id_grandprix serial primary key,
 	id_track_fk integer ,
-	des_grandprix varchar(50) ,
+	des_grandprix varchar(70) ,
 	num_round integer,
 	num_laps integer,
 	season integer ,

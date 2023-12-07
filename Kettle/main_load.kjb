@@ -492,9 +492,9 @@ create table IF NOT EXISTS dim_teams (
 	id_constructor_fk integer not null,
 	des_team varchar(50) not null,
 	bool_independent boolean,
-	des_motorcycle varchar(15),
-	tyre_supplier varchar(15),
-	rounds_participated varchar(15),
+	des_motorcycle varchar(30),
+	tyre_supplier varchar(30),
+	rounds_participated varchar(30),
 	season integer not null,
 	constraint fk_id_constructor
 		foreign key(id_constructor_fk)
@@ -522,7 +522,7 @@ DROP TABLE IF EXISTS dim_grand_prix CASCADE;
 create table IF NOT EXISTS dim_grand_prix(
 	id_grandprix serial primary key,
 	id_track_fk integer not null,
-	des_grandprix varchar(50) not null,
+	des_grandprix varchar(70) not null,
 	num_round integer,
 	num_laps integer,
 	season integer not null,
