@@ -15,6 +15,7 @@ create table IF NOT EXISTS dim_teams (
 	des_team varchar(50) not null,
 	bool_independent boolean,
 	des_motorcycle varchar(30),
+	type_motorcycle varchar(15),
 	tyre_supplier varchar(15),
 	rounds_participated varchar(15),
 	season integer not null,
@@ -128,7 +129,7 @@ drop table dim_riders cascade;
 drop table dim_grand_prix  cascade;
 drop table dim_tracks cascade;
 drop table fact_results cascade;
-drop table dim_positions cascade;
+--drop table dim_positions cascade;
 
 
 truncate table dim_constructors cascade;
@@ -137,7 +138,7 @@ truncate table dim_riders cascade;
 truncate table dim_grand_prix  cascade;
 truncate table dim_tracks cascade;
 truncate table fact_results cascade;
-truncate table dim_positions cascade;
+--truncate table dim_positions cascade;
 
 
 select * from dim_constructors;

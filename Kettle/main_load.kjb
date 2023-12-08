@@ -493,6 +493,7 @@ create table IF NOT EXISTS dim_teams (
 	des_team varchar(50) not null,
 	bool_independent boolean,
 	des_motorcycle varchar(30),
+	type_motorcycle varchar(15),
 	tyre_supplier varchar(30),
 	rounds_participated varchar(30),
 	season integer not null,

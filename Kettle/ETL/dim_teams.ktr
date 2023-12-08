@@ -510,11 +510,6 @@
   </connection>
   <order>
     <hop>
-      <from>Microsoft Excel input</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select values</from>
       <to>Unique rows</to>
       <enabled>Y</enabled>
@@ -560,12 +555,17 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Unique rows</from>
-      <to>Replace in string 2</to>
+      <from>Microsoft Excel input</from>
+      <to>If field value is null</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string 2</from>
+      <from>If field value is null</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows</from>
       <to>Filter rows</to>
       <enabled>Y</enabled>
     </hop>
@@ -619,7 +619,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>944</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -681,7 +681,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>888</xloc>
+      <xloc>1136</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
@@ -725,7 +725,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
+      <xloc>816</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
@@ -764,7 +764,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>944</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -807,7 +807,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>944</xloc>
       <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
@@ -877,6 +877,11 @@
         <rename>id_constructor</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>type_motorcycle</name>
+        <rename>type_motorcycle</rename>
+        <update>Y</update>
+      </value>
     </lookup>
     <attributes/>
     <cluster_schema/>
@@ -887,7 +892,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>944</xloc>
       <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
@@ -920,6 +925,11 @@
     <accept_stepname/>
     <file>
       <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1000,6 +1010,18 @@
       </field>
       <field>
         <name>Rounds</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>type_motorcycle</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1149,8 +1171,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>336</yloc>
+      <xloc>1120</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1236,7 +1258,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>944</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1273,6 +1295,10 @@
         <name>Rounds</name>
         <rename>rounds</rename>
       </field>
+      <field>
+        <name>type_motorcycle</name>
+        <rename>type_motorcycle</rename>
+      </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
@@ -1284,7 +1310,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>288</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1334,7 +1360,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>944</xloc>
       <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1381,14 +1407,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
+      <xloc>416</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Replace in string 2</name>
-    <type>ReplaceString</type>
+    <name>If field value is null</name>
+    <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1397,18 +1423,19 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
     <fields>
       <field>
-        <in_stream_name>des_team</in_stream_name>
-        <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>Telefónica Movistar Suzuki Team Suzuki</replace_string>
-        <replace_by_string>Team Suzuki</replace_by_string>
+        <name>type_motorcycle</name>
+        <value>prototype</value>
+        <mask/>
         <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-        <is_unicode>no</is_unicode>
       </field>
     </fields>
     <attributes/>
@@ -1420,7 +1447,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>176</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>

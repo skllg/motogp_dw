@@ -579,6 +579,11 @@
       <value>
         <name>des_track</name>
         <rename>des_track</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>loc_track</name>
+        <rename>loc_track</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -668,6 +673,18 @@
       </field>
       <field>
         <name>Circuit</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>Location</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -812,6 +829,10 @@
       <field>
         <name>Circuit</name>
         <rename>des_track</rename>
+      </field>
+      <field>
+        <name>Location</name>
+        <rename>loc_track</rename>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
