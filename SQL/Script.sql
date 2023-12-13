@@ -146,7 +146,7 @@ select * from dim_teams ;
 select * from dim_riders ;
 select * from dim_grand_prix  ;
 select * from dim_tracks ;
-select * from fact_results where season = 2008;
+select * from fact_results;
 select * from dim_positions  ;
 
 
