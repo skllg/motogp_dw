@@ -120,6 +120,8 @@ values ('1','main',25),('2','main',20),('3','main',16),('4','main',13),('5','mai
 ('DNF','main',0), ('DNS','main',0), ('DSQ','main',0),
 ('WD','main',0), ('NC','main',0), ('DNPQ','main',0),
 ('DNP','main',0), ('DNA','main',0), ('EX','main',0), ('Ret','main',0),(null,'main',0);
+insert into dim_positions(final_position,race_type,num_points)
+values ('C','main',0)
 
 
       
