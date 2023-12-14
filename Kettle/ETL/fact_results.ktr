@@ -572,7 +572,7 @@
     <hop>
       <from>Filter rows 2</from>
       <to>Modified JavaScript value 2 3</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Modified JavaScript value 2 3</from>
@@ -607,6 +607,16 @@
     <hop>
       <from>Formula</from>
       <to>Table output</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows 2</from>
+      <to>Regex evaluation 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Regex evaluation 2</from>
+      <to>Select values 2 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -900,6 +910,96 @@
     </GUI>
   </step>
   <step>
+    <name>Formula</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>bool_pole</field_name>
+      <formula_string>if(ISNA([final_pole]); FALSE();TRUE())</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <formula>
+      <field_name>bool_FL</field_name>
+      <formula_string>if(ISNA([final_fastlap]); FALSE();TRUE())</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1488</xloc>
+      <yloc>656</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Formula 5</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>test_Pole</field_name>
+      <formula_string>IF(ISNA([final_result_char]);IF(OR([split1]="P";[split2]="P"); "P";""); IF(OR([split_2_1]="P";[split_2_2]="P"); "P";""))</formula_string>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <formula>
+      <field_name>test_FastLap</field_name>
+      <formula_string>IF(ISNA([final_result_char]);IF(OR([split1]="F";[split2]="F"); "F";""); IF(OR([split_2_1]="F";[split_2_2]="F"); "F";""))</formula_string>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <formula>
+      <field_name>tes_result</field_name>
+      <formula_string>IF(ISNA([final_result_char]);[final_result]; [final_result_char])</formula_string>
+      <value_type>String</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Get variables</name>
     <type>GetVariable</type>
     <description/>
@@ -1005,7 +1105,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\2023.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1512,6 +1612,124 @@ output2 = result</jsScript_script>
     </GUI>
   </step>
   <step>
+    <name>Regex evaluation 2</name>
+    <type>RegexEval</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <script>^((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[P])?((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[F])?$</script>
+    <matcher>result</matcher>
+    <resultfieldname/>
+    <usevar>N</usevar>
+    <allowcapturegroups>Y</allowcapturegroups>
+    <replacefields>N</replacefields>
+    <canoneq>N</canoneq>
+    <caseinsensitive>N</caseinsensitive>
+    <comment>N</comment>
+    <dotall>N</dotall>
+    <multiline>N</multiline>
+    <unicode>N</unicode>
+    <unix>N</unix>
+    <fields>
+      <field>
+        <name>main</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+      <field>
+        <name>main2</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+      <field>
+        <name>pole</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+      <field>
+        <name>sprint</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+      <field>
+        <name>sprint2</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+      <field>
+        <name>fastlap</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Replace in string</name>
     <type>ReplaceString</type>
     <description/>
@@ -1526,8 +1744,8 @@ output2 = result</jsScript_script>
       <field>
         <in_stream_name>result</in_stream_name>
         <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>.0</replace_string>
+        <use_regex>yes</use_regex>
+        <replace_string>.0|\s</replace_string>
         <replace_by_string/>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
@@ -1737,6 +1955,121 @@ output2 = result</jsScript_script>
     <GUI>
       <xloc>304</xloc>
       <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>rider</name>
+      </field>
+      <field>
+        <name>num_round</name>
+      </field>
+      <field>
+        <name>result</name>
+      </field>
+      <field>
+        <name>class</name>
+      </field>
+      <field>
+        <name>race_type</name>
+      </field>
+      <field>
+        <name>SEASON</name>
+      </field>
+      <field>
+        <name>final_result</name>
+      </field>
+      <field>
+        <name>result2</name>
+      </field>
+      <field>
+        <name>final_result_char</name>
+      </field>
+      <field>
+        <name>test_Pole</name>
+      </field>
+      <field>
+        <name>test_FastLap</name>
+      </field>
+      <field>
+        <name>tes_result</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>test_Pole</name>
+        <rename>final_pole</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>test_FastLap</name>
+        <rename>final_fastlap</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>tes_result</name>
+        <rename>final_result_p</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1981,56 +2314,7 @@ output2 = result</jsScript_script>
     </GUI>
   </step>
   <step>
-    <name>Formula 5</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>test_Pole</field_name>
-      <formula_string>IF(ISNA([final_result_char]);IF(OR([split1]="P";[split2]="P"); "P";""); IF(OR([split_2_1]="P";[split_2_2]="P"); "P";""))</formula_string>
-      <value_type>String</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <formula>
-      <field_name>test_FastLap</field_name>
-      <formula_string>IF(ISNA([final_result_char]);IF(OR([split1]="F";[split2]="F"); "F";""); IF(OR([split_2_1]="F";[split_2_2]="F"); "F";""))</formula_string>
-      <value_type>String</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <formula>
-      <field_name>tes_result</field_name>
-      <formula_string>IF(ISNA([final_result_char]);[final_result]; [final_result_char])</formula_string>
-      <value_type>String</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1136</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values 2</name>
+    <name>Select values 2 2</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -2066,81 +2350,22 @@ output2 = result</jsScript_script>
         <rename/>
       </field>
       <field>
-        <name>final_result</name>
+        <name>main</name>
         <rename/>
       </field>
       <field>
-        <name>result2</name>
+        <name>pole</name>
         <rename/>
       </field>
       <field>
-        <name>final_result_char</name>
+        <name>sprint</name>
         <rename/>
       </field>
       <field>
-        <name>test_Pole</name>
-        <rename/>
-      </field>
-      <field>
-        <name>test_FastLap</name>
-        <rename/>
-      </field>
-      <field>
-        <name>tes_result</name>
+        <name>fastlap</name>
         <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>test_Pole</name>
-        <rename>final_pole</rename>
-        <type>String</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>test_FastLap</name>
-        <rename>final_fastlap</rename>
-        <type>String</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>tes_result</name>
-        <rename>final_result_p</rename>
-        <type>String</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -2151,49 +2376,8 @@ output2 = result</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Formula</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>bool_pole</field_name>
-      <formula_string>if(ISNA([final_pole]); FALSE();TRUE())</formula_string>
-      <value_type>Boolean</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <formula>
-      <field_name>bool_FL</field_name>
-      <formula_string>if(ISNA([final_fastlap]); FALSE();TRUE())</formula_string>
-      <value_type>Boolean</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1488</xloc>
-      <yloc>656</yloc>
+      <xloc>798</xloc>
+      <yloc>328</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
