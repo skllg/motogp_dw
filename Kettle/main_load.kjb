@@ -480,7 +480,7 @@ DROP TABLE IF EXISTS dim_constructors CASCADE;
 CREATE TABLE IF NOT EXISTS  dim_constructors (
     id_constructor SERIAL PRIMARY KEY,
     des_constructor VARCHAR(50) NOT NULL,
-    class varchar(10),
+    racing_class varchar(10),
     season integer NOT NULL
 );
 
@@ -497,6 +497,7 @@ create table IF NOT EXISTS dim_teams (
 	type_motorcycle varchar(15),
 	tyre_supplier varchar(30),
 	rounds_participated varchar(30),
+	racing_class varchar(10),
 	season integer not null,
 	constraint fk_id_constructor
 		foreign key(id_constructor_fk)

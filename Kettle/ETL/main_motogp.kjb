@@ -773,8 +773,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>304</yloc>
+      <xloc>912</xloc>
+      <yloc>416</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -926,6 +926,15 @@
     <hop>
       <from>Generar ID_JOB</from>
       <to>dim_constructors</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>dim_grand_prix</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>N</enabled>
