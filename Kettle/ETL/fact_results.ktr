@@ -557,12 +557,7 @@
     <hop>
       <from>If field value is null</from>
       <to>String operations</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>String operations</from>
-      <to>Database lookup</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Replace in string</from>
@@ -577,36 +572,26 @@
     <hop>
       <from>Modified JavaScript value 2 3</from>
       <to>Split fields 2</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Split fields 2</from>
       <to>Regex evaluation</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Regex evaluation</from>
       <to>Formula 5</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Formula 5</from>
       <to>Select values 2</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Select values 2</from>
       <to>If field value is null</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
-      <to>Formula</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Formula</from>
-      <to>Table output</to>
       <enabled>N</enabled>
     </hop>
     <hop>
@@ -615,8 +600,43 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Regex evaluation 2</from>
+      <from>Formula 5 2</from>
       <to>Select values 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2 2</from>
+      <to>String operations</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>String operations</from>
+      <to>Row normaliser</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Row normaliser</from>
+      <to>If field value is null 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>If field value is null 2</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>Table output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Regex evaluation 2</from>
+      <to>Null if</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Null if</from>
+      <to>Formula 5 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -640,18 +660,6 @@
         <decimal/>
         <group/>
         <nullif>motogp</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>race_type</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>main</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -801,8 +809,14 @@
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>final_result_p</name>
+        <name>final_position</name>
         <field>final_position</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>race_type</name>
+        <field>race_type</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -910,47 +924,6 @@
     </GUI>
   </step>
   <step>
-    <name>Formula</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <formula>
-      <field_name>bool_pole</field_name>
-      <formula_string>if(ISNA([final_pole]); FALSE();TRUE())</formula_string>
-      <value_type>Boolean</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <formula>
-      <field_name>bool_FL</field_name>
-      <formula_string>if(ISNA([final_fastlap]); FALSE();TRUE())</formula_string>
-      <value_type>Boolean</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <replace_field/>
-    </formula>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1488</xloc>
-      <yloc>656</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Formula 5</name>
     <type>Formula</type>
     <description/>
@@ -995,7 +968,48 @@
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
-      <yloc>192</yloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Formula 5 2</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>bool_pole</field_name>
+      <formula_string>IF(ISNA([pole]);FALSE();TRUE())</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <formula>
+      <field_name>bool_fastlap</field_name>
+      <formula_string>IF(ISNA([fastlap]);FALSE();TRUE())</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1074,6 +1088,46 @@
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>If field value is null 2</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>final_position</name>
+        <value>null</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1248</xloc>
       <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1105,7 +1159,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\2023.xlsx</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1607,7 +1661,7 @@ output2 = result</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
-      <yloc>96</yloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1622,7 +1676,7 @@ output2 = result</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <script>^((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[P])?((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[F])?$</script>
+    <script>^((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[_]|[P])?((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[F])?$</script>
     <matcher>result</matcher>
     <resultfieldname/>
     <usevar>N</usevar>
@@ -1637,7 +1691,7 @@ output2 = result</jsScript_script>
     <unix>N</unix>
     <fields>
       <field>
-        <name>main</name>
+        <name>main_result</name>
         <type>String</type>
         <format/>
         <group/>
@@ -1676,7 +1730,7 @@ output2 = result</jsScript_script>
         <currency/>
       </field>
       <field>
-        <name>sprint</name>
+        <name>sprint_result</name>
         <type>String</type>
         <format/>
         <group/>
@@ -1725,7 +1779,7 @@ output2 = result</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>800</xloc>
-      <yloc>224</yloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1745,7 +1799,7 @@ output2 = result</jsScript_script>
         <in_stream_name>result</in_stream_name>
         <out_stream_name/>
         <use_regex>yes</use_regex>
-        <replace_string>.0|\s</replace_string>
+        <replace_string>(\.0)|\s</replace_string>
         <replace_by_string/>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
@@ -1765,6 +1819,44 @@ output2 = result</jsScript_script>
     <GUI>
       <xloc>704</xloc>
       <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Row normaliser</name>
+    <type>Normaliser</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <typefield>race_type</typefield>
+    <fields>
+      <field>
+        <name>main_result</name>
+        <value>main</value>
+        <norm>final_position</norm>
+      </field>
+      <field>
+        <name>sprint_result</name>
+        <value>sprint</value>
+        <norm>final_position</norm>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2069,7 +2161,62 @@ output2 = result</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
-      <yloc>272</yloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>rider</name>
+      </field>
+      <field>
+        <name>num_round</name>
+      </field>
+      <field>
+        <name>result</name>
+      </field>
+      <field>
+        <name>class</name>
+      </field>
+      <field>
+        <name>SEASON</name>
+      </field>
+      <field>
+        <name>main_result</name>
+      </field>
+      <field>
+        <name>bool_pole</name>
+      </field>
+      <field>
+        <name>sprint_result</name>
+      </field>
+      <field>
+        <name>bool_fastlap</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>912</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2189,7 +2336,7 @@ output2 = result</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>1040</xloc>
-      <yloc>48</yloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2206,7 +2353,20 @@ output2 = result</jsScript_script>
     </partitioning>
     <fields>
       <field>
-        <in_stream_name>final_result</in_stream_name>
+        <in_stream_name>sprint_result</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper/>
+        <padding_type/>
+        <pad_char/>
+        <pad_len/>
+        <init_cap/>
+        <mask_xml/>
+        <digits/>
+        <remove_special_characters/>
+      </field>
+      <field>
+        <in_stream_name>main_result</in_stream_name>
         <out_stream_name/>
         <trim_type>both</trim_type>
         <lower_upper/>
@@ -2228,8 +2388,8 @@ output2 = result</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1248</xloc>
-      <yloc>288</yloc>
+      <xloc>1040</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2296,7 +2456,7 @@ output2 = result</jsScript_script>
       </field>
       <field>
         <column_name>fastest_lap</column_name>
-        <stream_name>bool_FL</stream_name>
+        <stream_name>bool_fastlap</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -2314,8 +2474,8 @@ output2 = result</jsScript_script>
     </GUI>
   </step>
   <step>
-    <name>Select values 2 2</name>
-    <type>SelectValues</type>
+    <name>Null if</name>
+    <type>NullIf</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -2326,46 +2486,9 @@ output2 = result</jsScript_script>
     </partitioning>
     <fields>
       <field>
-        <name>rider</name>
-        <rename/>
-      </field>
-      <field>
-        <name>num_round</name>
-        <rename/>
-      </field>
-      <field>
-        <name>result</name>
-        <rename/>
-      </field>
-      <field>
-        <name>class</name>
-        <rename/>
-      </field>
-      <field>
-        <name>race_type</name>
-        <rename/>
-      </field>
-      <field>
-        <name>SEASON</name>
-        <rename/>
-      </field>
-      <field>
-        <name>main</name>
-        <rename/>
-      </field>
-      <field>
         <name>pole</name>
-        <rename/>
+        <value>_</value>
       </field>
-      <field>
-        <name>sprint</name>
-        <rename/>
-      </field>
-      <field>
-        <name>fastlap</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -2376,8 +2499,8 @@ output2 = result</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>798</xloc>
-      <yloc>328</yloc>
+      <xloc>800</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
