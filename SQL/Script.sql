@@ -2,6 +2,7 @@
 CREATE TABLE IF NOT EXISTS  dim_constructors (
     id_constructor SERIAL PRIMARY KEY,
     des_constructor VARCHAR(50) NOT NULL,
+    class varchar(10),
     season integer NOT NULL
 );
 
