@@ -889,6 +889,12 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>class</name>
+        <field>racing_class</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>season</name>
         <rename>SEASON</rename>
@@ -917,7 +923,7 @@
       <value>
         <name>racing_class</name>
         <rename>class</rename>
-        <update>Y</update>
+        <update>N</update>
       </value>
       <value>
         <name>rider_full_name</name>
@@ -1966,6 +1972,30 @@
         <use_regex>no</use_regex>
         <replace_string>Marc Antoine</replace_string>
         <replace_by_string>Marc_Antoine</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Le Coquen</replace_string>
+        <replace_by_string>Le_Coquen</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Le Badezet</replace_string>
+        <replace_by_string>Le_Badezet</replace_by_string>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
         <whole_word>no</whole_word>
