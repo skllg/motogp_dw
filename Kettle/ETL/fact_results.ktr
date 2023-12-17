@@ -9,6 +9,11 @@
     <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
+      <parameter>
+        <name>CURRENT_SEASON</name>
+        <default_value>2010</default_value>
+        <description/>
+      </parameter>
     </parameters>
     <log>
       <trans-log-table>
