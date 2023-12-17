@@ -580,11 +580,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string</from>
-      <to>Get variables</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select values</from>
       <to>Filter rows 2</to>
       <enabled>Y</enabled>
@@ -592,6 +587,11 @@
     <hop>
       <from>Filter rows 2</from>
       <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Replace in string</from>
+      <to>Get variables</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -614,7 +614,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>2003</nullif>
+        <nullif>2004</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -916,18 +916,6 @@
       <schema>public</schema>
       <table>dim_riders</table>
       <key>
-        <name>rider_name</name>
-        <field>rider_name</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>rider_lastname</name>
-        <field>rider_lastname</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
         <name>SEASON</name>
         <field>season</field>
         <condition>=</condition>
@@ -953,12 +941,12 @@
       <value>
         <name>rider_name</name>
         <rename>rider_name</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>rider_lastname</name>
         <rename>rider_lastname</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>rider_number</name>
@@ -1537,7 +1525,7 @@
     <name>Replace in string</name>
     <type>ReplaceString</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1818,6 +1806,30 @@
         <use_regex>no</use_regex>
         <replace_string>van Kreij</replace_string>
         <replace_by_string>van_Kreij</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>De Rosa</replace_string>
+        <replace_by_string>De_Rosa</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>van den Dragt</replace_string>
+        <replace_by_string>van_den_Dragt</replace_by_string>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
         <whole_word>no</whole_word>

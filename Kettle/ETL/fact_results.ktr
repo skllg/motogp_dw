@@ -674,7 +674,7 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>2003</nullif>
+        <nullif>2004</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -718,7 +718,7 @@
       <key>
         <name>rider</name>
         <field>rider_full_name</field>
-        <condition>=</condition>
+        <condition>LIKE</condition>
         <name2/>
       </key>
       <key>
@@ -1997,6 +1997,11 @@
     <accept_stepname/>
     <file>
       <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

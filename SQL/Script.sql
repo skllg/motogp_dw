@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS  dim_constructors (
     id_constructor SERIAL PRIMARY KEY,
     des_constructor VARCHAR(50) NOT NULL,
-    class varchar(10),
+    racing_class varchar(10),
     season integer NOT NULL
 );
 
@@ -19,6 +19,7 @@ create table IF NOT EXISTS dim_teams (
 	type_motorcycle varchar(15),
 	tyre_supplier varchar(15),
 	rounds_participated varchar(15),
+	racing_class varchar(10),
 	season integer not null,
 	constraint fk_id_constructor
 		foreign key(id_constructor_fk)
@@ -146,7 +147,7 @@ truncate table fact_results cascade;
 
 select * from dim_constructors;
 select * from dim_teams ;
-select * from dim_riders ;
+select * from dim_riders where dim_riders.rider_full_name like '%batt%';
 select * from dim_grand_prix  ;
 select * from dim_tracks ;
 select * from fact_results;
