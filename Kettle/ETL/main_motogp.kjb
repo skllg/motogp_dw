@@ -783,7 +783,7 @@
       <type>WRITE_TO_LOG</type>
       <attributes/>
       <logmessage>-----------------${CURRENT_SEASON}---------------------</logmessage>
-      <loglevel/>
+      <loglevel>Basic</loglevel>
       <logsubject/>
       <parallel>N</parallel>
       <draw>Y</draw>
