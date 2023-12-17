@@ -929,6 +929,43 @@
               </condition>
             </conditions>
           </condition>
+          <condition>
+            <negated>Y</negated>
+            <operator>AND</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>SEASON</leftvalue>
+                <function>&lt;</function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>Integer</type>
+                  <text>2023</text>
+                  <length>-1</length>
+                  <precision>0</precision>
+                  <isnull>N</isnull>
+                  <mask>####0;-####0</mask>
+                </value>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <leftvalue>race_type</leftvalue>
+                <function>=</function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>String</type>
+                  <text>sprint</text>
+                  <length>-1</length>
+                  <precision>-1</precision>
+                  <isnull>N</isnull>
+                  <mask/>
+                </value>
+              </condition>
+            </conditions>
+          </condition>
         </conditions>
       </condition>
     </compare>

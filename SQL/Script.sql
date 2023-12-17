@@ -147,7 +147,7 @@ truncate table fact_results cascade;
 
 select * from dim_constructors;
 select * from dim_teams ;
-select * from dim_riders where dim_riders.rider_full_name like '%batt%';
+select * from dim_riders where rider_full_name like '%barb%';
 select * from dim_grand_prix  ;
 select * from dim_tracks ;
 select * from fact_results;

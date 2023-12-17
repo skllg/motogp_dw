@@ -585,13 +585,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows 2</from>
-      <to>Sort rows</to>
+      <from>Replace in string</from>
+      <to>Get variables</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string</from>
-      <to>Get variables</to>
+      <from>Filter rows 2</from>
+      <to>String operations</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>String operations</from>
+      <to>Sort rows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -629,7 +634,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1168</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -715,7 +720,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
+      <xloc>736</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -775,7 +780,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1168</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
@@ -819,7 +824,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
+      <xloc>928</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -893,7 +898,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1168</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -983,7 +988,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1168</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1555,7 +1560,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
+      <xloc>1056</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1836,6 +1841,78 @@
         <case_sensitive>no</case_sensitive>
         <is_unicode>no</is_unicode>
       </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Zhi Yu</replace_string>
+        <replace_by_string>Zhi_Yu</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Zheng Peng</replace_string>
+        <replace_by_string>Zheng_Peng</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Wai On</replace_string>
+        <replace_by_string>Wai_On</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>van den Berg</replace_string>
+        <replace_by_string>van_den_Berg</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>You Rao</replace_string>
+        <replace_by_string>You_Rao</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Tata Pradita</replace_string>
+        <replace_by_string>Tata_Pradita</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1846,7 +1923,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
+      <xloc>560</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1909,7 +1986,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>848</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2019,7 +2096,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
+      <xloc>368</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2079,7 +2156,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
+      <xloc>656</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2109,7 +2186,34 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
+      <xloc>448</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>String operations</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>288</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
