@@ -150,7 +150,7 @@ select * from dim_teams ;
 select * from dim_riders where rider_full_name like '%barb%';
 select * from dim_grand_prix  ;
 select * from dim_tracks ;
-select * from fact_results;
+select * from fact_results; 
 select * from dim_positions  ;
 
 
