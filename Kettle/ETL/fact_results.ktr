@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>CURRENT_SEASON</name>
-        <default_value>2017</default_value>
+        <default_value>2020</default_value>
         <description/>
       </parameter>
     </parameters>
@@ -624,6 +624,11 @@
       <to>Split fields</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Microsoft Excel input 4</from>
+      <to>Row normaliser 2</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Database lookup</name>
@@ -658,15 +663,15 @@
         <condition>LIKE</condition>
         <name2/>
       </key>
+      <key>
+        <name>class</name>
+        <field>racing_class</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>id_rider</name>
         <rename>id_rider</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-      <value>
-        <name>racing_class</name>
-        <rename>racing_class</rename>
         <default/>
         <type>Integer</type>
       </value>
@@ -829,7 +834,7 @@
             <conditions>
               <condition>
                 <negated>N</negated>
-                <leftvalue>racing_class</leftvalue>
+                <leftvalue>class</leftvalue>
                 <function>&lt;></function>
                 <rightvalue/>
                 <value>
@@ -1110,6 +1115,18 @@
     <fields>
       <field>
         <name>rider</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>class</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1508,6 +1525,18 @@
         <group/>
       </field>
       <field>
+        <name>class</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
         <name>1.0</name>
         <type>String</type>
         <length>-1</length>
@@ -1894,6 +1923,18 @@
     <fields>
       <field>
         <name>rider</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>class</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -2492,122 +2533,122 @@
       <field>
         <name>2.0</name>
         <value>2.0</value>
-        <norm>2</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>3.0</name>
         <value>3.0</value>
-        <norm>3</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>4.0</name>
         <value>4.0</value>
-        <norm>4</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>5.0</name>
         <value>5.0</value>
-        <norm>5</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>6.0</name>
         <value>6.0</value>
-        <norm>6</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>7.0</name>
         <value>7.0</value>
-        <norm>7</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>8.0</name>
         <value>8.0</value>
-        <norm>8</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>9.0</name>
         <value>9.0</value>
-        <norm>9</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>10.0</name>
         <value>10.0</value>
-        <norm>10</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>11.0</name>
         <value>11.0</value>
-        <norm>11</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>12.0</name>
         <value>12.0</value>
-        <norm>12</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>13.0</name>
         <value>13.0</value>
-        <norm>13</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>14.0</name>
         <value>14.0</value>
-        <norm>14</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>15.0</name>
         <value>15.0</value>
-        <norm>15</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>16.0</name>
         <value>16.0</value>
-        <norm>16</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>17.0</name>
         <value>17.0</value>
-        <norm>17</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>18.0</name>
         <value>18.0</value>
-        <norm>18</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>19.0</name>
         <value>19.0</value>
-        <norm>19</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>20.0</name>
         <value>20.0</value>
-        <norm>20</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>21.0</name>
         <value>21.0</value>
-        <norm>21</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>22.0</name>
         <value>22.0</value>
-        <norm>22</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>23.0</name>
         <value>23.0</value>
-        <norm>23</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>24.0</name>
         <value>24.0</value>
-        <norm>24</norm>
+        <norm>result</norm>
       </field>
       <field>
         <name>25.0</name>
         <value>25.0</value>
-        <norm>25</norm>
+        <norm>result</norm>
       </field>
     </fields>
     <attributes/>
@@ -2638,12 +2679,19 @@
     <fields>
       <field>
         <name>rider</name>
+        <rename/>
       </field>
       <field>
         <name>round</name>
+        <rename/>
       </field>
       <field>
         <name>result</name>
+        <rename/>
+      </field>
+      <field>
+        <name>class</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -2703,6 +2751,10 @@
       </field>
       <field>
         <name>bool_fastlap</name>
+        <rename/>
+      </field>
+      <field>
+        <name>class</name>
         <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
@@ -2862,7 +2914,7 @@
       </field>
       <field>
         <column_name>racing_class</column_name>
-        <stream_name>racing_class</stream_name>
+        <stream_name>class</stream_name>
       </field>
       <field>
         <column_name>race_type</column_name>
@@ -2997,6 +3049,410 @@
     <GUI>
       <xloc>416</xloc>
       <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Microsoft Excel input 4</name>
+    <type>ExcelInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Excels\data\${CURRENT_SEASON}.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>rider</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>class</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>1.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>2.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>3.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>4.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>5.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>6.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>7.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>8.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>9.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>10.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>11.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>12.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>13.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>14.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>15.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>16.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>17.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>18.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>19.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>20.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>21.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>22.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>23.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>24.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>25.0</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>resultados4</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>POI</spreadsheet_type>
+    <password>Encrypted </password>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
