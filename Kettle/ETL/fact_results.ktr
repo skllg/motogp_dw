@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>CURRENT_SEASON</name>
-        <default_value>2016</default_value>
+        <default_value>2017</default_value>
         <description/>
       </parameter>
     </parameters>
