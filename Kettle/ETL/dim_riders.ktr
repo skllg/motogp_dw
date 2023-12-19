@@ -599,6 +599,26 @@
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Write to log</from>
+      <to>Microsoft Excel input 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Write to log</from>
+      <to>Microsoft Excel input 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Write to log</from>
+      <to>Microsoft Excel input 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Write to log</from>
+      <to>Microsoft Excel input</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Concat fields</name>
@@ -1131,8 +1151,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>16</xloc>
-      <yloc>48</yloc>
+      <xloc>0</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1307,8 +1327,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>16</xloc>
-      <yloc>128</yloc>
+      <xloc>112</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1488,8 +1508,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>16</xloc>
-      <yloc>208</yloc>
+      <xloc>224</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1664,8 +1684,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>128</xloc>
-      <yloc>224</yloc>
+      <xloc>336</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2440,6 +2460,18 @@
         <case_sensitive>no</case_sensitive>
         <is_unicode>no</is_unicode>
       </field>
+      <field>
+        <in_stream_name>des_rider</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>Azroy Hakeem</replace_string>
+        <replace_by_string>Azroy_Hakeem</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -2755,6 +2787,38 @@
     <GUI>
       <xloc>448</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>##########dim_riders</logmessage>
+    <fields>
+      </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
