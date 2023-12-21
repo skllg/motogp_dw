@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>CURRENT_SEASON</name>
-        <default_value>2008</default_value>
+        <default_value>2023</default_value>
         <description/>
       </parameter>
     </parameters>
@@ -569,11 +569,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Regex evaluation 2</from>
-      <to>Null if</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Null if</from>
       <to>Formula 5 2</to>
       <enabled>Y</enabled>
@@ -626,6 +621,21 @@
     <hop>
       <from>Database lookup</from>
       <to>Filter rows 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Regex evaluation 2</from>
+      <to>Replace in string 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Replace in string 2</from>
+      <to>If field value is null</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>If field value is null</from>
+      <to>Null if</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -773,6 +783,12 @@
       <key>
         <name>race_type</name>
         <field>race_type</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>half_points_bool</name>
+        <field>bool_half_points</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -954,6 +970,41 @@
     </GUI>
   </step>
   <step>
+    <name>Filter rows 3</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>id_rider</leftvalue>
+        <function>IS NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1376</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Formula 5 2</name>
     <type>Formula</type>
     <description/>
@@ -1030,6 +1081,46 @@
     <GUI>
       <xloc>608</xloc>
       <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>If field value is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>half_points</name>
+        <value>False</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>848</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2716,7 +2807,7 @@
     </remotesteps>
     <GUI>
       <xloc>800</xloc>
-      <yloc>256</yloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2731,7 +2822,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <script>^((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[_]|[P])?((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[F])?$</script>
+    <script>^(null|\(HP\))?((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[_]|[P])?((Ret|DNF|DNS|DSQ|WD|NC|DNPQ|DNP|DNA|EX|2[0-9]|1[0-9]|[1-9])|null)?(null|[F])?$</script>
     <matcher>result</matcher>
     <resultfieldname/>
     <usevar>N</usevar>
@@ -2745,6 +2836,19 @@
     <unicode>N</unicode>
     <unix>N</unix>
     <fields>
+      <field>
+        <name>half_points</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
       <field>
         <name>main_result</name>
         <type>String</type>
@@ -2833,8 +2937,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>800</xloc>
-      <yloc>176</yloc>
+      <xloc>912</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2874,6 +2978,45 @@
     <GUI>
       <xloc>704</xloc>
       <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Replace in string 2</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>half_points</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>(HP)</replace_string>
+        <replace_by_string>True</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>896</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3147,7 +3290,27 @@
       <field>
         <name>class</name>
       </field>
+      <field>
+        <name>half_points</name>
+      </field>
       <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>half_points</name>
+        <rename>half_points_bool</rename>
+        <type>Boolean</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -3435,41 +3598,6 @@
     </remotesteps>
     <GUI>
       <xloc>224</xloc>
-      <yloc>448</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows 3</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>id_rider</leftvalue>
-        <function>IS NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1376</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
