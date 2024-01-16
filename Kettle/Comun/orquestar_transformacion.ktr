@@ -753,7 +753,7 @@
       <field>
         <name>CURRENT_SEASON</name>
         <variable>${CURRENT_SEASON}</variable>
-        <type>None</type>
+        <type>String</type>
         <format/>
         <currency/>
         <decimal/>

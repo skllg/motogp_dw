@@ -391,7 +391,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>C:\Users\zaka\Desktop\MOTOGP\Kettle\Comun\generar_identificador_job.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -411,7 +411,7 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration/>
+      <run_configuration>Pentaho local</run_configuration>
       <suppress_result_data>N</suppress_result_data>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -419,8 +419,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>416</xloc>
-      <yloc>32</yloc>
+      <xloc>352</xloc>
+      <yloc>16</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -478,7 +478,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>592</xloc>
+      <xloc>496</xloc>
       <yloc>112</yloc>
       <attributes_kjc/>
     </entry>
@@ -532,7 +532,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>992</xloc>
+      <xloc>912</xloc>
       <yloc>112</yloc>
       <attributes_kjc/>
     </entry>
@@ -586,7 +586,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
+      <xloc>624</xloc>
       <yloc>112</yloc>
       <attributes_kjc/>
     </entry>
@@ -640,7 +640,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
+      <xloc>768</xloc>
       <yloc>112</yloc>
       <attributes_kjc/>
     </entry>
@@ -694,7 +694,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>992</xloc>
+      <xloc>912</xloc>
       <yloc>304</yloc>
       <attributes_kjc/>
     </entry>
@@ -748,7 +748,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>832</xloc>
+      <xloc>752</xloc>
       <yloc>304</yloc>
       <attributes_kjc/>
     </entry>
@@ -761,7 +761,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>672</xloc>
+      <xloc>592</xloc>
       <yloc>224</yloc>
       <attributes_kjc/>
     </entry>
@@ -773,8 +773,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>912</xloc>
-      <yloc>416</yloc>
+      <xloc>624</xloc>
+      <yloc>304</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -917,15 +917,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Check DB connections</from>
-      <to>dim_constructors</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>dim_teams</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
@@ -937,15 +928,6 @@
     <hop>
       <from>Generar ID_JOB</from>
       <to>dim_constructors</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>dim_grand_prix</from>
-      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>N</enabled>
@@ -969,6 +951,15 @@
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Check DB connections</from>
+      <to>dim_constructors</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>

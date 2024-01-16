@@ -437,7 +437,7 @@
   </notepads>
   <order>
     <hop>
-      <from>Microsoft Excel input</from>
+      <from>input season list</from>
       <to>Split fields</to>
       <enabled>Y</enabled>
     </hop>
@@ -478,7 +478,7 @@
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel input</name>
+    <name>input season list</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -577,6 +577,37 @@
     </GUI>
   </step>
   <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>CURRENT_SEASON</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Split fields</name>
     <type>FieldSplitter</type>
     <description/>
@@ -617,38 +648,6 @@
     </remotesteps>
     <GUI>
       <xloc>352</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>CURRENT_SEASON</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>464</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>

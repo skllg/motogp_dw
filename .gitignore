@@ -1,2 +1,3 @@
 /Excels/outputs test/
-\Kettle\outputs_test
+/Kettle/outputs_test
+**/Scripts Python/venv
