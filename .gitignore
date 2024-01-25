@@ -1,3 +1,7 @@
 /Excels/outputs test/
-/Kettle/outputs_test
-**/Scripts Python/venv
+/Kettle/outputs_test/
+**/Scripts Python/venv/
+/weabpp/
+**/Streamlit/venv/
+/Streamlit/.env
+/Streamlit/src/__pycache__/
