@@ -504,13 +504,15 @@ create table IF NOT EXISTS dim_teams (
 
 DROP TABLE IF EXISTS dim_tracks CASCADE;
 
-create table IF NOT EXISTS dim_tracks (
+CREATE TABLE if not exists dim_tracks (
 	id_track serial primary key,
-	des_track varchar(50) not null,
-	loc_track varchar(50),
-	country_track varchar(50),
-	len_track integer,
-	num_corners integer
+	des_track varchar(50) NOT NULL,
+	loc_track varchar(50) NULL,
+	country_track varchar(50) NULL,
+	len_track int4 NULL,
+	num_corners int4 NULL,
+	longitude float8 NULL,
+	latitude float8 NULL
 );
 
 /*------------------------------------------------------------------------*/
@@ -538,21 +540,20 @@ create table IF NOT EXISTS dim_grand_prix(
 
 DROP TABLE IF EXISTS dim_riders CASCADE;
 
-create table IF NOT EXISTS dim_riders(
+CREATE table IF NOT EXISTS  public.dim_riders (
 	id_rider serial primary key,
-	id_team_fk integer not null,
-	rider_full_name varchar(50) not null,
-	rider_name varchar(20) not null,
-	rider_lastname varchar(20) not null,
-	season integer not null,
-	rider_number integer,
-	racing_class varchar(10) not null,
-	rounds_participated varchar(30),
-	constraint fk_id_team
-		foreign key(id_team_fk)
-		references dim_teams(id_team)
-		ON DELETE SET NULL
-	
+	id_team_fk int4 NOT NULL,
+	rider_full_name varchar(50) NOT NULL,
+	rider_name varchar(20) NOT NULL,
+	rider_lastname varchar(20) NOT NULL,
+	season int4 NOT NULL,
+	rider_number int4 NULL,
+	racing_class varchar(10) NOT NULL,
+	rounds_participated varchar(30) NULL,
+	loc_birth varchar NULL,
+	date_birth date NULL,
+	birth_latitude float8,
+	birth_longitude float8
 );
 
 

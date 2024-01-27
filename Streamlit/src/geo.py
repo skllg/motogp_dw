@@ -18,7 +18,7 @@ def connect():
     
     return conn
 
-def fetch_location_list():
+def fetch_track_list():
     conn = connect()
     cur = conn.cursor()
 
@@ -31,7 +31,21 @@ def fetch_location_list():
     df_tracks = pd.DataFrame(result_args, columns=['des_track', 'loc_track'])
     return df_tracks
 
-def update_location(latitude,longitude, track):
+def fetch_rider_list():
+    conn = connect()
+    cur = conn.cursor()
+
+    # query = "select distinct des_track from dim_tracks where des_track = 'Circuit de Catalunya'"
+    # query = "select distinct des_track, loc_track from dim_tracks where des_track = 'Petronas Sepang International Circuit'"
+    query = "select distinct rider_full_name, loc_birth from dim_riders where loc_birth is not null"
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+    df_tracks = pd.DataFrame(result_args, columns=['des_rider', 'loc_birth'])
+    return df_tracks
+
+
+def update_location_track(latitude,longitude, track):
     
     conn = connect()
     
@@ -40,12 +54,21 @@ def update_location(latitude,longitude, track):
     query = f"Update dim_tracks set latitude = {latitude}, longitude = {longitude} where des_track='{track}'"
     cur.execute(query)
     conn.commit()
-    
 
-def set_geo():
+def update_location_track(latitude,longitude, des_rider):
+    
+    conn = connect()
+    
+    cur = conn.cursor()
+
+    query = f"Update dim_riders set birth_latitude = {latitude}, birth_longitude = {longitude} where rider_full_name='{des_rider}'"
+    cur.execute(query)
+    conn.commit()
+
+def geodata_tracks():
     # gn = geocoders.GeoNames("Cleveland, OH 44106")
     geolocator = Nominatim(user_agent="skllg")
-    tracks_list = fetch_location_list()
+    tracks_list = fetch_track_list()
     # print(tracks_list)
     result=[]
     for i in range(len(tracks_list)):
@@ -61,7 +84,7 @@ def set_geo():
             # latitude = 41.569468549999996
             # longitude = 2.258063106666664
             
-            update_location(latitude, longitude, track_name)
+            update_location_track(latitude, longitude, track_name)
         else:
             location2 = geolocator.geocode(track_location)
             if location2 is not None:
@@ -69,8 +92,29 @@ def set_geo():
                 longitude = location2.longitude
                 print(str(location2) + str(latitude) +' '+ str(longitude))
 
-                update_location(latitude, longitude, track_name)
-    
+                update_location_track(latitude, longitude, track_name)
+
+
+def geodata_riders():
+    # gn = geocoders.GeoNames("Cleveland, OH 44106")
+    geolocator = Nominatim(user_agent="skllg")
+    tracks_list = fetch_rider_list()
+    # print(tracks_list)
+    result=[]
+    for i in range(len(tracks_list)):
+        des_rider = tracks_list.loc[i,"des_rider"]
+        loc_birth = tracks_list.loc[i,"loc_birth"]
+
+        location = geolocator.geocode(loc_birth)
+        if location is not None: 
+            latitude = location.latitude
+            longitude = location.longitude
+            print(str(location) + str(latitude) +' '+ str(longitude))
+            
+            
+            update_location_track(latitude, longitude, des_rider)
+         
 # with main:
 if __name__ == "__main__": 
-    set_geo()
+    # geodata_tracks()
+    geodata_riders()
