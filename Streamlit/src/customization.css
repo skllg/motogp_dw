@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;600;700&display=swap');
+
+/*Estilizaciones Generales */
+
+*, body, h1, h2, h3, h4 {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+
+#MainMenu, .stApp header {
+    display: none;
+}
+
+#root > div:nth-child(1) > div > div > div > div > section > div {
+    padding-top: 1rem;
+}
+
+.css-13twsqr{
+    width: 200px !important;
+}
+
+@media screen and (min-width: 768px) {
+    section.main{
+        padding: 0 4rem !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    section.main{
+        padding: 0 10rem !important;
+    }
+}
+
+
+#app, .menu {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+
+.st-ae{
+    font-family: 'Raleway', sans-serif !important;
+}
+
+p{
+    font-weight: inherit;
+}
+
+hr {
+    margin: .7rem 0;
+}
+
+/*SIDEBAR*/
+
+.css-1544g2n {
+    padding: 3rem 1rem 1.5rem;
+}
+
+#app menu{
+    overflow: hidden;
+    border-radius: .5rem;
+}
+
+
+/*LOGIN*/
+
+.css-18fuwiq{
+    margin-top: 3rem;
+    background-color: #e5f3f87f !important;
+    border-radius: 1rem;
+    backdrop-filter: blur(20px);
+    padding: 1rem 2rem 1rem;
+    min-width: 350px !important;
+    max-width: 600px !important;
+}
+
+.css-18fuwiq div:nth-child(4){
+    display: none;
+}
+
+
+/*Contenedores*/
+
+section.main > div > div > div > .css-ocqkz7:first-child{
+    display: none;
+}
+
+.block-container.css-z5fcl4{
+    padding: 2rem;
+}
+
+.css-23mmkm p{
+    text-align: center;
+}
+
+div[data-baseweb="tab-panel"] div div .css-ocqkz7 div:last-child.esravye1{
+    background-color: inherit !important;
+    border-radius: inherit;
+    backdrop-filter: inherit;
+    padding: inherit;
+    min-width: inherit;
+    
+}
+
+
+.stTextInput, .stDateInput, .stTimeInput, .stNumberInput, .stSelectbox, .stCheckbox{
+    max-width: 400px !important;
+    margin: auto;
+}
+
+
+/*Elementos*/
+
+/*BOTONES CUSTOM*/
+
+div.stButton > button:first-child {
+    background-color: #00ACEC;
+    color: #ffffff;
+    font-weight:600;
+}
+
+div.stButton > button:hover {
+    background-color: #005C7F;
+    color: #ffffff;
+    font-weight:600;
+}    
+
+div.stButton > button {
+
+    margin: auto;
+    font-weight:600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+}
+
+div.stButton > button:focus:not(:active) {
+    border-color: #fff;
+    color: #fff;
+}
+
+.row-widget.stButton{
+    display: flex;
+  }
+
+
+.button-logout{
+    background-color: #333 !important;
+}
+
+.button-login{
+    background-color: #E4129F !important;
+    color: #fff !important;
+}
+
+.button-update, .button-update:focus:not(:active) {
+    background-color: #e2f8ff !important;
+    color: #002e3e !important;
+    margin-right: 0 !important;
+}
+
+
+.button-send{
+    background-color: #00ACEC !important;
+    color: #fff !important;
+    max-width: 120px;
+    height: 3rem;
+}
+
+.button-add{
+    background-color: #ffffff !important;
+    color: #343434 !important;
+    max-width: 220px;
+}
+
+.button-delete{
+    background-color: #e55858 !important;
+}
+
+.button-delete2{
+    background-color: #5f0404 !important;
+}
+
+.button-edit{
+background-color: #002e3e !important;
+}
+
+/*BOTONES CUSTOM HOVER*/
+
+.button-logout:hover{
+    background-color: #111 !important;
+}
+
+.button-update:hover{
+    background-color: #b5e9f9 !important;
+    color: #002e3e !important;
+}
+
+.button-send:hover{
+    background-color: #016285 !important;
+    color: #fff !important;
+}
+
+.button-add:hover{
+    background-color: #f2f2f2 !important;
+}
+
+.button-delete:hover{
+    background-color: #b72626 !important;
+}
+
+.button-delete2:hover{
+    background-color: #3e0000 !important;
+}
+
+.button-edit:hover{
+background-color: #187695 !important;
+}
+
+.css-1vtvmlg:nth-child(2), .css-1bfzxgp:nth-child(2){
+    text-align: center;
+    color: #002e3e;
+}
+
+
+.css-1n543e5:focus:not(:active) {
+    border-color: #014e6a;
+    color: #ffffff;
+}
+
+.css-1n543e5:active {
+    border-color: #014e6a;}
+
+.css-1n543e5:hover {
+    border-color: #00ACEC;
+}
+
+button[aria-selected="true"]{
+    font-weight: 600;
+  }
+
+/*TABLAS*/
+
+.ag-header-cell.ag-header-cell-sortable.ag-focus-managed{
+    width: 900px !important;
+}
+
+/*LOGO*/
+
+.css-1v0mbdj{
+    margin: auto;
+}
+
+.css-1kyxreq{
+    margin: 1rem auto auto;
+    max-width: 600px;
+    width: 100%;
+}
+
+/*Textos*/
