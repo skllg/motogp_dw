@@ -7,6 +7,7 @@ from streamlit_option_menu import option_menu
 from postgre_connection import * 
 
 
+
 base_directory = os.path.dirname(os.path.realpath(os.path.dirname(__file__)))
 image_path = os.path.join(base_directory, 'imgs', 'motogp_logo.png')
 
@@ -160,8 +161,7 @@ def show_main_page():
             st.plotly_chart(fig4)
 
     def RenderSection3():
-        st.write("RenderSection3")
-
+         
 
 
 
