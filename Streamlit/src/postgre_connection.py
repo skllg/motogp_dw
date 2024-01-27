@@ -81,3 +81,25 @@ def fetch_season_bar_chart(season, racing_class):
     df_bh = pd.DataFrame(result_args,columns=['rider_name', 'total_points'])
 
     return df_bh
+
+def fetch_track_location():
+    conn = connect()
+    cur = conn.cursor()
+    
+    
+    
+
+    query = f"select dr.rider_full_name, sum(dp.num_points) as points  from fact_results f\
+                left join dim_grand_prix dgp on f.id_grand_prix_fk = dgp.id_grandprix \
+                left join dim_riders dr on  dr.id_rider = f.id_rider_fk \
+                left join dim_positions dp on dp.id_position = f.id_position_fk \
+                where f.racing_class = {racing_class} and f.season  = {season}\
+                group by dr.rider_full_name\
+                order by points desc;"
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_bh = pd.DataFrame(result_args,columns=['rider_name', 'total_points'])
+
+    return df_bh
