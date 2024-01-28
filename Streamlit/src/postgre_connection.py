@@ -82,24 +82,38 @@ def fetch_season_bar_chart(season, racing_class):
 
     return df_bh
 
-def fetch_track_location():
+def fetch_track_location(season):
     conn = connect()
     cur = conn.cursor()
     
     
     
 
-    query = f"select dr.rider_full_name, sum(dp.num_points) as points  from fact_results f\
-                left join dim_grand_prix dgp on f.id_grand_prix_fk = dgp.id_grandprix \
-                left join dim_riders dr on  dr.id_rider = f.id_rider_fk \
-                left join dim_positions dp on dp.id_position = f.id_position_fk \
-                where f.racing_class = {racing_class} and f.season  = {season}\
-                group by dr.rider_full_name\
-                order by points desc;"
+    query = f"select des_track, dt.longitude  ,dt.latitude from dim_grand_prix dgp\
+            left join  dim_tracks dt on id_track_fk =id_track\
+            where season = {season}"
 
     cur.execute(query)
     result_args = cur.fetchall()
 
-    df_bh = pd.DataFrame(result_args,columns=['rider_name', 'total_points'])
+    df_tracks = pd.DataFrame(result_args,columns=['des_track', 'longitude', 'latitude'])
 
-    return df_bh
+    return df_tracks
+
+
+def fetch_rider_location(season):
+    conn = connect()
+    cur = conn.cursor()
+    
+    
+    
+
+    query = f"select rider_full_name, birth_latitude, birth_longitude  from dim_riders dr \
+        where season = {season}"
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_tracks = pd.DataFrame(result_args,columns=['rider_full_name', 'longitude', 'latitude'])
+
+    return df_tracks
