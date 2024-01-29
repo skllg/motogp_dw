@@ -49,6 +49,65 @@ def fetch_cummulative_sum_points(season, racing_class):
     return df_bh
 
 
+def fetch_cummulative_sum_points_teams(season, racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    # racing_class = "250cc_moto2"
+    
+    if (racing_class == "250cc_moto2" and season > 2009):
+        racing_class="moto2"
+    elif (racing_class == "250cc_moto2" and season <= 2009):
+        racing_class = "250cc"
+
+    if racing_class == "125cc_moto3" and season > 2011:
+        racing_class="moto3"
+    elif racing_class == "125cc_moto3" and season <= 2011:
+        racing_class = "125cc"
+    
+    
+
+    
+    query = f"WITH BestResults AS ( \
+                select\
+                    distinct\
+                    dc.des_constructor,\
+                    fr.num_round,\
+                    fr.race_type,\
+                    fr.season,\
+                    MAX(dp.num_points) AS best_points\
+                FROM\
+                    fact_results fr\
+                JOIN dim_positions dp ON fr.id_position_fk = dp.id_position\
+                left join dim_riders dr on dr.id_rider = fr.id_rider_fk\
+                left join dim_teams dt on dt.id_team = dr.id_team_fk\
+                left join dim_constructors dc on dc.id_constructor = dt.id_constructor_fk\
+                where dr.season={season} and dr.racing_class='{racing_class}'\
+                GROUP by \
+                    dc.des_constructor,\
+                    fr.num_round,\
+                    fr.race_type,\
+                    fr.season \
+                )\
+                select\
+                distinct\
+                    dc.des_constructor,\
+                    dc.season,\
+                    SUM(br.best_points) AS total_points\
+                FROM\
+                    dim_constructors dc \
+                JOIN BestResults br ON dc.des_constructor  = br.des_constructor AND dc.season = br.season\
+                GROUP BY\
+                    dc.id_constructor,\
+                    dc.season\
+                order by total_points desc"
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_bh = pd.DataFrame(result_args,columns=['des_constructor', 'season', 'total_points'])
+
+    return df_bh
+
 def fetch_season_bar_chart(season, racing_class):
     conn = connect()
     cur = conn.cursor()

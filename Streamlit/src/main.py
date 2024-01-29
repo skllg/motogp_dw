@@ -43,8 +43,8 @@ def show_main_page():
 
         selected = option_menu(
             menu_title=None,
-            options=["Section1", "Section2", "Section3"],
-            icons=["1-square", "2-square", "3-square"],
+            options=["Section1", "Section2", "Section3", "Section4"],
+            icons=["1-square", "2-square", "3-square","4-square"],
             styles={
                 "container": {"padding": ".5rem !important", "background-color": "#fff"},
                 "icon": {"color": "inherit"},
@@ -71,26 +71,38 @@ def show_main_page():
     elif selected == "Section3":
         st.session_state.active_tab = 'Section3'
 
+    elif selected == "Section4":
+        st.session_state.active_tab = 'Section4'
+
         
     def RenderSection1():
         S1_col1,S1_col2 = st.columns([0.2,0.2])
         placeholder = st.empty()
+        placeholder2 = st.empty()
 
         with S1_col1:
             racing_class = st.radio("select racing class:", key="racing_class",options= ["motogp", "250cc_moto2", "125cc_moto3", "moto-e"],index=0)
+
+            
         with S1_col2:
             season= st.selectbox(
                     'Temporada',
                     (2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
                         
         
-        with placeholder:
+        with S1_col1:
             
             df = fetch_cummulative_sum_points(season, racing_class)
             
             fig = px.line(df, x="num_round", y="cummulative_sum", color='rider_name', symbol="rider_name")
             # fig.show()
             st.plotly_chart(fig)
+
+        with S1_col2:
+            df2 = fetch_cummulative_sum_points_teams(season, racing_class)
+            fig2 = px.bar(df2, x="des_constructor", y="total_points", color='des_constructor',)
+            # fig.show() 
+            st.plotly_chart(fig2)
 
     def RenderSection2():    
         S2_col1,S2_col2 = st.columns([0.2,0.2])
@@ -115,7 +127,7 @@ def show_main_page():
             
 
             fig1 = px.bar(df1, x="rider_name", y="total_points", color='rider_name')
-            
+                            
 
             # fig.show()
             
@@ -190,9 +202,20 @@ def show_main_page():
             # fig5.show()
             st.plotly_chart(fig5)
 
+    def RenderSection4():
+        S1_col1,S1_col2 = st.columns([0.2,0.2])
+        placeholder = st.empty()
 
-
-
+        with S1_col1:
+            racing_class = st.radio("select racing class:", key="racing_class",options= ["motogp", "250cc_moto2", "125cc_moto3", "moto-e"],index=0)
+        with S1_col2:
+            season= st.selectbox(
+                    'Temporada',
+                    (2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
+                        
+        
+        with placeholder:
+            df = fetch_cummulative_sum_points_teams(season, racing_class)
 
 
 
