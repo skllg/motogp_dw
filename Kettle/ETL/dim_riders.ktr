@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>CURRENT_SEASON</name>
-        <default_value>2006</default_value>
+        <default_value>2002</default_value>
         <description/>
       </parameter>
     </parameters>
@@ -555,19 +555,14 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
-      <to>Insert / update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Microsoft Excel input 2</from>
       <to>Select values</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Microsoft Excel input 3</from>
       <to>Select values</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Sort rows</from>
@@ -592,7 +587,7 @@
     <hop>
       <from>Microsoft Excel input 4</from>
       <to>Select values</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Write to log</from>
@@ -702,6 +697,31 @@
     <hop>
       <from>Merge join 2</from>
       <to>Get variables</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input</from>
+      <to>Multiway merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Multiway merge join</from>
+      <to>Modified JavaScript value 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Multiway merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Modified JavaScript value 2</from>
+      <to>Insert / update</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Insert / update</from>
+      <to>Execute SQL script</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1206,7 +1226,7 @@
       <schema>public</schema>
       <table>dim_riders</table>
       <key>
-        <name>SEASON</name>
+        <name>SEASON_1</name>
         <field>season</field>
         <condition>=</condition>
         <name2/>
@@ -1218,12 +1238,6 @@
         <name2/>
       </key>
       <key>
-        <name>rounds</name>
-        <field>rounds_participated</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
         <name>class</name>
         <field>racing_class</field>
         <condition>=</condition>
@@ -1231,7 +1245,7 @@
       </key>
       <value>
         <name>season</name>
-        <rename>SEASON</rename>
+        <rename>SEASON_1</rename>
         <update>N</update>
       </value>
       <value>
@@ -1265,9 +1279,9 @@
         <update>N</update>
       </value>
       <value>
-        <name>rounds_participated</name>
-        <rename>rounds</rename>
-        <update>N</update>
+        <name>rounds_string</name>
+        <rename>rounds_participated</rename>
+        <update>Y</update>
       </value>
       <value>
         <name>loc_birth</name>
@@ -1300,7 +1314,7 @@
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>752</yloc>
+      <yloc>960</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3425,15 +3439,12 @@
     <fields>
       <field>
         <name>rider_name</name>
-        <rename/>
       </field>
       <field>
         <name>lat</name>
-        <rename/>
       </field>
       <field>
         <name>long</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -4023,6 +4034,246 @@
     <GUI>
       <xloc>176</xloc>
       <yloc>384</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>motogp_dw</connection>
+    <sql>SELECT Season, MAX(num_round) as max_rounds from dim_grand_prix where season = ${CURRENT_SEASON}
+group  by season
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>season</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>season</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Europe/Paris</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>max_rounds</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>max_rounds</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>Europe/Paris</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Multiway merge join</name>
+    <type>MultiwayMergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>FULL OUTER</join_type>
+    <step0>Table input</step0>
+    <step1>Database lookup</step1>
+    <number_input>2</number_input>
+    <keys>
+      <key>season</key>
+      <key>SEASON</key>
+    </keys>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Modified JavaScript value 2</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>// Function to generate numbers from intervals
+function generateNumbers(input,max_rounds) {
+
+  if(input != 'All'){
+		var tokens = input.split(',').map(function(token) {
+	    return token.trim();
+	  });
+	
+	  var result = [];
+	
+	  for each (var token in tokens) {
+	    if (token.indexOf('-') !== -1) {
+	      var startEnd = token.split('-').map(function(num) {
+	        return parseInt(num, 10);
+	      });
+	
+	      for (var j = startEnd[0]; j &lt;= startEnd[1]; j++) {
+	        result.push(j);
+		  }
+	    } else {
+ 	     result.push(parseInt(token, 10));
+ 	   }
+ 	 }
+	
+	  
+  	}else{
+		var result = [];
+		for (var i = 1; i &lt;= 20; i++) {
+      		result.push(i);
+    	}
+	}
+	return result;
+}
+
+// Get the input field value
+var inputString = rounds;
+var max_rounds = max_rounds; 
+
+// Call the function and set the result to the output field
+var resultArray = generateNumbers(inputString,max_rounds);
+rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with your desired output field name
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>rounds_participated</name>
+        <rename>rounds_participated</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>784</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Execute SQL script</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>motogp_dw</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>UPDATE dim_riders 
+SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+    </arguments>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1512</xloc>
+      <yloc>960</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
