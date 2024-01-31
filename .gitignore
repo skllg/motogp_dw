@@ -1,6 +1,7 @@
 /Excels/outputs test/
 /Kettle/outputs_test/
 **/Scripts Python/venv/
+**/Scripts Python/motogp/motogp/venv
 /weabpp/
 **/Streamlit/venv/
 /Streamlit/.env
