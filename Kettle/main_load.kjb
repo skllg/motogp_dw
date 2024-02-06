@@ -491,6 +491,7 @@ create table IF NOT EXISTS dim_teams (
 	des_motorcycle varchar(30),
 	type_motorcycle varchar(15),
 	tyre_supplier varchar(30),
+	rider_full_name varchar(50),
 	rounds_participated varchar(30),
 	racing_class varchar(10),
 	season integer not null,

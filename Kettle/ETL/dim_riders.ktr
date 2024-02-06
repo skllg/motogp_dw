@@ -1287,6 +1287,12 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>rounds_participated</name>
+        <field>rounds_string</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
       <value>
         <name>season</name>
         <rename>SEASON_1</rename>
@@ -1325,7 +1331,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <value>
         <name>rounds_string</name>
         <rename>rounds_participated</rename>
-        <update>Y</update>
+        <update>N</update>
       </value>
       <value>
         <name>loc_birth</name>

@@ -973,14 +973,20 @@
         <name2/>
       </key>
       <key>
-        <name>rounds</name>
-        <field>rounds_participated</field>
+        <name>class</name>
+        <field>racing_class</field>
         <condition>=</condition>
         <name2/>
       </key>
       <key>
-        <name>class</name>
-        <field>racing_class</field>
+        <name>Rider</name>
+        <field>rider_full_name</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>rounds</name>
+        <field>rounds_participated</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -1000,11 +1006,6 @@
         <update>Y</update>
       </value>
       <value>
-        <name>rounds_participated</name>
-        <rename>rounds</rename>
-        <update>N</update>
-      </value>
-      <value>
         <name>season</name>
         <rename>SEASON</rename>
         <update>N</update>
@@ -1022,6 +1023,16 @@
       <value>
         <name>racing_class</name>
         <rename>class</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>rider_full_name</name>
+        <rename>Rider</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>rounds_participated</name>
+        <rename>rounds</rename>
         <update>N</update>
       </value>
     </lookup>
@@ -2010,10 +2021,15 @@
       </field>
       <field>
         <name>class</name>
-        <rename>class</rename>
+        <rename/>
       </field>
       <field>
         <name>type_motorcycle</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Rider</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
