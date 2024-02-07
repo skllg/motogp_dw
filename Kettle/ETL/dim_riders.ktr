@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>CURRENT_SEASON</name>
-        <default_value>2014</default_value>
+        <default_value>2023</default_value>
         <description/>
       </parameter>
     </parameters>
@@ -610,11 +610,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>JSON input</from>
-      <to>Filter rows 3</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Replace in string 4</from>
       <to>Split fields 2</to>
       <enabled>Y</enabled>
@@ -627,11 +622,6 @@
     <hop>
       <from>Split fields 2 2</from>
       <to>Replace in string 2 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows 3</from>
-      <to>Replace in string 4</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -650,33 +640,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 2</from>
-      <to>Merge join</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Formula</from>
       <to>Sort rows 3</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 3</from>
-      <to>Merge join</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows 2 2</from>
-      <to>Select values 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select values 2</from>
       <to>Sort rows 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Merge join</from>
-      <to>Merge join 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -727,6 +697,31 @@
     <hop>
       <from>If field value is null</from>
       <to>Modified JavaScript value 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>Fuzzy match</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 3</from>
+      <to>Fuzzy match</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Fuzzy match</from>
+      <to>Merge join 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>JSON input</from>
+      <to>Replace in string 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows 2 2</from>
+      <to>Select values 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -894,7 +889,7 @@
     <name>Database lookup</name>
     <type>DBLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1079,18 +1074,12 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Select values 2</send_true_to>
+    <send_true_to/>
     <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
         <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>bike</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue/>
-          </condition>
           <condition>
             <negated>N</negated>
             <operator>OR</operator>
@@ -1137,50 +1126,6 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </GUI>
   </step>
   <step>
-    <name>Filter rows 3</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>Y</negated>
-        <leftvalue>data</leftvalue>
-        <function>CONTAINS</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>All categories</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Formula</name>
     <type>Formula</type>
     <description/>
@@ -1209,6 +1154,60 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fuzzy match</name>
+    <type>FuzzyMatch</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Sort rows 2</from>
+    <lookupfield>name</lookupfield>
+    <mainstreamfield>lower_name</mainstreamfield>
+    <outputmatchfield>match</outputmatchfield>
+    <outputvaluefield>measure value</outputvaluefield>
+    <caseSensitive>N</caseSensitive>
+    <closervalue>Y</closervalue>
+    <minimalValue>0.77</minimalValue>
+    <maximalValue>1</maximalValue>
+    <separator>,</separator>
+    <algorithm>jaro</algorithm>
+    <lookup>
+      <value>
+        <name>city_birth</name>
+        <rename>city_birth</rename>
+      </value>
+      <value>
+        <name>date_birth</name>
+        <rename>date_birth</rename>
+      </value>
+      <value>
+        <name>height</name>
+        <rename>height</rename>
+      </value>
+      <value>
+        <name>weigth</name>
+        <rename>weigth</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1253,6 +1252,46 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </GUI>
   </step>
   <step>
+    <name>If field value is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>rounds</name>
+        <value>nan</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>768</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Insert / update</name>
     <type>InsertUpdate</type>
     <description/>
@@ -1284,6 +1323,12 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <key>
         <name>class</name>
         <field>racing_class</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>rounds_participated</name>
+        <field>rounds_string</field>
         <condition>=</condition>
         <name2/>
       </key>
@@ -1325,7 +1370,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <value>
         <name>rounds_string</name>
         <rename>rounds_participated</rename>
-        <update>Y</update>
+        <update>N</update>
       </value>
       <value>
         <name>loc_birth</name>
@@ -1340,12 +1385,22 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <value>
         <name>birth_latitude</name>
         <rename>lat</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>birth_longitude</name>
         <rename>long</rename>
-        <update>N</update>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>rider_height</name>
+        <rename>height</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>rider_weight</name>
+        <rename>weigth</rename>
+        <update>Y</update>
       </value>
     </lookup>
     <attributes/>
@@ -1366,7 +1421,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     <name>JSON input</name>
     <type>JsonInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1386,7 +1441,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     <includeNulls>N</includeNulls>
     <rownum_field/>
     <file>
-      <name>C:\Users\zaka\Desktop\MOTOGP\Scripts Python\motogp\motogp\spiders\output_bueno.json</name>
+      <name>C:\Users\zaka\Desktop\MOTOGP\Scripts Python\motogp\motogp\spiders\lists\joined.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1447,44 +1502,10 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </GUI>
   </step>
   <step>
-    <name>Merge join</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>LEFT OUTER</join_type>
-    <step1>Sort rows 3</step1>
-    <step2>Sort rows 2</step2>
-    <keys_1>
-      <key>lower_name</key>
-    </keys_1>
-    <keys_2>
-      <key>name</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1312</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Merge join 2</name>
     <type>MergeJoin</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1492,7 +1513,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <schema_name/>
     </partitioning>
     <join_type>LEFT OUTER</join_type>
-    <step1>Merge join</step1>
+    <step1>Fuzzy match</step1>
     <step2>Sort rows 2 2</step2>
     <keys_1>
       <key>rider_full_name</key>
@@ -2310,7 +2331,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>832</yloc>
+      <yloc>848</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3161,7 +3182,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Replace in string 2 2</name>
     <type>ReplaceString</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -3254,6 +3275,18 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
         <is_unicode>no</is_unicode>
       </field>
       <field>
+        <in_stream_name>height</in_stream_name>
+        <out_stream_name/>
+        <use_regex>yes</use_regex>
+        <replace_string> cm</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
         <in_stream_name>weigth</in_stream_name>
         <out_stream_name/>
         <use_regex>yes</use_regex>
@@ -3280,6 +3313,18 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       <field>
         <in_stream_name>weigth</in_stream_name>
         <out_stream_name/>
+        <use_regex>yes</use_regex>
+        <replace_string> kg</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>weigth</in_stream_name>
+        <out_stream_name/>
         <use_regex>no</use_regex>
         <replace_string>]</replace_string>
         <replace_by_string/>
@@ -3291,6 +3336,30 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </field>
       <field>
         <in_stream_name>weigth</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>[</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>place_birth</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>]</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>place_birth</in_stream_name>
         <out_stream_name/>
         <use_regex>no</use_regex>
         <replace_string>[</replace_string>
@@ -3383,7 +3452,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Replace in string 4</name>
     <type>ReplaceString</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -3534,7 +3603,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Select values 2</name>
     <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -3544,21 +3613,27 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <fields>
       <field>
         <name>name</name>
+        <rename/>
       </field>
       <field>
         <name>bike</name>
+        <rename/>
       </field>
       <field>
         <name>date_birth</name>
+        <rename/>
       </field>
       <field>
         <name>city_birth</name>
+        <rename/>
       </field>
       <field>
         <name>height</name>
+        <rename/>
       </field>
       <field>
         <name>weigth</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -3568,6 +3643,40 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask>dd/MM/yyyy</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>height</name>
+        <rename>height</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>weigth</name>
+        <rename>weigth</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -3726,7 +3835,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Sort rows 2</name>
     <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -3759,7 +3868,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
+      <xloc>1328</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
@@ -3810,7 +3919,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Sort rows 3</name>
     <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -4062,7 +4171,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Split fields 2 2 2</name>
     <type>FieldSplitter</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -4285,46 +4394,6 @@ group  by season
     <GUI>
       <xloc>176</xloc>
       <yloc>384</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>If field value is null</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>rounds</name>
-        <value>nan</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1312</xloc>
-      <yloc>768</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
