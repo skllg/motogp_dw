@@ -167,8 +167,8 @@ def fetch_rider_location(season):
     
     
 
-    query = f"select rider_full_name, birth_latitude, birth_longitude  from dim_riders dr \
-        where season = {season}"
+    query = f"select distinct rider_full_name, birth_latitude, birth_longitude  from dim_riders dr \
+        where season = {season} and birth_latitude is not null and  birth_longitude is not null"
 
     cur.execute(query)
     result_args = cur.fetchall()

@@ -38,7 +38,7 @@ def fetch_rider_list():
     cur = conn.cursor()
 
     
-    query = "select distinct rider_full_name, loc_birth from dim_riders where loc_birth is not null"
+    query = f"select distinct rider_full_name, loc_birth from dim_riders where loc_birth is not null "
 
     cur.execute(query)
     result_args = cur.fetchall()
@@ -59,7 +59,7 @@ def update_location_track(latitude,longitude, track):
     cur.execute(query)
     conn.commit()
 
-def update_location_track(latitude,longitude, des_rider):
+def update_location_rider(latitude,longitude, des_rider):
     
     conn = connect()
     
@@ -101,29 +101,29 @@ def geodata_tracks():
 
 def geodata_riders():
     geolocator = Nominatim(user_agent="skllg")
-    tracks_list = fetch_rider_list()
+    rider_list = fetch_rider_list()
     # print(tracks_list)
     result=[]
-    for i in range(len(tracks_list)):
-        des_rider = tracks_list.loc[i,"des_rider"]
-        loc_birth = tracks_list.loc[i,"loc_birth"]
+    for i in range(len(rider_list)):
+        des_rider = rider_list.loc[i,"des_rider"]
+        loc_birth = rider_list.loc[i,"loc_birth"]
 
         
         location = geolocator.geocode(loc_birth)
         if location is not None: 
             latitude = location.latitude
             longitude = location.longitude
-            # print(str(location) + str(latitude) +' '+ str(longitude))
+            # print(str(des_rider)+' '+str(location) +' '+ str(latitude) +' '+ str(longitude))
             
-            f = open("riders.txt", "a")
-            string = f"{des_rider};{latitude}; {longitude} \n"
+            f = open("riders.txt", "w", encoding="utf-8")
+            string = f"{des_rider};{latitude};{longitude}\n"
             f.write(string)
             f.close()
             
-            update_location_track(latitude, longitude, des_rider)
+            update_location_rider(latitude, longitude, des_rider)
          
 # with main:
 if __name__ == "__main__": 
-    geodata_tracks()
-    # geodata_riders()
+    # geodata_tracks()
+    geodata_riders()
     

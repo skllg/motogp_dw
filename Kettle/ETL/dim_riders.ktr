@@ -650,23 +650,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 2 2</from>
-      <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>CSV file input</from>
-      <to>Select values 3</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select values 3</from>
       <to>Sort rows 2 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Merge join 2</from>
-      <to>Get variables</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -710,11 +695,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Fuzzy match</from>
-      <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>JSON input</from>
       <to>Replace in string 4</to>
       <enabled>Y</enabled>
@@ -722,6 +702,36 @@
     <hop>
       <from>Filter rows 2 2</from>
       <to>Select values 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>CSV file input 2</from>
+      <to>Unique rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows 2</from>
+      <to>Select values 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Fuzzy match</from>
+      <to>Sort rows 3 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 3 2</from>
+      <to>Fuzzy match 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2 2</from>
+      <to>Fuzzy match 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Fuzzy match 2</from>
+      <to>Get variables</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -794,8 +804,82 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
+      <xloc>784</xloc>
       <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>CSV file input 2</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>C:\Users\zaka\Desktop\MOTOGP\Excels\dim_riders_202402071824.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding>UTF-8</encoding>
+    <fields>
+      <field>
+        <name>rider_full_name</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>birth_latitude</name>
+        <type>Number</type>
+        <format>#.####</format>
+        <currency>$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>birth_longitude</name>
+        <type>Number</type>
+        <format>#.####</format>
+        <currency>$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1213,6 +1297,52 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </GUI>
   </step>
   <step>
+    <name>Fuzzy match 2</name>
+    <type>FuzzyMatch</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Sort rows 2 2</from>
+    <lookupfield>rider_full_name</lookupfield>
+    <mainstreamfield>rider_full_name</mainstreamfield>
+    <outputmatchfield>match</outputmatchfield>
+    <outputvaluefield>measure value</outputvaluefield>
+    <caseSensitive>N</caseSensitive>
+    <closervalue>Y</closervalue>
+    <minimalValue>0.9</minimalValue>
+    <maximalValue>1</maximalValue>
+    <separator>,</separator>
+    <algorithm>jaro</algorithm>
+    <lookup>
+      <value>
+        <name>birth_latitude</name>
+        <rename>birth_latitude</rename>
+      </value>
+      <value>
+        <name>birth_longitude</name>
+        <rename>birth_longitude</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Get variables</name>
     <type>GetVariable</type>
     <description/>
@@ -1384,12 +1514,12 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </value>
       <value>
         <name>birth_latitude</name>
-        <rename>lat</rename>
+        <rename>birth_latitude</rename>
         <update>Y</update>
       </value>
       <value>
         <name>birth_longitude</name>
-        <rename>long</rename>
+        <rename>birth_longitude</rename>
         <update>Y</update>
       </value>
       <value>
@@ -1498,40 +1628,6 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     <GUI>
       <xloc>448</xloc>
       <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Merge join 2</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>LEFT OUTER</join_type>
-    <step1>Fuzzy match</step1>
-    <step2>Sort rows 2 2</step2>
-    <keys_1>
-      <key>rider_full_name</key>
-    </keys_1>
-    <keys_2>
-      <key>rider_name</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1312</xloc>
-      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3613,27 +3709,21 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <fields>
       <field>
         <name>name</name>
-        <rename/>
       </field>
       <field>
         <name>bike</name>
-        <rename/>
       </field>
       <field>
         <name>date_birth</name>
-        <rename/>
       </field>
       <field>
         <name>city_birth</name>
-        <rename/>
       </field>
       <field>
         <name>height</name>
-        <rename/>
       </field>
       <field>
         <name>weigth</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -3715,18 +3805,18 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     </partitioning>
     <fields>
       <field>
-        <name>rider_name</name>
+        <name>rider_full_name</name>
       </field>
       <field>
-        <name>lat</name>
+        <name>birth_latitude</name>
       </field>
       <field>
-        <name>long</name>
+        <name>birth_longitude</name>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
-        <name>lat</name>
-        <rename>lat</rename>
+        <name>birth_latitude</name>
+        <rename>birth_latitude</rename>
         <type>Number</type>
         <length>-2</length>
         <precision>-2</precision>
@@ -3742,8 +3832,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
         <storage_type/>
       </meta>
       <meta>
-        <name>long</name>
-        <rename>long</rename>
+        <name>birth_longitude</name>
+        <rename>birth_longitude</rename>
         <type>Number</type>
         <length>-2</length>
         <precision>-2</precision>
@@ -3768,8 +3858,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1104</xloc>
-      <yloc>240</yloc>
+      <xloc>1008</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3877,7 +3967,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <name>Sort rows 2 2</name>
     <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -3893,7 +3983,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>rider_name</name>
+        <name>rider_full_name</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -3910,8 +4000,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1200</xloc>
-      <yloc>240</yloc>
+      <xloc>1104</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3954,6 +4044,48 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <GUI>
       <xloc>1216</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows 3 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>rider_full_name</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4362,6 +4494,36 @@ group  by season
     <GUI>
       <xloc>448</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unique rows 2</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>      </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
