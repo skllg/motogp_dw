@@ -552,6 +552,8 @@ CREATE table IF NOT EXISTS  public.dim_riders (
 	racing_class varchar(10) NOT NULL,
 	rounds_string varchar(255),
 	rounds_participated integer[] NULL,
+	rider_weight int4,
+	rider_height int4,
 	loc_birth varchar NULL,
 	date_birth date NULL,
 	birth_latitude float8,
