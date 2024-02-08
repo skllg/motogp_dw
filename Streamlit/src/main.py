@@ -177,14 +177,14 @@ def show_main_page():
 
     def RenderSection3():
 
-        S2_col1,S2_col2 = st.columns([0.2,0.2])
+        S3_col1,S3_col2 = st.columns([0.2,0.2])
         map_tracks = st.empty()
         map_riders = st.empty()
-        with S2_col1:
+        with S3_col1:
             season= st.selectbox(
                     'Temporada',
                     (2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
-        with map_tracks:
+        # with map_tracks:
             df= fetch_track_location(season)
             fig5 = px.scatter_mapbox(df, lon= df['latitude'], lat= df['longitude'], zoom=1, color = df['des_track'],
                                      height=900, width=900, title= f'Track locatioin map in {season}')
@@ -193,7 +193,8 @@ def show_main_page():
             # fig5.show()
             st.plotly_chart(fig5)
         
-        with map_riders:
+        # with map_riders:
+        with S3_col2:
             df= fetch_rider_location(season)
             fig5 = px.scatter_mapbox(df, lon= df['latitude'], lat= df['longitude'], zoom=1, color = df['rider_full_name'],
                                      height=900, width=900, title= f'Rider Birth Location map in {season}')
