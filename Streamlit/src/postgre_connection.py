@@ -49,7 +49,7 @@ def fetch_cummulative_sum_points(season, racing_class):
     return df_bh
 
 
-def fetch_cummulative_sum_points_teams(season, racing_class):
+def fetch_cummulative_sum_points_constructors(season, racing_class):
     conn = connect()
     cur = conn.cursor()
     # racing_class = "250cc_moto2"
@@ -108,6 +108,72 @@ def fetch_cummulative_sum_points_teams(season, racing_class):
 
     return df_bh
 
+
+def fetch_cummulative_sum_points_teams(season, racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    # racing_class = "250cc_moto2"
+    
+    if (racing_class == "250cc_moto2" and season > 2009):
+        racing_class="moto2"
+    elif (racing_class == "250cc_moto2" and season <= 2009):
+        racing_class = "250cc"
+
+    if racing_class == "125cc_moto3" and season > 2011:
+        racing_class="moto3"
+    elif racing_class == "125cc_moto3" and season <= 2011:
+        racing_class = "125cc"
+    
+    
+
+    
+    query = f" SELECT \
+                    des_team,\
+                    season,\
+                    SUM(total_best_points) AS total_points_across_rounds\
+                FROM (\
+                    SELECT \
+                        dt.des_team,\
+                        fr.season,\
+                        fr.num_round,\
+                        dr.rider_full_name,\
+                        fr.race_type,\
+                        ROW_NUMBER() OVER (PARTITION BY dt.des_team, fr.num_round, fr.race_type ORDER BY dp.num_points DESC) AS rank,\
+                        SUM(dp.num_points) AS total_best_points\
+                    FROM \
+                        fact_results fr\
+                    JOIN \
+                        dim_positions dp ON fr.id_position_fk = dp.id_position\
+                    LEFT JOIN \
+                        dim_riders dr ON dr.id_rider = fr.id_rider_fk\
+                    LEFT JOIN \
+                        dim_teams dt ON dt.id_team = dr.id_team_fk\
+                    WHERE \
+                        dr.season = {season} \
+                        AND dr.racing_class = '{racing_class}'\
+                        and fr.num_round = ANY (dr.rounds_participated)\
+                        AND fr.is_wildcard = false\
+                    GROUP BY\
+                        dt.des_team,\
+                        fr.season,\
+                        fr.num_round,\
+                        dr.rider_full_name,\
+                        fr.race_type,\
+                        dp.num_points\
+                ) AS ranked_points\
+                WHERE rank <= 2\
+                GROUP BY \
+                    des_team, \
+                    season\
+                order by total_points_across_rounds desc;"
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_bh = pd.DataFrame(result_args,columns=['des_team', 'season', 'total_points'])
+
+    return df_bh
+
 def fetch_season_bar_chart(season, racing_class):
     conn = connect()
     cur = conn.cursor()
@@ -126,13 +192,14 @@ def fetch_season_bar_chart(season, racing_class):
     
     
 
-    query = f"select dr.rider_full_name, sum(dp.num_points) as points  from fact_results f\
+    query = f"select rider_full_name, points from (select dr.rider_full_name, sum(dp.num_points) as points  from fact_results f\
                 left join dim_grand_prix dgp on f.id_grand_prix_fk = dgp.id_grandprix \
                 left join dim_riders dr on  dr.id_rider = f.id_rider_fk \
                 left join dim_positions dp on dp.id_position = f.id_position_fk \
-                where f.racing_class = {racing_class} and f.season  = {season}\
+                where f.racing_class = {racing_class} and f.season  = {season} \
                 group by dr.rider_full_name\
-                order by points desc;"
+                order by points desc)\
+                where points > 0;"
 
     cur.execute(query)
     result_args = cur.fetchall()

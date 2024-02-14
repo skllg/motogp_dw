@@ -76,7 +76,7 @@ def show_main_page():
 
         
     def RenderSection1():
-        S1_col1,S1_col2 = st.columns([0.2,0.2])
+        S1_col1,S1_col2,S1_col3 = st.columns([0.2,0.2,0.2])
         placeholder = st.empty()
         placeholder2 = st.empty()
 
@@ -99,10 +99,21 @@ def show_main_page():
             st.plotly_chart(fig)
 
         with S1_col2:
-            df2 = fetch_cummulative_sum_points_teams(season, racing_class)
+            df2 = fetch_cummulative_sum_points_constructors(season, racing_class)
             fig2 = px.bar(df2, x="des_constructor", y="total_points", color='des_constructor',)
             # fig.show() 
             st.plotly_chart(fig2)
+
+        with S1_col3:
+            st.write("##")
+            st.write("##")
+            st.write("##")
+            st.write("##")
+            df3 = fetch_cummulative_sum_points_teams(season, racing_class)
+            fig3 = px.bar(df3, x="des_team", y="total_points", color='des_team',)
+            # fig.show() 
+            st.plotly_chart(fig3)
+
 
     def RenderSection2():    
         S2_col1,S2_col2 = st.columns([0.2,0.2])
@@ -118,7 +129,7 @@ def show_main_page():
                     'Temporada',
                     (2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
                         
-        with barchart1:
+            # with barchart1:
             motogp= "'motogp'"
             
 
@@ -132,19 +143,8 @@ def show_main_page():
             # fig.show()
             
             st.plotly_chart(fig1)
-           
-        with barchart2:
-            
-            inter = "Intermediate"
-            
-            df2 = fetch_season_bar_chart(season, inter)
-            
-            fig2 = px.bar(df2, x="rider_name", y="total_points", color='rider_name')
-            
-            st.plotly_chart(fig2)
-            
-        with barchart3:
-            
+            # with barchart3:
+        
             lower = "Lower Class"
             
 
@@ -159,9 +159,24 @@ def show_main_page():
 
             
             st.plotly_chart(fig3)
+
+        with S2_col2:  
+            st.write("##")
+            st.write("##")  
+            # with barchart2:
+                
+            inter = "Intermediate"
             
-        with barchart4:
-        
+            df2 = fetch_season_bar_chart(season, inter)
+            
+            fig2 = px.bar(df2, x="rider_name", y="total_points", color='rider_name')
+            
+            st.plotly_chart(fig2)
+                
+
+                
+            # with barchart4:
+            
             motoe = "'moto-e'"
 
             df4 = fetch_season_bar_chart(season, motoe)
@@ -172,7 +187,7 @@ def show_main_page():
             
             st.plotly_chart(fig4)
 
-        # with stats1:
+            
             
 
     def RenderSection3():
@@ -195,6 +210,9 @@ def show_main_page():
         
         # with map_riders:
         with S3_col2:
+            st.write('##')
+            st.write('##')
+            
             df= fetch_rider_location(season)
             fig5 = px.scatter_mapbox(df, lon= df['latitude'], lat= df['longitude'], zoom=1, color = df['rider_full_name'],
                                      height=900, width=900, title= f'Rider Birth Location map in {season}')
