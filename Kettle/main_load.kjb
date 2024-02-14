@@ -448,7 +448,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>864</xloc>
+      <xloc>960</xloc>
       <yloc>96</yloc>
       <attributes_kjc/>
     </entry>
@@ -607,15 +607,6 @@ create table IF NOT EXISTS fact_results(
   </entries>
   <hops>
     <hop>
-      <from>process each season</from>
-      <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load season list</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
@@ -654,6 +645,15 @@ create table IF NOT EXISTS fact_results(
     <hop>
       <from>Load season list</from>
       <to>process each season</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>process each season</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

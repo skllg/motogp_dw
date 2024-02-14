@@ -773,7 +773,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>624</xloc>
+      <xloc>512</xloc>
       <yloc>304</yloc>
       <attributes_kjc/>
     </entry>
@@ -795,6 +795,30 @@
       <nr>0</nr>
       <xloc>144</xloc>
       <yloc>112</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>SQL</name>
+      <description/>
+      <type>SQL</type>
+      <attributes/>
+      <sql>UPDATE fact_results fr
+SET id_rider_fk = dr.id_rider
+FROM dim_riders dr
+WHERE dr.season = fr.season 
+AND dr.rider_full_name = fr.rider_name_fk 
+AND dr.racing_class = fr.racing_class 
+AND dr.rounds_participated @> ARRAY[fr.num_round];</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>T</sendOneStatement>
+      <connection>motogp_dw</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>640</xloc>
+      <yloc>304</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -908,15 +932,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>fact_results</from>
-      <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>dim_teams</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
@@ -955,6 +970,24 @@
     <hop>
       <from>Check DB connections</from>
       <to>dim_constructors</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>fact_results</from>
+      <to>SQL</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>SQL</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
