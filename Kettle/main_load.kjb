@@ -560,15 +560,14 @@ CREATE table IF NOT EXISTS  public.dim_riders (
 	birth_longitude float8
 );
 
-
-
 /*------------------------------------------------------------------------*/
 
 DROP TABLE IF EXISTS fact_results CASCADE;
 
 create table IF NOT EXISTS fact_results(
 	id_result serial primary key,
-	id_rider_fk integer not null,
+	rider_name_fk varchar(50),
+	id_rider_fk integer ,
 	id_grand_prix_fk integer not null,
 	id_position_fk integer not null,
 	num_round integer,
@@ -577,10 +576,7 @@ create table IF NOT EXISTS fact_results(
 	race_type varchar(10),
 	pole bool,
 	fastest_lap bool,
-	constraint fk_id_rider
-		foreign key(id_rider_fk)
-		references dim_riders(id_rider)
-		ON DELETE SET null,
+	is_wildcard bool,
 	constraint fk_id_grand_prix
 		foreign key(id_grand_prix_fk)
 		references dim_grand_prix(id_grandprix)

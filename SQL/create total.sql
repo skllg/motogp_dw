@@ -164,6 +164,8 @@ create table IF NOT EXISTS dim_positions(
 	num_points NUMERIC(3, 1)
 );
 
+insert into dim_positions(final_position,race_type,bool_half_points,num_points)
+values ('WLD','main',FALSE,0),('WLD','sprint',FALSE,0),('WLD','main',TRUE,0),('WLD','sprint',TRUE,0)
 
 truncate table dim_positions
 insert into dim_positions(final_position,race_type,bool_half_points,num_points)
@@ -175,7 +177,7 @@ values ('1','main',FALSE,25),('2','main',FALSE,20),('3','main',FALSE,16),('4','m
 ('DNF','main',FALSE,0), ('DNS','main',FALSE,0), ('DSQ','main',FALSE,0),
 ('WD','main',FALSE,0), ('NC','main',FALSE,0), ('DNPQ','main',FALSE,0),
 ('DNP','main',FALSE,0), ('DNA','main',FALSE,0), ('EX','main',FALSE,0), ('Ret','main',FALSE,0),('null','main',FALSE,0), ('C','main',FALSE,0),
-
+('WLD','main',FALSE,0),('WLD','sprint',FALSE,0),('WLD','main',TRUE,0),('WLD','sprint',TRUE,0),
 ('1','sprint',FALSE,12),('2','sprint',FALSE,9),('3','sprint',FALSE,7),('4','sprint',FALSE,6),('5','sprint',FALSE,5),('6','sprint',FALSE,4),
 ('7','sprint',FALSE,3),('8','sprint',FALSE,2),('9','sprint',FALSE,1),
 ('10','sprint',FALSE,0),('11','sprint',FALSE,0),('12','sprint',FALSE,0),('13','sprint',FALSE,0),('14','sprint',FALSE,0),('15','sprint',FALSE,0),

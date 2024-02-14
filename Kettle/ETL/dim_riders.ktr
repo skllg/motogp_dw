@@ -680,11 +680,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>If field value is null</from>
-      <to>Modified JavaScript value 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Sort rows 2</from>
       <to>Fuzzy match</to>
       <enabled>Y</enabled>
@@ -732,6 +727,16 @@
     <hop>
       <from>Fuzzy match 2</from>
       <to>Get variables</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>If field value is null</from>
+      <to>Replace in string 5</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Replace in string 5</from>
+      <to>Modified JavaScript value 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1063,8 +1068,8 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1512</xloc>
-      <yloc>960</yloc>
+      <xloc>1504</xloc>
+      <yloc>1120</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1543,7 +1548,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>960</yloc>
+      <yloc>1120</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2427,7 +2432,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>848</yloc>
+      <yloc>1040</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3787,7 +3792,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1248</xloc>
+      <xloc>1232</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
@@ -3958,7 +3963,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1328</xloc>
+      <xloc>1312</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
@@ -4556,6 +4561,45 @@ group  by season
     <GUI>
       <xloc>176</xloc>
       <yloc>384</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Replace in string 5</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>rounds</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>–</replace_string>
+        <replace_by_string>-</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1312</xloc>
+      <yloc>864</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
