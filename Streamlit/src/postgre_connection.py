@@ -48,7 +48,6 @@ def fetch_cummulative_sum_points(season, racing_class):
 
     return df_bh
 
-
 def fetch_cummulative_sum_points_constructors(season, racing_class):
     conn = connect()
     cur = conn.cursor()
@@ -108,7 +107,6 @@ def fetch_cummulative_sum_points_constructors(season, racing_class):
 
     return df_bh
 
-
 def fetch_cummulative_sum_points_teams(season, racing_class):
     conn = connect()
     cur = conn.cursor()
@@ -165,6 +163,7 @@ def fetch_cummulative_sum_points_teams(season, racing_class):
                 GROUP BY \
                     des_team, \
                     season\
+                having SUM(total_best_points) >0 \
                 order by total_points_across_rounds desc;"
 
     cur.execute(query)
@@ -226,8 +225,8 @@ def fetch_track_location(season):
 
     return df_tracks
 
-
 def fetch_rider_location(season):
+
     conn = connect()
     cur = conn.cursor()
     
@@ -243,3 +242,153 @@ def fetch_rider_location(season):
     df_tracks = pd.DataFrame(result_args,columns=['rider_full_name', 'longitude', 'latitude'])
 
     return df_tracks
+
+def fetch_total_num_gp(season):
+
+    conn = connect()
+    cur = conn.cursor()
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+        
+
+    query = f"select count(id_grandprix) as num_grand_prix from dim_grand_prix dgp \
+                where season in {season_proc}"
+
+    cur.execute(query)
+    result_args = cur.fetchone()
+
+
+    return result_args
+
+def fetch_HP_races(season):
+    conn = connect()
+    cur = conn.cursor()
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+        
+
+    query = f"select count(distinct id_grandprix) as half_point_races from dim_grand_prix dgp \
+                inner join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+                left join dim_positions dp on fr.id_position_fk = dp.id_position \
+                where dp.bool_half_points = true and dgp.season in {season_proc}"
+
+    cur.execute(query)
+    result_args = cur.fetchone()
+
+
+    return result_args
+
+def fetch_night_races(season):
+    conn = connect()
+    cur = conn.cursor()
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+        
+
+    query = f"select count(distinct id_grandprix) as night_races from dim_grand_prix dgp \
+                where dgp.night_race = true and dgp.season in {season_proc}"
+
+    cur.execute(query)
+    result_args = cur.fetchone()
+
+
+    return result_args
+
+def fetch_satruday_races(season):
+    conn = connect()
+    cur = conn.cursor()
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+        
+
+    query = f"select count(distinct id_grandprix) as night_races from dim_grand_prix dgp \
+  	        where dgp.saturday_race  = true and dgp.season in {season_proc}"
+
+    cur.execute(query)
+    result_args = cur.fetchone()
+
+
+    return result_args
+  
+def fetch_num_postions(season,racing_class):
+    
+    conn = connect()
+    cur = conn.cursor()
+    
+    if season=='any':
+        season= (2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)
+    
+        if racing_class=='any':
+            racing_class= ("motogp", "250cc","moto2", "125cc","moto3", "moto-e")
+        else:
+            if (racing_class == "250cc_moto2"):
+                racing_class=('moto2','250cc')
+                
+            if racing_class == "125cc_moto3":
+                racing_class=('moto3','125cc')
+
+    else:
+        season = '('+ season +')'
+        if racing_class=='any':
+                racing_class= ("motogp", "250cc","moto2", "125cc","moto3", "moto-e")
+        else:
+            if (racing_class == "250cc_moto2" and season > 2009):
+                racing_class=('moto2')
+            elif (racing_class == "250cc_moto2" and season <= 2009):
+                racing_class = ('250cc')
+                
+            elif racing_class == "125cc_moto3" and season > 2011:
+                racing_class=('moto3')
+            elif racing_class == "125cc_moto3" and season <= 2011:
+                racing_class = ('125cc')
+
+            elif racing_class == "motogp":
+                racing_class = ('motogp')
+
+            elif racing_class == "motoe":
+                racing_class = ('motoe')
+
+    query = f"select count(id_grandprix)"
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_tracks = pd.DataFrame(result_args,columns=['rider_full_name', 'longitude', 'latitude'])
+
+    return df_tracks
+
+
+
+
+
+
+
+

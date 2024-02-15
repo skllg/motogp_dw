@@ -865,6 +865,16 @@ output_field = outputDate;
         <rename>num_round</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>night_race</name>
+        <rename>night_race</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>saturday_race</name>
+        <rename>saturday_race</rename>
+        <update>Y</update>
+      </value>
     </lookup>
     <attributes/>
     <cluster_schema/>
