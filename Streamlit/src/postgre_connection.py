@@ -6,11 +6,17 @@ import pandas as pd
 load_dotenv()
 
 def connect(): 
-    db_host = os.getenv('POSTGRES_HOST')
-    db_port = os.getenv('POSTGRES_PORT')
-    db_name = os.getenv('POSTGRES_DB')
-    db_user = os.getenv('POSTGRES_USER')
-    db_password = os.getenv('POSTGRES_PASSWORD')
+    # db_host = os.getenv('POSTGRES_HOST')
+    # db_port = os.getenv('POSTGRES_PORT')
+    # db_name = os.getenv('POSTGRES_DB')
+    # db_user = os.getenv('POSTGRES_USER')
+    # db_password = os.getenv('POSTGRES_PASSWORD')
+
+    db_host = st.secrets['POSTGRES_HOST']
+    db_port = st.secrets['POSTGRES_PORT']
+    db_name = st.secrets['POSTGRES_DB']
+    db_user =st.secrets['POSTGRES_USER']
+    db_password = st.secrets['POSTGRES_PASSWORD']
 
     conn = psycopg.connect(f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}") 
     
@@ -267,7 +273,7 @@ def fetch_total_num_gp(season):
 
     return result_args
 
-def fetch_HP_races(season):
+def fetch_HP_races(season,racing_class):
     conn = connect()
     cur = conn.cursor()
     ini = season[0]
@@ -279,12 +285,26 @@ def fetch_HP_races(season):
 
     season_proc = season_proc[:-1]
     season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
         
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+   
 
     query = f"select count(distinct id_grandprix) as half_point_races from dim_grand_prix dgp \
                 inner join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
                 left join dim_positions dp on fr.id_position_fk = dp.id_position \
-                where dp.bool_half_points = true and dgp.season in {season_proc}"
+                where dp.bool_half_points = true and dgp.season in {season_proc} \
+                and fr.racing_class in {racing_class}"
 
     cur.execute(query)
     result_args = cur.fetchone()

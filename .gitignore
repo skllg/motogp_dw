@@ -6,3 +6,4 @@
 **/Streamlit/venv/
 /Streamlit/.env
 /Streamlit/src/__pycache__/
+/Streamlit/.streamlit/secrets.toml

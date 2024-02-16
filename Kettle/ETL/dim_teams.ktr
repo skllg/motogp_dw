@@ -2021,15 +2021,12 @@
       </field>
       <field>
         <name>class</name>
-        <rename/>
       </field>
       <field>
         <name>type_motorcycle</name>
-        <rename/>
       </field>
       <field>
         <name>Rider</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>

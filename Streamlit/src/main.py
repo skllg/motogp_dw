@@ -120,7 +120,7 @@ def show_main_page():
         barchart3= st.empty()
         barchart4= st.empty()
         stats1 = st.empty()
-        S2_tab1, S2_tab2, S2_tab3,S2_tab4 = st.tabs(["MotoGP", "Moto2/25cc", "Moto3/125cc", "MotoE"])
+        S2_tab1, S2_tab2, S2_tab3,S2_tab4 = st.tabs(["MotoGP", "Moto2/250cc", "Moto3/125cc", "MotoE"])
 
         # with S2_col1:
             # racing_class = st.radio("select racing class:", key="racing_class",options= ["motogp", "250cc_moto2", "125cc_moto3", "moto-e"],index=0)
@@ -232,13 +232,17 @@ def show_main_page():
             num_gp = fetch_total_num_gp(season2)
             
             st.metric(label='number of GPs', value=num_gp[0])
-            num_hp = fetch_HP_races(season2)
+            num_hp = fetch_HP_races(season2,racing_class)
             st.metric(label='number of half point races', value=num_hp[0])
 
             num_night=fetch_night_races(season2)
             st.metric(label='number of night races', value=num_night[0])
             num_sat=fetch_satruday_races(season2)
             st.metric(label='number of saturday races', value=num_sat[0])
+
+
+
+
     if st.session_state.active_tab == 'Section1':
         RenderSection1()
 
