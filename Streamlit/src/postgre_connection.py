@@ -6,17 +6,17 @@ import pandas as pd
 load_dotenv()
 
 def connect(): 
-    db_host = os.getenv('POSTGRES_HOST')
-    db_port = os.getenv('POSTGRES_PORT')
-    db_name = os.getenv('POSTGRES_DB')
-    db_user = os.getenv('POSTGRES_USER')
-    db_password = os.getenv('POSTGRES_PASSWORD')
+    # db_host = os.getenv('POSTGRES_HOST')
+    # db_port = os.getenv('POSTGRES_PORT')
+    # db_name = os.getenv('POSTGRES_DB')
+    # db_user = os.getenv('POSTGRES_USER')
+    # db_password = os.getenv('POSTGRES_PASSWORD')
 
-    # db_host = st.secrets['POSTGRES_HOST']
-    # db_port = st.secrets['POSTGRES_PORT']
-    # db_name = st.secrets['POSTGRES_DB']
-    # db_user =st.secrets['POSTGRES_USER']
-    # db_password = st.secrets['POSTGRES_PASSWORD']
+    db_host = st.secrets['POSTGRES_HOST']
+    db_port = st.secrets['POSTGRES_PORT']
+    db_name = st.secrets['POSTGRES_DB']
+    db_user =st.secrets['POSTGRES_USER']
+    db_password = st.secrets['POSTGRES_PASSWORD']
 
     conn = psycopg.connect(f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}") 
     
