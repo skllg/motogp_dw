@@ -240,6 +240,27 @@ def show_main_page():
             num_sat=fetch_satruday_races(season2)
             st.metric(label='number of saturday races', value=num_sat[0])
 
+            top_wins = fetch_top_wins(season2,racing_class)
+            st.dataframe(top_wins)
+
+            top_podiums = fetch_top_podiums(season2,racing_class)
+            st.dataframe(top_podiums)
+            st.divider()
+
+            top_wins_sprint = fetch_top_wins_sprint(season2,racing_class)
+            st.dataframe(top_wins_sprint)
+
+            top_podiums_sprint = fetch_top_podiums_sprint(season2,racing_class)
+            st.dataframe(top_podiums_sprint)
+            st.divider()
+            top_poles = fetch_top_poles(season2,racing_class)
+            st.dataframe(top_poles)
+
+            top_fast_laps = fetch_top_fast_laps(season2,racing_class)
+            st.dataframe(top_fast_laps)
+
+            top_fast_laps = fect_top_percentage_points(season2,racing_class)
+            st.dataframe(top_fast_laps)
 
 
 
