@@ -276,9 +276,18 @@ def show_main_page():
             top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
             st.dataframe(top_percentage_wins_season)
 
-            top_percentage_podiums_season =fetch_top_percentage_podiums_season(season2, racing_class)
-            st.dataframe(top_percentage_podiums_season)
+            top_different_winners =fetch_top_different_winners(season2, racing_class)
+            st.dataframe(top_different_winners)
 
+            top_different_podium_finishers =fetch_top_different_podium_finishers(season2, racing_class)
+            st.dataframe(top_different_podium_finishers)
+
+            
+            top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
+            st.dataframe(top_wins_by_track)
+            
+            top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
+            st.dataframe(top_percentage_points_carreer)
             
             
 
@@ -296,10 +305,18 @@ def show_main_page():
 
             top_percentage_wins_season_constructor =fetch_top_percentage_wins_season_constructor(season2, racing_class)
             st.dataframe(top_percentage_wins_season_constructor)
+
             
+            st.write("season specific?")
             top_percentage_podiums_season_constructor =fetch_top_percentage_podiums_season_constructor(season2, racing_class)
             st.dataframe(top_percentage_podiums_season_constructor)
-        
+
+            top_percentage_podiums_season_teams =fetch_top_percentage_podiums_season_teams(season2, racing_class)
+            st.dataframe(top_percentage_podiums_season_teams)
+
+            top_wins_by_track_constructor =fetch_top_wins_by_track_constructor(season2, racing_class)
+            st.dataframe(top_wins_by_track_constructor)
+
 
     if st.session_state.active_tab == 'Section1':
         RenderSection1()

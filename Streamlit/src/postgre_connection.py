@@ -1051,28 +1051,29 @@ def fetch_top_percentage_podiums_season(season,racing_class):
         racing_class=('moto-e','')
 
 
-    query = f"  SELECT \
+    query = f"SELECT \
                 subquery.season, \
                 subquery.racing_class,\
-                subquery.rider_full_name,\
-                ROUND((subquery.podiums*100)/num_races.num_rounds, 2) as percentage_podiums\
+                subquery.des_constructor,\
+                ROUND((subquery.podiums * 100) / num_races.num_rounds, 2) as percentage_podiums\
             FROM (\
                 SELECT \
-                    dr.rider_full_name, \
+                    dc.des_constructor, \
                     f.racing_class,\
                     f.season, \
-                    count(f.id_result) AS podiums,\
-                    ROW_NUMBER() OVER (PARTITION BY f.season,f.racing_class ORDER BY SUM(dp.num_points) DESC) AS rn\
-                FROM \
+                    COUNT(DISTINCT f.id_grand_prix_fk) as podiums\
+                    FROM \
                     fact_results f\
                     LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix \
                     LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+                    LEFT JOIN dim_teams dt ON dt.id_team = dr.id_team_fk\
+                    LEFT JOIN dim_constructors dc ON dc.id_constructor = dt.id_constructor_fk\
                     LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
                 WHERE \
-                    f.racing_class in {racing_class} and f.season in {season_proc}\
-                    and dp.final_position in ('1','2','3') and f.race_type='main'\
+                    f.racing_class in {racing_class} AND f.season in {season_proc}\
+                    AND dp.final_position in ('1', '2', '3') AND f.race_type = 'main' \
                 GROUP BY \
-                    dr.rider_full_name,f.racing_class, f.season\
+                    dc.des_constructor, f.racing_class, f.season\
             ) AS subquery\
             JOIN (\
                 SELECT dgp.season, COUNT(dgp.num_round) num_rounds\
@@ -1081,11 +1082,9 @@ def fetch_top_percentage_podiums_season(season,racing_class):
                 GROUP BY \
                     dgp.season\
             ) AS num_races ON subquery.season = num_races.season \
-            WHERE \
-                rn = 1 and subquery.rider_full_name not like '%Bekker%'\
             ORDER BY \
                 percentage_podiums DESC\
-            limit 10"\
+            --LIMIT 10;"
         
 
     cur.execute(query)
@@ -1198,30 +1197,29 @@ def fetch_top_percentage_podiums_season_constructor(season,racing_class):
         racing_class=('moto-e','')
 
 
-    query = f"  SELECT \
-                subquery.season, \
+    query = f"SELECT \
+                subquery.season,\
                 subquery.racing_class,\
                 subquery.des_constructor,\
-                ROUND((subquery.podiums*100)/num_races.num_rounds, 2) as percentage_podiums\
+                ROUND((subquery.podiums * 100) / num_races.num_rounds, 2) as percentage_podiums\
             FROM (\
                 SELECT \
                     dc.des_constructor, \
                     f.racing_class,\
                     f.season, \
-                    count(f.id_result) AS podiums,\
-                    ROW_NUMBER() OVER (PARTITION BY f.season,f.racing_class ORDER BY SUM(dp.num_points) DESC) AS rn\
-                FROM \
+                    COUNT(DISTINCT f.id_grand_prix_fk) as podiums\
+                    FROM \
                     fact_results f\
                     LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix \
                     LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
-                    left join dim_teams dt on dt.id_team = dr.id_team_fk\
-                    left join dim_constructors dc on dc.id_constructor = dt.id_constructor_fk\
+                    LEFT JOIN dim_teams dt ON dt.id_team = dr.id_team_fk\
+                    LEFT JOIN dim_constructors dc ON dc.id_constructor = dt.id_constructor_fk\
                     LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
                 WHERE \
-                    f.racing_class in {racing_class} and f.season in {season_proc}\
-                    and dp.final_position in ('1','2','3') and f.race_type='main'\
+                    f.racing_class in {racing_class} AND f.season in {season_proc}\
+                    AND dp.final_position in ('1', '2', '3') AND f.race_type = 'main' \
                 GROUP BY \
-                    dc.des_constructor,f.racing_class, f.season\
+                    dc.des_constructor, f.racing_class, f.season\
             ) AS subquery\
             JOIN (\
                 SELECT dgp.season, COUNT(dgp.num_round) num_rounds\
@@ -1230,11 +1228,82 @@ def fetch_top_percentage_podiums_season_constructor(season,racing_class):
                 GROUP BY \
                     dgp.season\
             ) AS num_races ON subquery.season = num_races.season \
-            WHERE \
-                rn = 1 \
             ORDER BY \
                 percentage_podiums DESC\
-            limit 10"\
+            --LIMIT 10;"
+        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=['season', 'racing_class', 'rider name', 'percentage podiums'])
+
+    return df_top_podiums  
+
+
+def fetch_top_percentage_podiums_season_teams(season,racing_class):
+
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+
+
+    query = f"SELECT \
+                    subquery.season, \
+                    subquery.racing_class,\
+                    subquery.des_team,\
+                    ROUND((subquery.podiums * 100) / num_races.num_rounds, 2) as percentage_podiums\
+                FROM (\
+                    SELECT \
+                        dt.des_team, \
+                        f.racing_class,\
+                        f.season, \
+                        COUNT(DISTINCT f.id_grand_prix_fk) as podiums\
+                        FROM \
+                        fact_results f\
+                        LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix \
+                        LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+                        LEFT JOIN dim_teams dt ON dt.id_team = dr.id_team_fk\
+                        LEFT JOIN dim_constructors dc ON dc.id_constructor = dt.id_constructor_fk\
+                        LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
+                    WHERE \
+                        f.racing_class in {racing_class} AND f.season in {season_proc}\
+                        AND dp.final_position in ('1', '2', '3') AND f.race_type = 'main' \
+                    GROUP BY \
+                        dt.des_team, f.racing_class, f.season\
+                ) AS subquery\
+                JOIN (\
+                    SELECT dgp.season, COUNT(dgp.num_round) num_rounds\
+                    FROM \
+                        dim_grand_prix dgp \
+                    GROUP BY \
+                        dgp.season\
+                ) AS num_races ON subquery.season = num_races.season \
+                ORDER BY \
+                    percentage_podiums DESC\
+                --LIMIT 10;"
         
 
     cur.execute(query)
@@ -1246,13 +1315,352 @@ def fetch_top_percentage_podiums_season_constructor(season,racing_class):
 
 
 
+def fetch_top_different_winners(season,racing_class):
+
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+
+    query = f" select  fr.season, fr.racing_class,count(distinct fr.id_rider_fk) as numer_of_winners  from fact_results fr \
+                left join dim_riders dr on fr.id_rider_fk = dr.id_rider \
+                left join dim_positions dp on dp.id_position = fr.id_position_fk\
+                where dp.final_position ='1' and fr.race_type = 'main'\
+                and fr.season in {season_proc} and fr.racing_class in {racing_class}\
+                group by  fr.season, fr.racing_class \
+                order by numer_of_winners desc"
+                        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=['season', 'racing_class', 'numer of diferent winners'])
+
+    return df_top_podiums  
 
 
+def fetch_top_different_podium_finishers(season,racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+
+    query = f"select  fr.season, fr.racing_class,count(distinct fr.id_rider_fk) as numer_of_winners   from fact_results fr \
+                left join dim_riders dr on fr.id_rider_fk = dr.id_rider \
+                left join dim_positions dp2 on dp2.id_position = fr.id_position_fk\
+                where dp2.final_position in ('1','2','3') and fr.race_type = 'main'\
+                and fr.season in {season_proc} and fr.racing_class in {racing_class}\
+                group by  fr.season, fr.racing_class \
+                order by numer_of_winners desc"
+                        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=['season', 'racing_class', 'number of diferent podium finishers'])
+
+    return df_top_podiums 
+
+def fetch_top_wins_by_track(season,racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+
+    query = f" SELECT \
+                dr.rider_full_name, \
+                dtr.des_track,\
+                count(f.id_result) as wins\
+                FROM \
+                fact_results f\
+                LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix \
+                left join dim_tracks dtr on dtr.id_track= dgp.id_track_fk\
+                LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+                LEFT JOIN dim_teams dt ON dt.id_team = dr.id_team_fk\
+                LEFT JOIN dim_constructors dc ON dc.id_constructor = dt.id_constructor_fk\
+                LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
+            WHERE \
+                dp.final_position in ('1') AND f.race_type = 'main' and dt.rider_full_name not like '%Bekker%'\
+                and f.season in {season_proc} and f.racing_class in {racing_class}\
+            GROUP BY \
+                dr.rider_full_name,  dtr.des_track\
+            having count(f.id_result) >3\
+            order by wins desc"
+                        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=['season', 'racing_class', 'wins by track'])
+
+    return df_top_podiums 
+
+def fetch_top_wins_by_track_constructor(season,racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+
+    query = f"SELECT \
+            dc.des_constructor , \
+            dtr.des_track,\
+            count(f.id_result) as wins\
+            FROM \
+            fact_results f\
+            LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix \
+            left join dim_tracks dtr on dtr.id_track= dgp.id_track_fk\
+            LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+            LEFT JOIN dim_teams dt ON dt.id_team = dr.id_team_fk\
+            LEFT JOIN dim_constructors dc ON dc.id_constructor = dt.id_constructor_fk\
+            LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
+        WHERE \
+            dp.final_position in ('1') AND f.race_type = 'main' and dt.rider_full_name not like '%Bekker%' and f.racing_class = 'motogp'\
+        GROUP BY \
+            dc.des_constructor ,  dtr.des_track\
+        having count(f.id_result) >3\
+        order by wins desc"
+                        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=['season', 'racing_class', 'wins by track'])
+
+    return df_top_podiums 
 
 
+def fetch_top_percentage_points(season,racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
 
 
+    query = f"SELECT \
+                    subquery.season, \
+                    subquery.racing_class,\
+                    subquery.rider_full_name,\
+                    ROUND((subquery.points*100)/max_points.max_points, 2) as percentage_points\
+                FROM (\
+                    SELECT \
+                        dr.rider_full_name, \
+                        f.racing_class,\
+                        f.season, \
+                        SUM(dp.num_points) AS points,\
+                        ROW_NUMBER() OVER (PARTITION BY f.season,f.racing_class ORDER BY SUM(dp.num_points) DESC) AS rn\
+                    FROM \
+                        fact_results f\
+                        LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix \
+                        LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+                        LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
+                    WHERE \
+                        f.racing_class in {racing_class} and f.season in {season_proc}\
+                    GROUP BY \
+                        dr.rider_full_name,f.racing_class, f.season\
+                ) AS subquery\
+                JOIN (\
+                    SELECT dgp.season,\
+                        CASE \
+                            WHEN dgp.season = 2023 THEN COUNT(dgp.num_round) * 36 \
+                            ELSE COUNT(dgp.num_round) * 25 \
+                        END AS max_points\
+                    FROM \
+                        dim_grand_prix dgp \
+                    GROUP BY \
+                        dgp.season\
+                ) AS max_points ON subquery.season = max_points.season \
+                WHERE \
+                    rn = 1 and subquery.rider_full_name not like '%Bekker%'\
+                ORDER BY \
+                    percentage_points ASC\
+                limit 100"
+        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=[ 'season','racing class','rider name', 'percentage of total points'])
+
+    return df_top_podiums
 
 
+def fetch_top_percentage_points_carreer(season,racing_class):
+    conn = connect()
+    cur = conn.cursor()
+    
+    ini = season[0]
+    end = season[1]
+
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
 
 
+    query = "SELECT subquery.rider_full_name,\
+                ROUND((subquery.points * 100) / SUM(max_points.max_points), 2) as percentage_points\
+            FROM (\
+                SELECT \
+                    dr.rider_full_name, \
+                    SUM(dp.num_points) AS points\
+                FROM \
+                    fact_results f\
+                    LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+                    LEFT JOIN dim_positions dp ON dp.id_position = f.id_position_fk \
+                    \
+                GROUP BY \
+                    dr.rider_full_name\
+            ) AS subquery\
+            JOIN (\
+                SELECT \
+                    dr.rider_full_name,\
+                    CASE \
+                        WHEN dgp.season > 2022 THEN COUNT(DISTINCT dgp.id_grandprix) * 36 \
+                        ELSE COUNT(DISTINCT dgp.id_grandprix) * 25 \
+                    END AS max_points\
+                    \
+                FROM \
+                    fact_results f\
+                    left join dim_positions dp on dp.id_position = f.id_position_fk \
+                    LEFT JOIN dim_grand_prix dgp ON f.id_grand_prix_fk = dgp.id_grandprix\
+                    LEFT JOIN dim_riders dr ON dr.id_rider = f.id_rider_fk \
+                    \
+                GROUP BY \
+                    dr.rider_full_name, dgp.season\
+            ) AS max_points ON subquery.rider_full_name = max_points.rider_full_name\
+            WHERE \
+                subquery.rider_full_name NOT LIKE '%Bekker%'\
+            GROUP BY \
+            subquery.rider_full_name,subquery.points\
+            having  SUM(max_points.max_points) > 50\
+            ORDER BY \
+                percentage_points DESC\
+            LIMIT 20;"
+        
+
+    cur.execute(query)
+    result_args = cur.fetchall()
+
+    df_top_podiums= pd.DataFrame(result_args,columns=[ 'rider name', 'percentage of total points in a carreer'])
+
+    return df_top_podiums
