@@ -215,11 +215,11 @@ def show_main_page():
             st.plotly_chart(fig5)
 
     def RenderSection4():
-
         S4_col1,S4_col2 = st.columns([0.2,0.2])
         S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
+        
         S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors"])
-       
+        S43_col1,S43_col2 = st.columns([0.2,0.2])
 
         with S4_col1:
             st.write("Season/Class specific statistics")
@@ -246,48 +246,48 @@ def show_main_page():
             
         with S2_tab1:
             
+            with S43_col1:
+                top_wins = fetch_top_wins(season2,racing_class)
+                st.dataframe(top_wins)
 
-            top_wins = fetch_top_wins(season2,racing_class)
-            st.dataframe(top_wins)
+                top_wins_sprint = fetch_top_wins_sprint(season2,racing_class)
+                st.dataframe(top_wins_sprint)
 
-            top_podiums = fetch_top_podiums(season2,racing_class)
-            st.dataframe(top_podiums)
-            st.divider()
+                top_poles = fetch_top_poles(season2,racing_class)
+                st.dataframe(top_poles)
+                
+                top_fast_laps = fetch_top_percentage_points(season2,racing_class)
+                st.dataframe(top_fast_laps)
 
-            top_wins_sprint = fetch_top_wins_sprint(season2,racing_class)
-            st.dataframe(top_wins_sprint)
+                top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
+                st.dataframe(top_percentage_wins_season)
 
-            top_podiums_sprint = fetch_top_podiums_sprint(season2,racing_class)
-            st.dataframe(top_podiums_sprint)
-            st.divider()
-            top_poles = fetch_top_poles(season2,racing_class)
-            st.dataframe(top_poles)
+                top_different_podium_finishers =fetch_top_different_podium_finishers(season2, racing_class)
+                st.dataframe(top_different_podium_finishers)
 
-            top_fast_laps = fetch_top_fast_laps(season2,racing_class)
-            st.dataframe(top_fast_laps)
+                top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
+                st.dataframe(top_percentage_points_carreer)
+            with S43_col2:
+                top_podiums = fetch_top_podiums(season2,racing_class)
+                st.dataframe(top_podiums)
+                st.divider()
 
-            top_fast_laps = fetch_top_percentage_points(season2,racing_class)
-            st.dataframe(top_fast_laps)
+                top_podiums_sprint = fetch_top_podiums_sprint(season2,racing_class)
+                st.dataframe(top_podiums_sprint)
 
-            top_points_career =fetch_top_points_carrer(season2, racing_class)
-            st.dataframe(top_points_career)
+                top_fast_laps = fetch_top_fast_laps(season2,racing_class)
+                st.dataframe(top_fast_laps)
 
+                top_points_career =fetch_top_points_carrer(season2, racing_class)
+                st.dataframe(top_points_career)
+
+                top_different_winners =fetch_top_different_winners(season2, racing_class)
+                st.dataframe(top_different_winners)
+
+                top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
+                st.dataframe(top_wins_by_track)
             
-            top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
-            st.dataframe(top_percentage_wins_season)
-
-            top_different_winners =fetch_top_different_winners(season2, racing_class)
-            st.dataframe(top_different_winners)
-
-            top_different_podium_finishers =fetch_top_different_podium_finishers(season2, racing_class)
-            st.dataframe(top_different_podium_finishers)
-
             
-            top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
-            st.dataframe(top_wins_by_track)
-            
-            top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
-            st.dataframe(top_percentage_points_carreer)
             
             
 
