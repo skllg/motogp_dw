@@ -217,7 +217,9 @@ def show_main_page():
     def RenderSection4():
 
         S4_col1,S4_col2 = st.columns([0.2,0.2])
-        placeholder = st.container()
+        S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
+        S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors"])
+       
 
         with S4_col1:
             st.write("Season/Class specific statistics")
@@ -228,17 +230,22 @@ def show_main_page():
             #         ('Any',2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
             season2=st.slider('Select season', 2002, 2023,(2002, 2023))            
         
-        with placeholder:
+        
+        with S42_col1:
             num_gp = fetch_total_num_gp(season2)
-            
             st.metric(label='number of GPs', value=num_gp[0])
+        with S42_col2:
             num_hp = fetch_HP_races(season2,racing_class)
             st.metric(label='number of half point races', value=num_hp[0])
-
+        with S42_col3:
             num_night=fetch_night_races(season2)
             st.metric(label='number of night races', value=num_night[0])
+        with S42_col4:
             num_sat=fetch_satruday_races(season2)
             st.metric(label='number of saturday races', value=num_sat[0])
+            
+        with S2_tab1:
+            
 
             top_wins = fetch_top_wins(season2,racing_class)
             st.dataframe(top_wins)
@@ -259,10 +266,40 @@ def show_main_page():
             top_fast_laps = fetch_top_fast_laps(season2,racing_class)
             st.dataframe(top_fast_laps)
 
-            top_fast_laps = fect_top_percentage_points(season2,racing_class)
+            top_fast_laps = fetch_top_percentage_points(season2,racing_class)
             st.dataframe(top_fast_laps)
 
+            top_points_career =fetch_top_points_carrer(season2, racing_class)
+            st.dataframe(top_points_career)
 
+            
+            top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
+            st.dataframe(top_percentage_wins_season)
+
+            top_percentage_podiums_season =fetch_top_percentage_podiums_season(season2, racing_class)
+            st.dataframe(top_percentage_podiums_season)
+
+            
+            
+
+        with S2_tab2:    
+            top_points_constructor =fetch_top_points_constructor(season2, racing_class)
+            st.dataframe(top_points_constructor)
+
+
+            top_wins_constructor =fetch_top_wins_constructor(season2, racing_class)
+            st.dataframe(top_wins_constructor)
+
+            
+            top_podiums_constructor =fetch_top_podiums_constructor(season2, racing_class)
+            st.dataframe(top_podiums_constructor)
+
+            top_percentage_wins_season_constructor =fetch_top_percentage_wins_season_constructor(season2, racing_class)
+            st.dataframe(top_percentage_wins_season_constructor)
+            
+            top_percentage_podiums_season_constructor =fetch_top_percentage_podiums_season_constructor(season2, racing_class)
+            st.dataframe(top_percentage_podiums_season_constructor)
+        
 
     if st.session_state.active_tab == 'Section1':
         RenderSection1()
