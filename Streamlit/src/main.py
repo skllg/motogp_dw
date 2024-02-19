@@ -43,8 +43,8 @@ def show_main_page():
 
         selected = option_menu(
             menu_title=None,
-            options=["Section1", "Section2", "Section3", "Section4"],
-            icons=["1-square", "2-square", "3-square","4-square"],
+            options=["Section1", "Section2", "Section3", "Section4", "Section5"],
+            icons=["1-square", "2-square", "3-square","4-square", "5-square"],
             styles={
                 "container": {"padding": ".5rem !important", "background-color": "#fff"},
                 "icon": {"color": "inherit"},
@@ -73,6 +73,8 @@ def show_main_page():
 
     elif selected == "Section4":
         st.session_state.active_tab = 'Section4'
+    elif selected == "Section5":
+        st.session_state.active_tab = 'Section5'
 
         
     def RenderSection1():
@@ -219,6 +221,7 @@ def show_main_page():
         S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
         
         S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors"])
+
         S43_col1,S43_col2 = st.columns([0.2,0.2])
 
         with S4_col1:
@@ -267,6 +270,7 @@ def show_main_page():
 
                 top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
                 st.dataframe(top_percentage_points_carreer)
+
             with S43_col2:
                 top_podiums = fetch_top_podiums(season2,racing_class)
                 st.dataframe(top_podiums)
@@ -286,10 +290,7 @@ def show_main_page():
 
                 top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
                 st.dataframe(top_wins_by_track)
-            
-            
-            
-            
+              
 
         with S2_tab2:    
             top_points_constructor =fetch_top_points_constructor(season2, racing_class)
@@ -317,7 +318,46 @@ def show_main_page():
             top_wins_by_track_constructor =fetch_top_wins_by_track_constructor(season2, racing_class)
             st.dataframe(top_wins_by_track_constructor)
 
+    def RenderSection5():
+        S4_col1,S4_col2 = st.columns([0.2,0.2])
+        S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
+        
+        S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors"])
 
+        S43_col1,S43_col2 = st.columns([0.2,0.2])
+
+        with S4_col1:
+            st.write("Season/Class specific statistics")
+            racing_class = st.radio("select racing class:", key="racing_class",options= ["Any","motogp", "250cc_moto2", "125cc_moto3", "moto-e"],index=0)
+        with S4_col2:
+            # season= st.selectbox(
+            #         'Temporada',
+            #         ('Any',2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
+            season2=st.slider('Select season', 2002, 2023,(2002, 2023))         
+        placeholderX, Y = st.columns([0.8,0.2])
+        
+        with placeholderX:  
+            
+            st.write("Top 10 Longest finishes:")   
+
+            consecutive_results= most_consecutive_finishes(season2, racing_class)
+            st.dataframe(consecutive_results)
+
+            st.write("Top 10 Podium Streaks:")   
+
+            consecutive_podiums= most_consecutive_podiums(season2, racing_class)
+            st.dataframe(consecutive_podiums)
+            
+            st.write("Top 10 Wins Streaks:")   
+
+            consecutive_wins= most_consecutive_wins(season2, racing_class)
+            st.dataframe(consecutive_wins)
+            
+            st.write("Top 10 Fail Streaks:")   
+
+            consecutive_fails= most_consecutive_fails(season2, racing_class)
+            st.dataframe(consecutive_fails)
+            
     if st.session_state.active_tab == 'Section1':
         RenderSection1()
 
@@ -328,7 +368,8 @@ def show_main_page():
         RenderSection3()
     elif st.session_state.active_tab == 'Section4':
         RenderSection4()
-
+    elif st.session_state.active_tab == 'Section5':
+        RenderSection5()
 
 
 with main:
