@@ -1,0 +1,447 @@
+"id_constructor","des_constructor","racing_class","season"
+1,Aprilia,"125cc",2002
+2,Aprilia,"250cc",2002
+3,Aprilia,motogp,2002
+4,Derbi,"125cc",2002
+5,Gilera,"125cc",2002
+6,Honda,"125cc",2002
+7,Honda,"250cc",2002
+8,Honda,motogp,2002
+9,Italjet,"125cc",2002
+10,Kawasaki,motogp,2002
+11,Proton KR,motogp,2002
+12,Suzuki,motogp,2002
+13,Yamaha,"125cc",2002
+14,Yamaha,"250cc",2002
+15,Yamaha,motogp,2002
+16,Aprilia,"125cc",2003
+17,Aprilia,"250cc",2003
+18,Aprilia,motogp,2003
+19,Derbi,"125cc",2003
+20,Ducati,motogp,2003
+21,Gilera,"125cc",2003
+22,Harris WCM,motogp,2003
+23,Honda,"125cc",2003
+24,Honda,"250cc",2003
+25,Honda,motogp,2003
+26,Kawasaki,motogp,2003
+27,KTM,"125cc",2003
+28,Malaguti,"125cc",2003
+29,MD211VF Proto,motogp,2003
+30,Moriwaki,motogp,2003
+31,Proton KR,motogp,2003
+32,ROC Yamaha,motogp,2003
+33,Sabre V4,motogp,2003
+34,Suzuki,motogp,2003
+35,TSR,"125cc",2003
+36,Yamaha,"250cc",2003
+37,Yamaha,motogp,2003
+38,Aprilia,"125cc",2004
+39,Aprilia,"250cc",2004
+40,Aprilia,motogp,2004
+41,Derbi,"125cc",2004
+42,Ducati,motogp,2004
+43,Gilera,"125cc",2004
+44,Harris WCM,motogp,2004
+45,Honda,"125cc",2004
+46,Honda,"250cc",2004
+47,Honda,motogp,2004
+48,Kawasaki,motogp,2004
+49,KTM,"125cc",2004
+50,Malaguti,"125cc",2004
+51,Moriwaki,motogp,2004
+52,Proton KR,motogp,2004
+53,Suzuki,motogp,2004
+54,Yamaha,"125cc",2004
+55,Yamaha,"250cc",2004
+56,Yamaha,motogp,2004
+57,Aprilia,"125cc",2005
+58,Aprilia,"250cc",2005
+59,Blata,motogp,2005
+60,Derbi,"125cc",2005
+61,Ducati,motogp,2005
+62,Fantic,"250cc",2005
+63,Gilera,"125cc",2005
+64,Honda,"125cc",2005
+65,Honda,"250cc",2005
+66,Honda,motogp,2005
+67,Kawasaki,motogp,2005
+68,KTM,"125cc",2005
+69,KTM,"250cc",2005
+70,Malaguti,"125cc",2005
+71,Moriwaki,motogp,2005
+72,Proton KR,motogp,2005
+73,Suzuki,motogp,2005
+74,Yamaha,"125cc",2005
+75,Yamaha,"250cc",2005
+76,Yamaha,motogp,2005
+77,Aprilia,"125cc",2006
+78,Aprilia,"250cc",2006
+79,Derbi,"125cc",2006
+80,Ducati,motogp,2006
+81,Gilera,"125cc",2006
+82,Gilera,"250cc",2006
+83,Honda,"125cc",2006
+84,Honda,"250cc",2006
+85,Honda,motogp,2006
+86,Ilmor X3,motogp,2006
+87,Kawasaki,motogp,2006
+88,KR211V,motogp,2006
+89,KTM,"125cc",2006
+90,KTM,"250cc",2006
+91,Malaguti,"125cc",2006
+92,Suzuki,motogp,2006
+93,Yamaha,"125cc",2006
+94,Yamaha,"250cc",2006
+95,Yamaha,motogp,2006
+96,Aprilia,"125cc",2007
+97,Aprilia,"250cc",2007
+98,Derbi,"125cc",2007
+99,Ducati,motogp,2007
+100,FGR,"125cc",2007
+101,Friba,"125cc",2007
+102,Gilera,"250cc",2007
+103,Honda,"125cc",2007
+104,Honda,"250cc",2007
+105,Honda,motogp,2007
+106,Ilmor GP,motogp,2007
+107,Kawasaki,motogp,2007
+108,KR212V,motogp,2007
+109,KTM,"125cc",2007
+110,KTM,"250cc",2007
+111,Suzuki,motogp,2007
+112,Yamaha,"125cc",2007
+113,Yamaha,"250cc",2007
+114,Yamaha,motogp,2007
+115,Aprilia,"125cc",2008
+116,Aprilia,"250cc",2008
+117,Derbi,"125cc",2008
+118,Ducati,motogp,2008
+119,Gilera,"250cc",2008
+120,Honda,"125cc",2008
+121,Honda,"250cc",2008
+122,Honda,motogp,2008
+123,Kawasaki,motogp,2008
+124,KTM,"125cc",2008
+125,KTM,"250cc",2008
+126,Loncin,"125cc",2008
+127,Seel,"125cc",2008
+128,Suzuki,motogp,2008
+129,Yamaha,"125cc",2008
+130,Yamaha,"250cc",2008
+131,Yamaha,motogp,2008
+132,Aprilia,"125cc",2009
+133,Aprilia,"250cc",2009
+134,Derbi,"125cc",2009
+135,Ducati,motogp,2009
+136,Gilera,"250cc",2009
+137,Haojue,"125cc",2009
+138,Honda,"125cc",2009
+139,Honda,"250cc",2009
+140,Honda,motogp,2009
+141,Kawasaki,motogp,2009
+142,KTM,"125cc",2009
+143,Loncin,"125cc",2009
+144,Suzuki,motogp,2009
+145,Yamaha,"125cc",2009
+146,Yamaha,"250cc",2009
+147,Yamaha,motogp,2009
+148,ADV,moto2,2010
+149,AJR,moto2,2010
+150,Aprilia,"125cc",2010
+151,Bimota,moto2,2010
+152,BQR-Moto2,moto2,2010
+153,Derbi,"125cc",2010
+154,Ducati,motogp,2010
+155,Force GP210,moto2,2010
+156,FTR,moto2,2010
+157,Honda,"125cc",2010
+158,Honda,motogp,2010
+159,I.C.P.,moto2,2010
+160,Kalex,moto2,2010
+161,KTM,"125cc",2010
+162,Lambretta,"125cc",2010
+163,MIR,moto2,2010
+164,Moriwaki,moto2,2010
+165,Motobi,moto2,2010
+166,MZ-RE Honda,moto2,2010
+167,Pons Kalex,moto2,2010
+168,Promoharris,moto2,2010
+169,RBB,moto2,2010
+170,RSV,moto2,2010
+171,Speed Up,moto2,2010
+172,Suter,moto2,2010
+173,Suzuki,motogp,2010
+174,Tech 3,moto2,2010
+175,TSR,moto2,2010
+176,Yamaha,"125cc",2010
+177,Yamaha,motogp,2010
+178,Aprilia,"125cc",2011
+179,Derbi,"125cc",2011
+180,Ducati,motogp,2011
+181,FTR,moto2,2011
+182,Honda,"125cc",2011
+183,Honda,motogp,2011
+184,Kalex,moto2,2011
+185,KTM,"125cc",2011
+186,Mahindra,"125cc",2011
+187,MIR Racing,moto2,2011
+188,Moriwaki,moto2,2011
+189,Motobi,moto2,2011
+190,MZ-RE Honda,moto2,2011
+191,Pons Kalex,moto2,2011
+192,Suter,moto2,2011
+193,Suzuki,motogp,2011
+194,Tech 3,moto2,2011
+195,Ten Kate,moto2,2011
+196,TSR,moto2,2011
+197,Yamaha,motogp,2011
+198,AJR,moto2,2012
+199,APR+Kawasaki,motogp,2012
+200,ART+Aprilia,motogp,2012
+201,BCL+Aprilia,motogp,2012
+202,Bimota,moto2,2012
+203,BQR+Kawasaki,motogp,2012
+204,BQR-FTR+Kawasaki,motogp,2012
+205,Ducati,motogp,2012
+206,FGR Honda,moto3,2012
+207,FTR,moto2,2012
+208,FTR Honda,moto3,2012
+209,FTR+Honda,motogp,2012
+210,Honda,moto3,2012
+211,Honda,motogp,2012
+212,IAMT,moto2,2012
+213,Inmotec+Kawasaki,motogp,2012
+214,Ioda,moto3,2012
+215,Ioda+Aprilia,motogp,2012
+216,Ioda-Suter+BMW,motogp,2012
+217,Kalex,moto2,2012
+218,Kalex KTM,moto3,2012
+219,KRP Honda,moto3,2012
+220,KTM,moto3,2012
+221,Mahindra,moto3,2012
+222,Moriwaki,moto2,2012
+223,Motobi,moto2,2012
+224,MZ FTR,moto2,2012
+225,MZ FTR,moto3,2012
+226,MZ-RE Honda,moto2,2012
+227,MZ-RE Honda,moto3,2012
+228,Oral,moto3,2012
+229,Speed Up,moto2,2012
+230,Suter,moto2,2012
+231,Suter Honda,moto3,2012
+232,Suter+BMW,motogp,2012
+233,Tech 3,moto2,2012
+234,TSR Honda,moto3,2012
+235,Yamaha,motogp,2012
+236,APR+Kawasaki,motogp,2013
+237,ART+Aprilia,motogp,2013
+238,Bakker Honda,moto3,2013
+239,BCL+Suzuki,motogp,2013
+240,Bullet,moto3,2013
+241,Ducati,motogp,2013
+242,FTR,moto2,2013
+243,FTR,moto3,2013
+244,FTR Honda,moto3,2013
+245,FTR+Honda,motogp,2013
+246,FTR+Kawasaki,motogp,2013
+247,Honda,moto3,2013
+248,Honda,motogp,2013
+249,Ioda-Suter+BMW,motogp,2013
+250,Kalex,moto2,2013
+251,Kalex KTM,moto3,2013
+252,KRP Honda,moto3,2013
+253,KTM,moto3,2013
+254,Mahindra,moto3,2013
+255,MIR Honda,moto3,2013
+256,MIR Racing,moto3,2013
+257,Mistral 610,moto2,2013
+258,Moriwaki,moto2,2013
+259,Motobi,moto2,2013
+260,PBM+Aprilia,motogp,2013
+261,S&B Suter+BMW,motogp,2013
+262,Speed Up,moto2,2013
+263,Suter,moto2,2013
+264,Suter,moto3,2013
+265,Suter Honda,moto3,2013
+266,Tech 3,moto2,2013
+267,TransFIORmers,moto2,2013
+268,TSR,moto2,2013
+269,TSR Honda,moto3,2013
+270,Yamaha,motogp,2013
+271,ART,motogp,2014
+272,Avintia,motogp,2014
+273,Caterham Suter,moto2,2014
+274,Ducati,motogp,2014
+275,Forward KLX,moto2,2014
+276,Forward Yamaha,motogp,2014
+277,FTR,moto3,2014
+278,FTR Honda,moto3,2014
+279,FTR KTM,moto3,2014
+280,Honda,moto3,2014
+281,Honda,motogp,2014
+282,Husqvarna,moto3,2014
+283,Kalex,moto2,2014
+284,Kalex KTM,moto3,2014
+285,KTM,moto3,2014
+286,Mahindra,moto3,2014
+287,Moriwaki,moto2,2014
+288,NTS,moto2,2014
+289,PBM,motogp,2014
+290,Speed Up,moto2,2014
+291,Suter,moto2,2014
+292,Suzuki,motogp,2014
+293,Taylor Made,moto2,2014
+294,Tech 3,moto2,2014
+295,TransFIORmers,moto2,2014
+296,TSR,moto2,2014
+297,Yamaha,motogp,2014
+298,Aprilia,motogp,2015
+299,ART,motogp,2015
+300,Ducati,motogp,2015
+301,FTR,moto2,2015
+302,FTR,moto3,2015
+303,FTR Honda,moto3,2015
+304,Honda,moto3,2015
+305,Honda,motogp,2015
+306,Husqvarna,moto3,2015
+307,Kalex,moto2,2015
+308,Kalex KTM,moto3,2015
+309,KTM,moto3,2015
+310,Mahindra,moto3,2015
+311,Moriwaki,moto2,2015
+312,NTS,moto2,2015
+313,Speed Up,moto2,2015
+314,Suter,moto2,2015
+315,Suzuki,motogp,2015
+316,Tech 3,moto2,2015
+317,TransFIORmers,moto2,2015
+318,TVR,moto3,2015
+319,Yamaha,motogp,2015
+320,Yamaha Forward,motogp,2015
+321,Aprilia,motogp,2016
+322,Ducati,motogp,2016
+323,FTR Honda,moto3,2016
+324,Honda,moto3,2016
+325,Honda,motogp,2016
+326,Kalex,moto2,2016
+327,KTM,moto3,2016
+328,KTM,motogp,2016
+329,Mahindra,moto3,2016
+330,NTS,moto2,2016
+331,Peugeot,moto3,2016
+332,Speed Up,moto2,2016
+333,Suter,moto2,2016
+334,Suzuki,motogp,2016
+335,Tech 3,moto2,2016
+336,TransFIORmers,moto2,2016
+337,TSR,moto2,2016
+338,Yamaha,motogp,2016
+339,Aprilia,motogp,2017
+340,Ducati,motogp,2017
+341,Honda,moto3,2017
+342,Honda,motogp,2017
+343,Kalex,moto2,2017
+344,KTM,moto2,2017
+345,KTM,moto3,2017
+346,KTM,motogp,2017
+347,Mahindra,moto3,2017
+348,NTS,moto2,2017
+349,Peugeot,moto3,2017
+350,Speed Up,moto2,2017
+351,Suter,moto2,2017
+352,Suzuki,motogp,2017
+353,Tech 3,moto2,2017
+354,Yamaha,motogp,2017
+355,Aprilia,motogp,2018
+356,Ducati,motogp,2018
+357,Honda,moto2,2018
+358,Honda,moto3,2018
+359,Honda,motogp,2018
+360,Kalex,moto2,2018
+361,KTM,moto2,2018
+362,KTM,moto3,2018
+363,KTM,motogp,2018
+364,NTS,moto2,2018
+365,Speed Up,moto2,2018
+366,Suter,moto2,2018
+367,Suzuki,motogp,2018
+368,Tech 3,moto2,2018
+369,TM Racing,moto3,2018
+370,TransFIORmers,moto2,2018
+371,Yamaha,motogp,2018
+372,Aprilia,motogp,2019
+373,Ducati,motogp,2019
+374,Energica,moto-e,2019
+375,Honda,moto3,2019
+376,Honda,motogp,2019
+377,Kalex,moto2,2019
+378,Kalex KTM,moto3,2019
+379,KTM,moto2,2019
+380,KTM,moto3,2019
+381,KTM,motogp,2019
+382,MV Agusta,moto2,2019
+383,NTS,moto2,2019
+384,Speed Up,moto2,2019
+385,Suzuki,motogp,2019
+386,TM Racing,moto3,2019
+387,Yamaha,motogp,2019
+388,Aprilia,motogp,2020
+389,Ducati,motogp,2020
+390,Energica,moto-e,2020
+391,Honda,moto3,2020
+392,Honda,motogp,2020
+393,Husqvarna,moto3,2020
+394,Kalex,moto2,2020
+395,KTM,moto3,2020
+396,KTM,motogp,2020
+397,MV Agusta,moto2,2020
+398,NTS,moto2,2020
+399,Speed Up,moto2,2020
+400,Suzuki,motogp,2020
+401,Yamaha,motogp,2020
+402,Aprilia,motogp,2021
+403,Boscoscuro,moto2,2021
+404,Ducati,motogp,2021
+405,Energica,moto-e,2021
+406,Gas Gas,moto3,2021
+407,Honda,moto3,2021
+408,Honda,motogp,2021
+409,Husqvarna,moto3,2021
+410,Kalex,moto2,2021
+411,KTM,moto3,2021
+412,KTM,motogp,2021
+413,MV Agusta,moto2,2021
+414,NTS,moto2,2021
+415,Suzuki,motogp,2021
+416,Yamaha,motogp,2021
+417,Aprilia,motogp,2022
+418,Boscoscuro,moto2,2022
+419,CFMoto,moto3,2022
+420,Ducati,motogp,2022
+421,Energica,moto-e,2022
+422,Gas Gas,moto3,2022
+423,Honda,moto3,2022
+424,Honda,motogp,2022
+425,Husqvarna,moto3,2022
+426,Kalex,moto2,2022
+427,KTM,moto3,2022
+428,KTM,motogp,2022
+429,MV Agusta,moto2,2022
+430,Suzuki,motogp,2022
+431,Yamaha,motogp,2022
+432,Aprilia,motogp,2023
+433,Boscoscuro,moto2,2023
+434,CFMoto,moto3,2023
+435,Ducati,moto-e,2023
+436,Ducati,motogp,2023
+437,Forward,moto2,2023
+438,Gas Gas,moto3,2023
+439,Honda,moto3,2023
+440,Honda,motogp,2023
+441,Husqvarna,moto3,2023
+442,Kalex,moto2,2023
+443,KTM,moto3,2023
+444,KTM,motogp,2023
+445,NTS,moto2,2023
+446,Yamaha,motogp,2023

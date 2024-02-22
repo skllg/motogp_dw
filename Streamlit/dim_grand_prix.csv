@@ -1,0 +1,391 @@
+"id_grandprix","id_track_fk","des_grandprix","num_round","num_laps","season","gp_date","saturday_race","night_race"
+1,14,SKYY vodka Grand Prix of Japan,1,,2002,2002-04-07,false,false
+2,10,Africa's Grand Prix,2,,2002,2002-04-21,false,false
+3,7,Gran Premio Marlboro de España,3,,2002,2002-05-05,false,false
+4,4,Polini Grand Prix de France,4,,2002,2002-05-19,false,false
+5,9,Gran Premio Cinzano d'Italia,5,,2002,2002-06-02,false,false
+6,5,Gran Premi Marlboro de Catalunya,6,,2002,2002-06-16,false,false
+7,15,Gauloises Dutch TT,7,,2002,2002-06-29,true,false
+8,8,Cinzano British Grand Prix,8,,2002,2002-07-14,false,false
+9,12,Cinzano Motorrad Grand Prix Deutschland,9,,2002,2002-07-21,false,false
+10,3,Gauloises Grand Prix České republiky,10,,2002,2002-08-25,false,false
+11,1,Grande Prémio Marlboro de Portugal,11,,2002,2002-09-08,false,false
+12,2,Cinzano Rio Grand Prix,12,,2002,2002-09-21,true,false
+13,16,Gauloises Pacific Grand Prix of Motegi,13,,2002,2002-10-06,false,false
+14,13,Gauloises Malaysian Motorcycle Grand Prix,14,,2002,2002-10-13,false,false
+15,11,SKYY vodka Australian Grand Prix,15,,2002,2002-10-20,false,false
+16,6,Gran Premio Marlboro de la Comunitat Valenciana,16,,2002,2002-11-03,false,false
+17,14,SKYY vodka Grand Prix of Japan,1,,2003,2003-04-06,false,false
+18,10,Arnette Africa's Grand Prix,2,,2003,2003-04-27,false,false
+19,7,Gran Prémio Marlboro de España,3,,2003,2003-05-11,false,false
+20,4,Grand Prix Polini de France,4,,2003,2003-05-25,false,false
+21,9,Gran Premio Cinzano d'Italia,5,,2003,2003-06-08,false,false
+22,5,Gran Premi Marlboro de Catalunya,6,,2003,2003-06-15,false,false
+23,15,Gauloises Dutch TT,7,,2003,2003-06-28,true,false
+24,8,Cinzano British Grand Prix,8,,2003,2003-07-13,false,false
+25,12,Cinzano Motorrad Grand Prix von Deutschland,9,,2003,2003-07-27,false,false
+26,3,Gauloises Grand Prix České republiky,10,,2003,2003-08-17,false,false
+27,1,Grande Prémio Marlboro de Portugal,11,,2003,2003-09-07,false,false
+28,2,Cinzano Rio Grand Prix,12,,2003,2003-09-20,true,false
+29,16,Gauloises Pacific Grand Prix of Motegi,13,,2003,2003-10-05,false,false
+30,13,Marlboro Malaysian Motorcycle Grand Prix,14,,2003,2003-10-12,false,false
+31,17,SKYY vodka Australian Grand Prix,15,,2003,2003-10-19,false,false
+32,6,Gran Premio Marlboro Comunitat Valenciana,16,,2003,2003-11-02,false,false
+33,10,betandwin.com Africa's Grand Prix,1,,2004,2004-04-18,false,false
+34,7,Gran Premio Marlboro de España,2,,2004,2004-05-02,false,false
+35,4,Grand Prix Polini de France,3,,2004,2004-05-16,false,false
+36,9,Gran Premio Cinzano d'Italia,4,,2004,2004-06-06,false,false
+37,5,Gran Premi Gauloises de Catalunya,5,,2004,2004-06-13,false,false
+38,15,Gauloises TT Assen,6,,2004,2004-06-26,true,false
+39,2,Cinzano Rio Grand Prix,7,,2004,2004-07-04,false,false
+40,12,Veltins Motorrad Grand Prix Deutschland,8,,2004,2004-07-18,false,false
+41,8,Cinzano British Grand Prix,9,,2004,2004-07-25,false,false
+42,3,Gauloises Grand Prix České republiky,10,,2004,2004-08-22,false,false
+43,1,Grande Prémio Marlboro de Portugal,11,,2004,2004-09-05,false,false
+44,16,Camel Grand Prix of Japan,12,,2004,2004-09-19,false,false
+45,18,Marlboro Grand Prix of Qatar,13,,2004,2004-10-02,true,false
+46,13,Marlboro Malaysian Motorcycle Grand Prix,14,,2004,2004-10-10,false,false
+47,11,Cinzano Australian Grand Prix,15,,2004,2004-10-17,false,false
+48,6,Gran Premio Marlboro Comunitat Valenciana,16,,2004,2004-10-31,false,false
+49,7,Gran Premio Marlboro de España,1,,2005,2005-04-10,false,false
+50,1,betandwin.com Grande Prémio de Portugal,2,,2005,2005-04-17,false,false
+51,21,Taobao.com Grand Prix of China,3,,2005,2005-05-01,false,false
+52,4,Grand Prix Alice de France,4,,2005,2005-05-15,false,false
+53,9,Gran Premio Alice d'Italia,5,,2005,2005-06-05,false,false
+54,5,Gran Premi Gauloises de Catalunya,6,,2005,2005-06-12,false,false
+55,15,Gauloises TT Assen,7,,2005,2005-06-25,true,false
+56,20,Red Bull U.S. Grand Prix,8,,2005,2005-07-10,false,false
+57,8,betandwin.com British Grand Prix,9,,2005,2005-07-24,false,false
+58,12,Alice Motorrad Grand Prix Deutschland,10,,2005,2005-07-31,false,false
+59,3,Gauloises Grand Prix České republiky,11,,2005,2005-08-28,false,false
+60,16,Grand Prix of Japan,12,,2005,2005-09-18,false,false
+61,13,Marlboro Malaysian Motorcycle Grand Prix,13,,2005,2005-09-25,false,false
+62,18,Marlboro Grand Prix of Qatar,14,,2005,2005-10-01,true,false
+63,11,Polini Grand Prix of Australia,15,,2005,2005-10-16,false,false
+64,19,Grand Prix of Turkey,16,,2005,2005-10-23,false,false
+65,6,Gran Premio betandwin.com de la Comunitat Valenciana,17,,2005,2005-11-06,false,false
+66,7,Gran Premio betandwin.com de España,1,,2006,2006-03-26,false,false
+67,18,Commercialbank Grand Prix of Qatar,2,,2006,2006-04-08,true,false
+68,19,Grand Prix of Turkey,3,,2006,2006-04-30,false,false
+69,21,Polini Grand Prix of China,4,,2006,2006-05-14,false,false
+70,4,Alice Grand Prix de France,5,,2006,2006-05-21,false,false
+71,9,Gran Premio d'Italia Alice,6,,2006,2006-06-04,false,false
+72,5,Gran Premi Cinzano de Catalunya,7,,2006,2006-06-18,false,false
+73,15,A-Style TT Assen,8,,2006,2006-06-24,true,false
+74,8,Gas British Grand Prix,9,,2006,2006-07-02,false,false
+75,12,betandwin.com Motorrad Grand Prix Deutschland,10,,2006,2006-07-16,false,false
+76,20,Red Bull U.S. Grand Prix,11,,2006,2006-07-23,false,false
+77,3,Gauloises Grand Prix České republiky,12,,2006,2006-08-20,false,false
+78,13,Marlboro Malaysian Motorcycle Grand Prix,13,,2006,2006-09-10,false,false
+79,11,GMC Australian Grand Prix,14,,2006,2006-09-17,false,false
+80,16,A-Style Grand Prix of Japan,15,,2006,2006-09-24,false,false
+81,1,bwin.com Grande Prémio de Portugal,16,,2006,2006-10-15,false,false
+82,6,Gran Premio bwin.com de la Comunitat Valenciana,17,,2006,2006-10-29,false,false
+83,18,Commercialbank Grand Prix of Qatar,1,,2007,2007-03-10,true,false
+84,7,Gran Premio bwin.com de España,2,,2007,2007-03-25,false,false
+85,19,Grand Prix of Turkey,3,,2007,2007-04-22,false,false
+86,21,Sinopec Great Wall Lubricants Grand Prix of China,4,,2007,2007-05-06,false,false
+87,4,Alice Grand Prix de France,5,,2007,2007-05-20,false,false
+88,9,Gran Premio d'Italia Alice,6,,2007,2007-06-03,false,false
+89,5,Gran Premi Cinzano de Catalunya,7,,2007,2007-06-10,false,false
+90,8,Nickel & Dime British Grand Prix,8,,2007,2007-06-24,false,false
+91,15,A-Style TT Assen,9,,2007,2007-06-30,true,false
+92,12,Alice Motorrad Grand Prix Deutschland,10,,2007,2007-07-15,false,false
+93,20,Red Bull U.S. Grand Prix,11,,2007,2007-07-22,false,false
+94,3,Cardion AB Grand Prix České republiky,12,,2007,2007-08-19,false,false
+95,22,Gran Premio Cinzano di San Marino e Della Riviera di Rimini,13,,2007,2007-09-02,false,false
+96,1,bwin.com Grande Prémio de Portugal,14,,2007,2007-09-16,false,false
+97,16,A-Style Grand Prix of Japan,15,,2007,2007-09-23,false,false
+98,11,GMC Australian Grand Prix,16,,2007,2007-10-14,false,false
+99,13,Polini Malaysian Motorcycle Grand Prix,17,,2007,2007-10-21,false,false
+100,6,Gran Premio bwin.com de la Comunitat Valenciana,18,,2007,2007-11-04,false,false
+101,18,Commercialbank Grand Prix of Qatar,1,,2008,2008-03-09,false,true
+102,7,Gran Premio bwin.com de España,2,,2008,2008-03-30,false,false
+103,1,bwin.com Grande Prémio de Portugal,3,,2008,2008-04-13,false,false
+104,21,Pramac Grand Prix of China,4,,2008,2008-05-04,false,false
+105,4,Alice Grand Prix de France,5,,2008,2008-05-18,false,false
+106,9,Gran Premio d'Italia Alice,6,,2008,2008-06-01,false,false
+107,5,Gran Premi Cinzano de Catalunya,7,,2008,2008-06-08,false,false
+108,8,bwin.com British Grand Prix,8,,2008,2008-06-22,false,false
+109,15,A-Style TT Assen,9,,2008,2008-06-28,true,false
+110,12,Alice Motorrad Grand Prix Deutschland,10,,2008,2008-07-13,false,false
+111,20,Red Bull U.S. Grand Prix,11,,2008,2008-07-20,false,false
+112,3,Cardion ab Grand Prix České republiky,12,,2008,2008-08-17,false,false
+113,22,Gran Premio Cinzano di San Marino e Della Riviera di Rimini,13,,2008,2008-08-31,false,false
+114,23,Red Bull Indianapolis Grand Prix,14,,2008,2008-09-14,false,false
+115,16,A-Style Grand Prix of Japan,15,,2008,2008-09-28,false,false
+116,11,Australian Grand Prix,16,,2008,2008-10-05,false,false
+117,13,Polini Malaysian Motorcycle Grand Prix,17,,2008,2008-10-19,false,false
+118,6,Gran Premio Parts Europe de la Comunitat Valenciana,18,,2008,2008-10-26,false,false
+119,18,Commercialbank Grand Prix of Qatar,1,,2009,2009-04-13,false,true
+120,16,Polini Grand Prix of Japan,2,,2009,2009-04-26,false,false
+121,7,Gran Premio bwin.com de España,3,,2009,2009-05-03,false,false
+122,4,Grand Prix de France,4,,2009,2009-05-17,false,false
+123,9,Gran Premio d'Italia Alice,5,,2009,2009-05-31,false,false
+124,5,Gran Premi Cinzano de Catalunya,6,,2009,2009-06-14,false,false
+125,15,Alice TT Assen,7,,2009,2009-06-27,true,false
+126,20,Red Bull U.S. Grand Prix,8,,2009,2009-07-05,false,false
+127,12,Alice Motorrad Grand Prix Deutschland,9,,2009,2009-07-19,false,false
+128,8,British Grand Prix,10,,2009,2009-07-26,false,false
+129,3,Cardion ab Grand Prix České republiky,11,,2009,2009-08-16,false,false
+130,23,Red Bull Indianapolis Grand Prix,12,,2009,2009-08-30,false,false
+131,22,Gran Premio Cinzano di San Marino e Della Riviera di Rimini,13,,2009,2009-09-06,false,false
+132,1,bwin.com Grande Prémio de Portugal,14,,2009,2009-10-04,false,false
+133,11,Iveco Australian Grand Prix,15,,2009,2009-10-18,false,false
+134,13,Shell Advance Malaysian Motorcycle Grand Prix,16,,2009,2009-10-25,false,false
+135,6,GP Generali de la Comunitat Valenciana,17,,2009,2009-11-08,false,false
+136,18,Commercialbank Grand Prix of Qatar,1,,2010,2010-04-11,false,true
+137,7,Gran Premio bwin de España,2,,2010,2010-05-02,false,false
+138,4,Monster Energy Grand Prix de France,3,,2010,2010-05-23,false,false
+139,9,Gran Premio d'Italia TIM,4,,2010,2010-06-06,false,false
+140,25,AirAsia British Grand Prix,5,,2010,2010-06-20,false,false
+141,15,TIM TT Assen,6,,2010,2010-06-26,true,false
+142,5,Gran Premi Aperol de Catalunya,7,,2010,2010-07-04,false,false
+143,12,eni Motorrad Grand Prix Deutschland,8,,2010,2010-07-18,false,false
+144,20,Red Bull U.S. Grand Prix,9,,2010,2010-07-25,false,false
+145,3,Cardion ab Grand Prix České republiky,10,,2010,2010-08-15,false,false
+146,23,Red Bull Indianapolis Grand Prix,11,,2010,2010-08-29,false,false
+147,22,Gran Premio Aperol di San Marino e Della Riviera di Rimini,12,,2010,2010-09-05,false,false
+148,24,Gran Premio A-Style de Aragón,13,,2010,2010-09-19,false,false
+149,16,Grand Prix of Japan,14,,2010,2010-10-03,false,false
+150,13,Shell Advance Malaysian Motorcycle Grand Prix,15,,2010,2010-10-10,false,false
+151,11,Iveco Australian Grand Prix,16,,2010,2010-10-17,false,false
+152,1,bwin Grande Prémio de Portugal,17,,2010,2010-10-31,false,false
+153,6,Gran Premio Generali de la Comunitat Valenciana,18,,2010,2010-11-07,false,false
+154,18,Commercialbank Grand Prix of Qatar,1,,2011,2011-03-20,false,true
+155,7,Gran Premio bwin de España,2,,2011,2011-04-03,false,false
+156,1,bwin Portuguese Grand Prix,3,,2011,2011-05-01,false,false
+157,4,Monster Energy Grand Prix de France,4,,2011,2011-05-15,false,false
+158,5,Gran Premi Aperol de Catalunya,5,,2011,2011-06-05,false,false
+159,25,AirAsia British Grand Prix,6,,2011,2011-06-12,false,false
+160,15,Iveco TT Assen,7,,2011,2011-06-25,true,false
+161,9,Gran Premio d'Italia TIM,8,,2011,2011-07-03,false,false
+162,12,eni Motorrad Grand Prix Deutschland,9,,2011,2011-07-17,false,false
+163,20,Red Bull U.S. Grand Prix,10,,2011,2011-07-24,false,false
+164,3,Cardion AB Grand Prix České republiky,11,,2011,2011-08-14,false,false
+165,23,Red Bull Indianapolis Grand Prix,12,,2011,2011-08-28,false,false
+166,22,Gran Premio Aperol di San Marino e Della Riviera di Rimini,13,,2011,2011-09-04,false,false
+167,24,Gran Premio de Aragón,14,,2011,2011-09-18,false,false
+168,16,Grand Prix of Japan,15,,2011,2011-10-02,false,false
+169,11,Iveco Australian Motorcycle Grand Prix,16,,2011,2011-10-16,false,false
+170,13,Shell Advance Malaysian Motorcycle Grand Prix,17,,2011,2011-10-23,false,false
+171,6,Gran Premio Generali de la Comunitat Valenciana,18,,2011,2011-11-06,false,false
+172,18,Commercialbank Grand Prix of Qatar,1,,2012,2012-04-08,false,true
+173,7,Gran Premio bwin de España,2,,2012,2012-04-29,false,false
+174,1,Grande Prémio de Portugal,3,,2012,2012-05-06,false,false
+175,4,Monster Energy Grand Prix de France,4,,2012,2012-05-20,false,false
+176,5,Gran Premi Aperol de Catalunya,5,,2012,2012-06-03,false,false
+177,25,Hertz British Grand Prix,6,,2012,2012-06-17,false,false
+178,15,Iveco TT Assen,7,,2012,2012-06-30,true,false
+179,12,eni Motorrad Grand Prix Deutschland,8,,2012,2012-07-08,false,false
+180,9,Gran Premio d'Italia TIM,9,,2012,2012-07-15,false,false
+181,20,Red Bull U.S. Grand Prix,10,,2012,2012-07-29,false,false
+182,23,Red Bull Indianapolis Grand Prix,11,,2012,2012-08-19,false,false
+183,3,bwin Grand Prix České republiky,12,,2012,2012-08-26,false,false
+184,26,Gran Premio Aperol di San Marino e Della Riviera di Rimini,13,,2012,2012-09-16,false,false
+185,24,Gran Premio Iveco de Aragón,14,,2012,2012-09-30,false,false
+186,16,AirAsia Grand Prix of Japan,15,,2012,2012-10-14,false,false
+187,13,Malaysian Motorcycle Grand Prix,16,,2012,2012-10-21,false,false
+188,11,AirAsia Australian Grand Prix,17,,2012,2012-10-28,false,false
+189,6,Gran Premio Generali de la Comunitat Valenciana,18,,2012,2012-11-11,false,false
+190,18,Commercialbank Grand Prix of Qatar,1,,2013,2013-04-07,false,true
+191,27,Red Bull Grand Prix of the Americas,2,,2013,2013-04-21,false,false
+192,7,Gran Premio bwin de España,3,,2013,2013-05-05,false,false
+193,4,Monster Energy Grand Prix de France,4,,2013,2013-05-19,false,false
+194,9,Gran Premio d'Italia TIM,5,,2013,2013-06-02,false,false
+195,5,Gran Premi Aperol de Catalunya,6,,2013,2013-06-16,false,false
+196,15,Iveco TT Assen,7,,2013,2013-06-29,true,false
+197,12,eni Motorrad Grand Prix Deutschland,8,,2013,2013-07-14,false,false
+198,20,Red Bull U.S. Grand Prix,9,,2013,2013-07-21,false,false
+199,23,Red Bull Indianapolis Grand Prix,10,,2013,2013-08-18,false,false
+200,3,bwin Grand Prix České republiky,11,,2013,2013-08-25,false,false
+201,25,Hertz British Grand Prix,12,,2013,2013-09-01,false,false
+202,26,Gran Premio Aperol di San Marino e Della Riviera di Rimini,13,,2013,2013-09-15,false,false
+203,24,Gran Premio Iveco de Aragón,14,,2013,2013-09-29,false,false
+204,13,Shell Advance Malaysian Motorcycle Grand Prix,15,,2013,2013-10-13,false,false
+205,11,Tissot Australian Grand Prix,16,,2013,2013-10-20,false,false
+206,16,AirAsia Grand Prix of Japan,17,,2013,2013-10-27,false,false
+207,6,Gran Premio Generali de la Comunitat Valenciana,18,,2013,2013-11-10,false,false
+208,18,Commercial Bank Grand Prix of Qatar,1,,2014,2014-03-23,false,true
+209,27,Red Bull Grand Prix of the Americas,2,,2014,2014-04-13,false,false
+210,28,Gran Premio Red Bull de la República Argentina,3,,2014,2014-04-27,false,false
+211,7,Gran Premio bwin de España,4,,2014,2014-05-04,false,false
+212,4,Monster Energy Grand Prix de France,5,,2014,2014-05-18,false,false
+213,9,Gran Premio d'Italia TIM,6,,2014,2014-06-01,false,false
+214,29,Gran Premi Monster Energy de Catalunya,7,,2014,2014-06-15,false,false
+215,15,Iveco Daily TT Assen,8,,2014,2014-06-28,true,false
+216,12,eni Motorrad Grand Prix Deutschland,9,,2014,2014-07-13,false,false
+217,23,Red Bull Indianapolis Grand Prix,10,,2014,2014-08-10,false,false
+218,3,bwin Grand Prix České republiky,11,,2014,2014-08-17,false,false
+219,25,Hertz British Grand Prix,12,,2014,2014-08-31,false,false
+220,26,Gran Premio TIM di San Marino e Della Riviera di Rimini,13,,2014,2014-09-14,false,false
+221,24,Gran Premio Movistar de Aragón,14,,2014,2014-09-28,false,false
+222,16,Motul Grand Prix of Japan,15,,2014,2014-10-12,false,false
+223,11,Tissot Australian Grand Prix,16,,2014,2014-10-19,false,false
+224,13,Shell Advance Malaysian Motorcycle Grand Prix,17,,2014,2014-10-26,false,false
+225,6,Gran Premio Generali de la Comunitat Valenciana,18,,2014,2014-11-09,false,false
+226,18,Commercial Bank Grand Prix of Qatar,1,,2015,2015-03-29,false,true
+227,27,Red Bull Grand Prix of the Americas,2,,2015,2015-04-12,false,false
+228,28,Gran Premio Red Bull de la República Argentina,3,,2015,2015-04-19,false,false
+229,7,Gran Premio bwin de España,4,,2015,2015-05-03,false,false
+230,4,Monster Energy Grand Prix de France,5,,2015,2015-05-17,false,false
+231,9,Gran Premio d'Italia TIM,6,,2015,2015-05-31,false,false
+232,29,Gran Premi Monster Energy de Catalunya,7,,2015,2015-06-14,false,false
+233,15,Motul TT Assen,8,,2015,2015-06-27,true,false
+234,12,GoPro Motorrad Grand Prix Deutschland,9,,2015,2015-07-12,false,false
+235,23,Red Bull Indianapolis Grand Prix,10,,2015,2015-08-09,false,false
+236,3,bwin Grand Prix České republiky,11,,2015,2015-08-16,false,false
+237,25,Octo British Grand Prix,12,,2015,2015-08-30,false,false
+238,26,Gran Premio TIM di San Marino e della Riviera di Rimini,13,,2015,2015-09-13,false,false
+239,24,Gran Premio Movistar de Aragón,14,,2015,2015-09-27,false,false
+240,16,Motul Grand Prix of Japan,15,,2015,2015-10-11,false,false
+241,11,Pramac Australian Motorcycle Grand Prix,16,,2015,2015-10-18,false,false
+242,13,Shell Malaysia Motorcycle Grand Prix,17,,2015,2015-10-25,false,false
+243,6,Gran Premio Motul de la Comunitat Valenciana,18,,2015,2015-11-08,false,false
+244,18,Commercial Bank Grand Prix of Qatar,1,,2016,2016-03-20,false,true
+245,28,Gran Premio Motul de la República Argentina,2,,2016,2016-04-03,false,false
+246,27,Red Bull Grand Prix of the Americas,3,,2016,2016-04-10,false,false
+247,7,Gran Premio Red Bull de España,4,,2016,2016-04-24,false,false
+248,4,Monster Energy Grand Prix de France,5,,2016,2016-05-08,false,false
+249,9,Gran Premio d'Italia TIM,6,,2016,2016-05-22,false,false
+250,29,Gran Premi Monster Energy de Catalunya,7,,2016,2016-06-05,false,false
+251,15,Motul TT Assen,8,,2016,2016-06-26,false,false
+252,12,GoPro Motorrad Grand Prix Deutschland,9,,2016,2016-07-17,false,false
+253,30,NeroGiardini Motorrad Grand Prix von Österreich,10,,2016,2016-08-14,false,false
+254,3,HJC Helmets Grand Prix České republiky,11,,2016,2016-08-21,false,false
+255,25,Octo British Grand Prix,12,,2016,2016-09-04,false,false
+256,26,Gran Premio TIM di San Marino e della Riviera di Rimini,13,,2016,2016-09-11,false,false
+257,24,Gran Premio Movistar de Aragón,14,,2016,2016-09-25,false,false
+258,16,Motul Grand Prix of Japan,15,,2016,2016-10-16,false,false
+259,11,Michelin Australian Motorcycle Grand Prix,16,,2016,2016-10-23,false,false
+260,13,Shell Malaysia Motorcycle Grand Prix,17,,2016,2016-10-30,false,false
+261,6,Gran Premio Motul de la Comunitat Valenciana,18,,2016,2016-11-13,false,false
+262,18,Grand Prix of Qatar,1,,2017,2017-03-26,false,true
+263,28,Gran Premio Motul de la República Argentina,2,,2017,2017-04-09,false,false
+264,27,Red Bull Grand Prix of the Americas,3,,2017,2017-04-23,false,false
+265,7,Gran Premio Red Bull de España,4,,2017,2017-05-07,false,false
+266,4,HJC Helmets Grand Prix de France,5,,2017,2017-05-21,false,false
+267,9,Gran Premio d'Italia Oakley,6,,2017,2017-06-04,false,false
+268,29,Gran Premi Monster Energy de Catalunya,7,,2017,2017-06-11,false,false
+269,15,Motul TT Assen,8,,2017,2017-06-25,false,false
+270,12,GoPro Motorrad Grand Prix Deutschland,9,,2017,2017-07-02,false,false
+271,3,Monster Energy Grand Prix České republiky,10,,2017,2017-08-06,false,false
+272,30,NeroGiardini Motorrad Grand Prix von Österreich,11,,2017,2017-08-13,false,false
+273,25,Octo British Grand Prix,12,,2017,2017-08-27,false,false
+274,26,Gran Premio Tribul MasterCard di San Marino e della Riviera di Rimini,13,,2017,2017-09-10,false,false
+275,24,Gran Premio Movistar de Aragón,14,,2017,2017-09-24,false,false
+276,16,Motul Grand Prix of Japan,15,,2017,2017-10-15,false,false
+277,11,Michelin Australian Motorcycle Grand Prix,16,,2017,2017-10-22,false,false
+278,13,Shell Malaysia Motorcycle Grand Prix,17,,2017,2017-10-29,false,false
+279,6,Gran Premio Motul de la Comunitat Valenciana,18,,2017,2017-11-12,false,false
+280,18,Grand Prix of Qatar,1,,2018,2018-03-18,false,true
+281,28,Gran Premio Motul de la República Argentina,2,,2018,2018-04-08,false,false
+282,27,Red Bull Grand Prix of the Americas,3,,2018,2018-04-22,false,false
+283,32,Gran Premio Red Bull de España,4,,2018,2018-05-06,false,false
+284,4,HJC Helmets Grand Prix de France,5,,2018,2018-05-20,false,false
+285,9,Gran Premio d'Italia Oakley,6,,2018,2018-06-03,false,false
+286,29,Gran Premi Monster Energy de Catalunya,7,,2018,2018-06-17,false,false
+287,15,Motul TT Assen,8,,2018,2018-07-01,false,false
+288,12,Pramac Motorrad Grand Prix Deutschland,9,,2018,2018-07-15,false,false
+289,3,Monster Energy Grand Prix České republiky,10,,2018,2018-08-05,false,false
+290,30,Eyetime Motorrad Grand Prix von Österreich,11,,2018,2018-08-12,false,false
+291,25,GoPro British Grand Prix,12,,2018,2018-08-26,false,false
+292,26,Gran Premio Octo di San Marino e della Riviera di Rimini[55],13,,2018,2018-09-09,false,false
+293,24,Gran Premio Movistar de Aragón,14,,2018,2018-09-23,false,false
+294,31,PTT Thailand Grand Prix,15,,2018,2018-10-07,false,false
+295,16,Motul Grand Prix of Japan,16,,2018,2018-10-21,false,false
+296,11,Michelin Australian Motorcycle Grand Prix,17,,2018,2018-10-28,false,false
+297,13,Shell Malaysia Motorcycle Grand Prix,18,,2018,2018-11-04,false,false
+298,6,Gran Premio Motul de la Comunitat Valenciana,19,,2018,2018-11-18,false,false
+299,18,VisitQatar Grand Prix,1,,2019,2019-03-10,false,true
+300,28,Gran Premio Motul de la República Argentina,2,,2019,2019-03-31,false,false
+301,27,Red Bull Grand Prix of The Americas,3,,2019,2019-04-14,false,false
+302,32,Gran Premio Red Bull de España,4,,2019,2019-05-05,false,false
+303,4,SHARK Helmets Grand Prix de France,5,,2019,2019-05-19,false,false
+304,33,Gran Premio d'Italia Oakley,6,,2019,2019-06-02,false,false
+305,29,Gran Premi Monster Energy de Catalunya,7,,2019,2019-06-16,false,false
+306,15,Motul TT Assen,8,,2019,2019-06-30,false,false
+307,12,HJC Helmets Motorrad Grand Prix Deutschland,9,,2019,2019-07-07,false,false
+308,3,Monster Energy Grand Prix České republiky,10,,2019,2019-08-04,false,false
+309,30,myWorld Motorrad Grand Prix von Österreich,11,,2019,2019-08-11,false,false
+310,25,GoPro British Grand Prix,12,,2019,2019-08-25,false,false
+311,26,Gran Premio Octo di San Marino e della Riviera di Rimini,13,,2019,2019-09-15,false,false
+312,24,Gran Premio Michelin de Aragón,14,,2019,2019-09-22,false,false
+313,31,PTT Thailand Grand Prix,15,,2019,2019-10-06,false,false
+314,16,Motul Grand Prix of Japan,16,,2019,2019-10-20,false,false
+315,11,Pramac Generac Australian Motorcycle Grand Prix,17,,2019,2019-10-27,false,false
+316,13,Shell Malaysia Motorcycle Grand Prix,18,,2019,2019-11-03,false,false
+317,6,Gran Premio Motul de la Comunitat Valenciana,19,,2019,2019-11-17,false,false
+318,18,QNB Grand Prix of Qatar,1,,2020,2020-03-08,false,true
+319,32,Gran Premio Red Bull de España,2,,2020,2020-07-19,false,false
+320,32,Gran Premio Red Bull de Andalucía,3,,2020,2020-07-26,false,false
+321,3,Monster Energy Grand Prix České republiky,4,,2020,2020-08-09,false,false
+322,30,myWorld Motorrad Grand Prix von Österreich,5,,2020,2020-08-16,false,false
+323,30,BMW M Grand Prix of Styria,6,,2020,2020-08-23,false,false
+324,26,Gran Premio Lenovo di San Marino e della Riviera di Rimini,7,,2020,2020-09-13,false,false
+325,26,Gran Premio TISSOT dell'Emilia Romagna e della Riviera di Rimini,8,,2020,2020-09-20,false,false
+326,29,Gran Premi Monster Energy de Catalunya,9,,2020,2020-09-27,false,false
+327,4,SHARK Helmets Grand Prix de France,10,,2020,2020-10-11,false,false
+328,24,Gran Premio Michelin de Aragón,11,,2020,2020-10-18,false,false
+329,24,Gran Premio Liqui Moly de Teruel,12,,2020,2020-10-25,false,false
+330,6,Gran Premio de Europa,13,,2020,2020-11-08,false,false
+331,6,Gran Premio Motul de la Comunitat Valenciana,14,,2020,2020-11-15,false,false
+332,34,Grande Prémio MEO de Portugal,15,,2020,2020-11-22,false,false
+333,18,Barwa Grand Prix of Qatar,1,,2021,2021-03-28,false,true
+334,18,Tissot Grand Prix of Doha,2,,2021,2021-04-04,false,false
+335,34,Grande Prémio 888 de Portugal,3,,2021,2021-04-18,false,false
+336,32,Gran Premio Red Bull de España,4,,2021,2021-05-02,false,false
+337,4,Shark Grand Prix de France,5,,2021,2021-05-16,false,false
+338,33,Gran Premio d'Italia Oakley,6,,2021,2021-05-30,false,false
+339,29,Gran Premi Monster Energy de Catalunya,7,,2021,2021-06-06,false,false
+340,12,Liqui Moly Motorrad Grand Prix Deutschland,8,,2021,2021-06-20,false,false
+341,15,Motul TT Assen,9,,2021,2021-06-27,false,false
+342,30,Michelin Grand Prix of Styria,10,,2021,2021-08-08,false,false
+343,30,Bitci Motorrad Grand Prix von Österreich,11,,2021,2021-08-15,false,false
+344,25,Monster Energy British Grand Prix,12,,2021,2021-08-29,false,false
+345,24,Gran Premio Tissot de Aragón,13,,2021,2021-09-12,false,false
+346,26,Gran Premio Octo di San Marino e della Riviera di Rimini,14,,2021,2021-09-19,false,false
+347,27,Red Bull Grand Prix of the Americas,15,,2021,2021-10-03,false,false
+348,26,Gran Premio Nolan del Made in Italy e dell'Emilia-Romagna,16,,2021,2021-10-24,false,false
+349,34,Grande Prémio Brembo do Algarve,17,,2021,2021-11-07,false,false
+350,6,Gran Premio Motul de la Comunitat Valenciana,18,,2021,2021-11-14,false,false
+351,35,Grand Prix of Qatar,1,,2022,2022-03-06,false,true
+352,37,Pertamina Grand Prix of Indonesia,2,,2022,2022-03-20,false,false
+353,28,Gran Premio Michelin de la República Argentina,3,,2022,2022-04-03,false,false
+354,27,Red Bull Grand Prix of The Americas,4,,2022,2022-04-10,false,false
+355,34,Grande Prémio Tissot de Portugal,5,,2022,2022-04-24,false,false
+356,32,Gran Premio Red Bull de España,6,,2022,2022-05-01,false,false
+357,4,Shark Grand Prix de France,7,,2022,2022-05-15,false,false
+358,33,Gran Premio d'Italia Oakley,8,,2022,2022-05-29,false,false
+359,29,Gran Premi Monster Energy de Catalunya,9,,2022,2022-06-05,false,false
+360,12,Liqui Moly Motorrad Grand Prix Deutschland,10,,2022,2022-06-19,false,false
+361,15,Motul TT Assen,11,,2022,2022-06-26,false,false
+362,25,Monster Energy British Grand Prix,12,,2022,2022-08-07,false,false
+363,30,CryptoData Motorrad Grand Prix von Österreich,13,,2022,2022-08-21,false,false
+364,26,Gran Premio Gryfyn di San Marino e della Riviera di Rimini,14,,2022,2022-09-04,false,false
+365,24,Gran Premio Animoca Brands de Aragón,15,,2022,2022-09-18,false,false
+366,36,Motul Grand Prix of Japan,16,,2022,2022-09-25,false,false
+367,31,OR Thailand Grand Prix,17,,2022,2022-10-02,false,false
+368,11,Animoca Brands Australian Motorcycle Grand Prix,18,,2022,2022-10-16,false,false
+369,13,Petronas Grand Prix of Malaysia,19,,2022,2022-10-23,false,false
+370,6,Gran Premio Motul de la Comunitat Valenciana,20,,2022,2022-11-06,false,false
+371,34,Grande Prémio Tissot de Portugal,1,,2023,2023-03-26,false,false
+372,28,Gran Premio Michelin de la República Argentina,2,,2023,2023-04-02,false,false
+373,27,Red Bull Grand Prix of the Americas,3,,2023,2023-04-16,false,false
+374,32,Gran Premio MotoGP Guru by Gryfyn de España,4,,2023,2023-04-30,false,false
+375,4,Shark Grand Prix de France,5,,2023,2023-05-14,false,false
+376,33,Gran Premio d'Italia Oakley,6,,2023,2023-06-11,false,false
+377,12,Liqui Moly Motorrad Grand Prix Deutschland,7,,2023,2023-06-18,false,false
+378,15,Motul TT Assen,8,,2023,2023-06-25,false,false
+379,25,Monster Energy British Grand Prix,9,,2023,2023-08-06,false,false
+380,30,CryptoData Motorrad Grand Prix von Österreich,10,,2023,2023-08-20,false,false
+381,29,Gran Premi Monster Energy de Catalunya,11,,2023,2023-09-03,false,false
+382,26,Gran Premio Red Bull di San Marino e della Riviera di Rimini,12,,2023,2023-09-10,false,false
+383,38,IndianOil Grand Prix of India,13,,2023,2023-09-24,false,false
+384,36,Motul Grand Prix of Japan,14,,2023,2023-10-01,false,false
+385,37,Pertamina Grand Prix of Indonesia,15,,2023,2023-10-15,false,false
+386,11,MotoGP Guru by Gryfyn Australian Motorcycle Grand Prix,16,,2023,2023-10-21,true,false
+387,31,OR Thailand Grand Prix,17,,2023,2023-10-29,false,false
+388,39,Petronas Grand Prix of Malaysia,18,,2023,2023-11-12,false,false
+389,35,Qatar Airways Grand Prix of Qatar,19,,2023,2023-11-19,false,true
+390,6,Gran Premio Motul de la Comunitat Valenciana,20,,2023,2023-11-26,false,false

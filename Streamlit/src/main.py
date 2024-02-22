@@ -97,7 +97,7 @@ def show_main_page():
             
             df = fetch_cummulative_sum_points(season, racing_class)
             
-            fig = px.line(df, x="num_round", y="cummulative_sum", color='rider_name', symbol="rider_name")
+            fig = px.line(df, x="num_round", y="cummulative_sum", color='rider_full_name', symbol="rider_full_name")
             # fig.show()
             st.plotly_chart(fig)
 
@@ -138,7 +138,7 @@ def show_main_page():
             df1 = fetch_season_bar_chart(season, motogp)
             
 
-            fig1 = px.bar(df1, x="rider_name", y="total_points", color='rider_name')
+            fig1 = px.bar(df1, x='rider_name', y="total_points", color='rider_name')
                                 
 
             # fig.show()
@@ -237,16 +237,28 @@ def show_main_page():
         
         with S42_col1:
             num_gp = fetch_total_num_gp(season2)
-            st.metric(label='number of GPs', value=num_gp[0])
+            if st.session_state.UsingCSV:
+                st.metric(label='number of GPs', value=num_gp.iloc[0])
+            else:
+                st.metric(label='number of GPs', value=num_gp[0])
         with S42_col2:
             num_hp = fetch_HP_races(season2,racing_class)
-            st.metric(label='number of half point races', value=num_hp[0])
+            if st.session_state.UsingCSV:
+                st.metric(label='number of half point races', value=num_hp.iloc[0])
+            else:
+                st.metric(label='number of half point races', value=num_hp[0])
         with S42_col3:
             num_night=fetch_night_races(season2)
-            st.metric(label='number of night races', value=num_night[0])
+            if st.session_state.UsingCSV:
+                st.metric(label='number of night races', value=num_night.iloc[0])
+            else:
+                st.metric(label='number of night races', value=num_night[0])
         with S42_col4:
             num_sat=fetch_satruday_races(season2)
-            st.metric(label='number of saturday races', value=num_sat[0])
+            if st.session_state.UsingCSV:
+                st.metric(label='number of saturday races', value=num_sat.iloc[0])
+            else:
+                st.metric(label='number of saturday races', value=num_sat[0])
             
         with S2_tab1:
         
@@ -409,5 +421,8 @@ with main:
     # setup()
 
     #se muestra la página principal
-    connect_csv()
+    if 'UsingCSV' not in st.session_state:
+        st.session_state.UsingCSV = True
+    if st.session_state.UsingCSV:
+        connect_csv()
     show_main_page()
