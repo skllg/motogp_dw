@@ -443,13 +443,13 @@
   </notepads>
   <connection>
     <name>motogp_dw</name>
-    <server>${MOTOGP_HOST}</server>
+    <server>aws-0-us-west-1.pooler.supabase.com</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>${MOTOGP_DATABASE}</database>
-    <port>${MOTOGP_PORT}</port>
-    <username>${MOTOGP_USER}</username>
-    <password>${MOTOGP_PASS}</password>
+    <database>postgres</database>
+    <port>5432</port>
+    <username>postgres.rjsugwqpmaleskakbhbh</username>
+    <password>Encrypted 2be98defd289083dca35f9c71cd94a699</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -468,7 +468,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>${MOTOGP_PORT}</attribute>
+        <attribute>5432</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>

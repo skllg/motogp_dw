@@ -7,7 +7,6 @@ from streamlit_option_menu import option_menu
 from postgre_connection import * 
 
 
-
 base_directory = os.path.dirname(os.path.realpath(os.path.dirname(__file__)))
 image_path = os.path.join(base_directory, 'imgs', 'motogp_logo.png')
 
@@ -28,6 +27,7 @@ header2 = st.container()
 i=1
 logOutSection = st.container()
 registering = False
+
 
 def show_main_page():
     if 'active_tab' not in st.session_state:
@@ -220,8 +220,9 @@ def show_main_page():
         S4_col1,S4_col2 = st.columns([0.2,0.2])
         S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
         
-        S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors"])
+        S2_tab1, S2_tab2, S2_tab3 = st.tabs(["Riders", "Constructors","Consecutives"])
 
+        empty = st.empty()
         S43_col1,S43_col2 = st.columns([0.2,0.2])
 
         with S4_col1:
@@ -248,7 +249,7 @@ def show_main_page():
             st.metric(label='number of saturday races', value=num_sat[0])
             
         with S2_tab1:
-            
+        
             with S43_col1:
                 top_wins = fetch_top_wins(season2,racing_class)
                 st.dataframe(top_wins)
@@ -292,7 +293,7 @@ def show_main_page():
                 st.dataframe(top_wins_by_track)
               
 
-        with S2_tab2:    
+        with S2_tab2:   
             top_points_constructor =fetch_top_points_constructor(season2, racing_class)
             st.dataframe(top_points_constructor)
 
@@ -318,6 +319,30 @@ def show_main_page():
             top_wins_by_track_constructor =fetch_top_wins_by_track_constructor(season2, racing_class)
             st.dataframe(top_wins_by_track_constructor)
 
+
+        # with S2_tab3:
+            
+        #     st.write("Top 10 Longest finishes:")   
+
+        #     consecutive_results= most_consecutive_finishes(season2, racing_class)
+        #     st.dataframe(consecutive_results)
+
+        #     st.write("Top 10 Podium Streaks:")   
+
+        #     consecutive_podiums= most_consecutive_podiums(season2, racing_class)
+        #     st.dataframe(consecutive_podiums)
+            
+        #     st.write("Top 10 Wins Streaks:")   
+
+        #     consecutive_wins= most_consecutive_wins(season2, racing_class)
+        #     st.dataframe(consecutive_wins)
+        
+        
+        #     st.write("Top 10 Fail Streaks:")   
+
+        #     consecutive_fails= most_consecutive_fails(season2, racing_class)
+        #     st.dataframe(consecutive_fails)
+
     def RenderSection5():
         S4_col1,S4_col2 = st.columns([0.2,0.2])
         S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
@@ -338,7 +363,7 @@ def show_main_page():
         
         with placeholderX:  
             
-            st.write("Top 10 Longest finishes:")   
+            st.write("Top 10 Finish Streaks:")   
 
             consecutive_results= most_consecutive_finishes(season2, racing_class)
             st.dataframe(consecutive_results)
@@ -384,4 +409,5 @@ with main:
     # setup()
 
     #se muestra la página principal
+    connect_csv()
     show_main_page()

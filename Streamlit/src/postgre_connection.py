@@ -4,8 +4,36 @@ import os
 from dotenv import load_dotenv
 import pandas as pd
 import itertools
+import re
+import csvkit as csv
+import requests
 
 load_dotenv()
+
+def connect_csv():
+    csv_urls = {
+        "dim_riders": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_riders",
+        "dim_constructors": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_constructors",
+        "dim_tracks": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_tracks",
+        "dim_grand_prix": "/file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_grand_prix",
+        "dim_date": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_date",
+        "dim_positions": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_positions",
+        "dim_teams": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/dim_teams",
+        "fact_results": "file:///Users/zaka/Desktop/MOTOGP/csv_tables/fact_results",
+    }
+
+    # Download the CSV files from the Streamlit sharing service
+    csv_file_paths = {}
+    for table_name, url in csv_urls.items():
+        response = requests.get(url)
+        if response.status_code == 200:
+            csv_file_path = f'{table_name}.csv'
+            with open(csv_file_path, 'wb') as f:
+                f.write(response.content)
+            csv_file_paths[table_name] = csv_file_path
+
+            if 'csv_tables' not in st.session_state:
+                st.session_state.active_tab = sv_file_paths
 
 def connect(): 
     db_host = os.getenv('POSTGRES_HOST')
@@ -49,9 +77,9 @@ def fetch_cummulative_sum_points(season, racing_class):
                 group by fr.num_round, dgp.des_grandprix,dr.rider_full_name,dp.num_points, fr.id_result\
                 order by fr.num_round, dr.rider_full_name"
 
-    cur.execute(query)
-    result_args = cur.fetchall()
-
+    # cur.execute(query)
+    # result_args = cur.fetchall()
+    result_args = csv.query(sql=query, filenames=st.session_state.csv_tables.values(),delimiter=',',quotechar='"', escapechar='\\')
     df_bh = pd.DataFrame(result_args,columns=['num_round', 'rider_name', 'cummulative_sum'])
 
     return df_bh
@@ -1710,7 +1738,8 @@ def fetch_consecutive_results_aux(season,racing_class):
                 LEFT JOIN dim_riders dr ON fr.id_rider_fk = dr.id_rider\
                 LEFT JOIN dim_grand_prix dgp ON dgp.id_grandprix = fr.id_grand_prix_fk \
             WHERE  \
-                dgp.season in {season_proc} and fr.racing_class in {racing_class}\
+                dgp.season in {season_proc} and fr.racing_class in {racing_class} and rider_full_name<>'Raúl Jara'\
+                and rider_full_name<>'Mark van Kreij'\
                 AND NOT EXISTS (\
                     SELECT 1\
                     FROM fact_results fr2\
@@ -1939,31 +1968,52 @@ def most_consecutive_fails(season, racing_class):
         current_succession = 0
         current_riders = set()  # Using a set to store unique rider names
         current_id_gp = None
+        found=False
         for i, value in enumerate(series):
-            if not value.isnumeric() and value !='':
+            if df['rider_full_name'][i]== 'Raúl Jara':
+                    found=True
+            if (not value.isnumeric()) and value !='' :
+                checked=False
+                
                 current_succession += 1
+                if found:
+                        st.write(f"current {current_succession}")
+
                 current_riders.add(df['rider_full_name'][i])
                 if current_id_gp is None:
                     current_id_gp = df['id_gp'][i]
+                    if found:
+                        st.write(f"primer gp {current_id_gp}")
             else:
                 if current_succession > 0:
+                    
                     first_id_gp = df['id_gp'][i - current_succession]
                     last_id_gp = df['id_gp'][i - 1]
                     first_name = get_name_for_id_gp(first_id_gp, cursor)
                     last_name = get_name_for_id_gp(last_id_gp, cursor)
+                    if found:
+                        st.write(f"first_name {first_name}")
+                        st.write(f"last_name {last_name}")
+                    # if first_name !='Gauloises Grand Prix České republiky 2003' and first_name != 'Gauloises Pacific Grand Prix of Motegi 2002':
                     for rider in current_riders:
                         successions.append((current_succession, rider, first_name, last_name))
                     current_succession = 0
                     current_riders = set()
                     current_id_gp = None
+            found=False
         # Check if the last sequence is included
         if current_succession > 0:
             first_id_gp = df['id_gp'].iloc[-current_succession]
+
             last_id_gp = df['id_gp'].iloc[-1]
             first_name = get_name_for_id_gp(first_id_gp, cursor)
             last_name = get_name_for_id_gp(last_id_gp, cursor)
+            
             for rider in current_riders:
                 successions.append((current_succession, rider, first_name, last_name))
+            current_succession = 0
+            current_riders = set()
+            current_id_gp = None
         # Sort the successions by length in descending order
         successions.sort(reverse=True)
         return successions[:n]
