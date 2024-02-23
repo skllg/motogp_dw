@@ -1951,11 +1951,11 @@ def fetch_consecutive_results_aux(season,racing_class):
 
 def most_consecutive_finishes(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    
+    cursor=None
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name =  psql.sqldf(f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
         else:
             conn = connect()
             cursor = conn.cursor()
@@ -2020,11 +2020,11 @@ def most_consecutive_finishes(season, racing_class):
 
 def most_consecutive_podiums(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    
+    cursor=None
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name =  psql.sqldf(f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
         else:
             conn = connect()
             cursor = conn.cursor()
@@ -2088,11 +2088,11 @@ def most_consecutive_podiums(season, racing_class):
 
 def most_consecutive_wins(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-
+    cursor=None
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name =  psql.sqldf(f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
         else:
             conn = connect()
             cursor = conn.cursor()
