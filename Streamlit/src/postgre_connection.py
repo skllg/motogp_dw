@@ -18,15 +18,17 @@ def connect_csv():
     global dim_positions
     global dim_teams
     global fact_results
+    global consecutive_results
 
-    dim_riders= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_riders.csv",
-    dim_constructors= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_constructors.csv",
-    dim_tracks= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_tracks.csv",
-    dim_grand_prix= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_grand_prix.csv",
-    dim_date= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_date.csv",
-    dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv",
-    dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv",
-    fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv",
+    dim_riders= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_riders.csv"
+    dim_constructors= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_constructors.csv"
+    dim_tracks= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_tracks.csv"
+    dim_grand_prix= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_grand_prix.csv"
+    dim_date= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_date.csv"
+    dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv"
+    dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv"
+    fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv"
+    consecutive_results = "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fetch_consecutive_results_aux.csv"
 
     # st.write(dim_riders[0])
 
@@ -39,6 +41,7 @@ def connect_csv():
     dim_positions = pd.read_csv(dim_positions[0])
     dim_teams = pd.read_csv(dim_teams[0])
     fact_results = pd.read_csv(fact_results[0])
+    consecutive_results =  pd.read_csv(consecutive_results[0])
 
     # st.dataframe(dim_riders)
     
@@ -1920,9 +1923,11 @@ def fetch_consecutive_results_aux(season,racing_class):
                 )\
             ORDER BY \
                 rider_full_name,dgp.season, dgp.num_round"
+        
+    query2 = f"select * from consecutive_results where season in {season_proc} and racing_class in {racing_class}"
 
     if st.session_state.UsingCSV:
-        df =  psql.sqldf(query)
+        df =  psql.sqldf(query2)
     else:
 		
         cur.execute(query)        
