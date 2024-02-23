@@ -8,7 +8,6 @@ import pandasql as psql
 
 load_dotenv()
 
-@st.cache_data
 def connect_csv():
     global dim_riders
     global dim_constructors
@@ -20,17 +19,18 @@ def connect_csv():
     global fact_results
     global consecutive_results
 
-    dim_riders= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_riders.csv"
-    dim_constructors= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_constructors.csv"
-    dim_tracks= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_tracks.csv"
-    dim_grand_prix= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_grand_prix.csv"
-    dim_date= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_date.csv"
-    dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv"
-    dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv"
-    fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv"
+    dim_riders= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_riders.csv",
+    dim_constructors= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_constructors.csv",
+    dim_tracks= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_tracks.csv",
+    dim_grand_prix= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_grand_prix.csv",
+    dim_date= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_date.csv",
+    dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv",
+    dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv",
+    fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv",
     consecutive_results = "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fetch_consecutive_results_aux.csv"
+                            
 
-    # st.write(dim_riders[0])
+    st.write(dim_riders[0])
 
     # Download the CSV files from the Streamlit sharing service
     dim_riders = pd.read_csv(dim_riders[0])
