@@ -27,9 +27,11 @@ def connect_csv():
     dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv",
     dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv",
     fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv",
+
     consecutive_results = "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fetch_consecutive_results_aux2.csv",
 
-    # st.write(dim_riders[0])
+
+    st.write(dim_riders[0])
 
     # Download the CSV files from the Streamlit sharing service
     dim_riders = pd.read_csv(dim_riders[0])
