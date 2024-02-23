@@ -1946,16 +1946,25 @@ def fetch_consecutive_results_aux(season,racing_class):
 
         df= pd.DataFrame(result_args,columns=[ 'rider_full_name', 'season','num_round','id_grandprix','race_type','final_position'])
     
+    df['rider_full_name']=df['rider_full_name'].astype(str)
+    df['season']=df['season'].astype(int)
+    df['num_round']=df['num_round'].astype(int)
+    df['id_grandprix']=df['id_grandprix'].astype(int)
+    df['race_type']=df['race_type'].astype(str)
+    df['final_position']=df['final_position'].astype(str)
     return df
     
 
 def most_consecutive_finishes(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    cursor=None
+    cursor="None"
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
+
         else:
             conn = connect()
             cursor = conn.cursor()
@@ -1975,7 +1984,7 @@ def most_consecutive_finishes(season, racing_class):
         current_riders = set()  # Using a set to store unique rider names
         current_id_gp = None
         for i, value in enumerate(series):
-            if str(value).isnumeric() :
+            if value.isnumeric():
                 current_succession += 1
                 current_riders.add(df['rider_full_name'][i])
                 if current_id_gp is None:
@@ -1984,10 +1993,10 @@ def most_consecutive_finishes(season, racing_class):
                 if current_succession > 0:
                     first_id_gp = df['id_grandprix'][i - current_succession]
                     last_id_gp = df['id_grandprix'][i - 1]
-                    first_name = get_name_for_id_gp(first_id_gp, cursor)
-                    last_name = get_name_for_id_gp(last_id_gp, cursor)
+                    # first_name = get_name_for_id_gp(first_id_gp, cursor)
+                    # last_name = get_name_for_id_gp(last_id_gp, cursor)
                     for rider in current_riders:
-                        successions.append((current_succession, rider, first_name, last_name))
+                        successions.append((current_succession, rider, first_id_gp, last_id_gp))
                     current_succession = 0
                     current_riders = set()
                     current_id_gp = None
@@ -1995,13 +2004,21 @@ def most_consecutive_finishes(season, racing_class):
         if current_succession > 0:
             first_id_gp = df['id_grandprix'].iloc[-current_succession]
             last_id_gp = df['id_grandprix'].iloc[-1]
-            first_name = get_name_for_id_gp(first_id_gp, cursor)
-            last_name = get_name_for_id_gp(last_id_gp, cursor)
+            # first_name = get_name_for_id_gp(first_id_gp, cursor)
+            # last_name = get_name_for_id_gp(last_id_gp, cursor)
             for rider in current_riders:
-                successions.append((current_succession, rider, first_name, last_name))
+                successions.append((current_succession, rider, first_id_gp, last_id_gp))
         # Sort the successions by length in descending order
         successions.sort(reverse=True)
-        return successions[:n]
+
+        successions = successions[:n].copy()
+        for i, (current_succession, rider, first_id_gp, last_id_gp) in enumerate(successions):
+
+            first_gp_name = get_name_for_id_gp(successions[i][2], cursor)
+            last_gp_name = get_name_for_id_gp(successions[i][3], cursor)
+            successions[i] = (current_succession, rider, first_gp_name, last_gp_name)
+
+        return successions
 
     
 
@@ -2024,7 +2041,9 @@ def most_consecutive_podiums(season, racing_class):
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
         else:
             conn = connect()
             cursor = conn.cursor()
@@ -2053,10 +2072,8 @@ def most_consecutive_podiums(season, racing_class):
                 if current_succession > 0:
                     first_id_gp = df['id_grandprix'][i - current_succession]
                     last_id_gp = df['id_grandprix'][i - 1]
-                    first_name = get_name_for_id_gp(first_id_gp, cursor)
-                    last_name = get_name_for_id_gp(last_id_gp, cursor)
                     for rider in current_riders:
-                        successions.append((current_succession, rider, first_name, last_name))
+                        successions.append((current_succession, rider, first_id_gp, last_id_gp))
                     current_succession = 0
                     current_riders = set()
                     current_id_gp = None
@@ -2064,13 +2081,19 @@ def most_consecutive_podiums(season, racing_class):
         if current_succession > 0:
             first_id_gp = df['id_grandprix'].iloc[-current_succession]
             last_id_gp = df['id_grandprix'].iloc[-1]
-            first_name = get_name_for_id_gp(first_id_gp, cursor)
-            last_name = get_name_for_id_gp(last_id_gp, cursor)
             for rider in current_riders:
-                successions.append((current_succession, rider, first_name, last_name))
+                successions.append((current_succession, rider, first_id_gp, last_id_gp))
         # Sort the successions by length in descending order
         successions.sort(reverse=True)
-        return successions[:n]
+
+        successions = successions[:n].copy()
+
+        for i, (current_succession, rider, first_id_gp, last_id_gp) in enumerate(successions):
+            first_gp_name = get_name_for_id_gp(successions[i][2], cursor)
+            last_gp_name = get_name_for_id_gp(successions[i][3], cursor)
+            successions[i] = (current_succession, rider, first_gp_name, last_gp_name)
+
+        return successions
 
     
 
@@ -2092,7 +2115,9 @@ def most_consecutive_wins(season, racing_class):
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
         else:
             conn = connect()
             cursor = conn.cursor()
@@ -2121,10 +2146,8 @@ def most_consecutive_wins(season, racing_class):
                 if current_succession > 0:
                     first_id_gp = df['id_grandprix'][i - current_succession]
                     last_id_gp = df['id_grandprix'][i - 1]
-                    first_name = get_name_for_id_gp(first_id_gp, cursor)
-                    last_name = get_name_for_id_gp(last_id_gp, cursor)
                     for rider in current_riders:
-                        successions.append((current_succession, rider, first_name, last_name))
+                        successions.append((current_succession, rider, first_id_gp, last_id_gp))
                     current_succession = 0
                     current_riders = set()
                     current_id_gp = None
@@ -2132,13 +2155,18 @@ def most_consecutive_wins(season, racing_class):
         if current_succession > 0:
             first_id_gp = df['id_grandprix'].iloc[-current_succession]
             last_id_gp = df['id_grandprix'].iloc[-1]
-            first_name = get_name_for_id_gp(first_id_gp, cursor)
-            last_name = get_name_for_id_gp(last_id_gp, cursor)
             for rider in current_riders:
-                successions.append((current_succession, rider, first_name, last_name))
+                successions.append((current_succession, rider, first_id_gp, last_id_gp))
         # Sort the successions by length in descending order
         successions.sort(reverse=True)
-        return successions[:n]
+        successions = successions[:n].copy()
+
+        for i, (current_succession, rider, first_id_gp, last_id_gp) in enumerate(successions):
+            first_gp_name = get_name_for_id_gp(successions[i][2], cursor)
+            last_gp_name = get_name_for_id_gp(successions[i][3], cursor)
+            successions[i] = (current_succession, rider, first_gp_name, last_gp_name)
+
+        return successions
 
     
 
@@ -2156,11 +2184,13 @@ def most_consecutive_wins(season, racing_class):
 
 def most_consecutive_fails(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-
+    cursor=None
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
-            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
         else:
             conn = connect()
             cursor = conn.cursor()
@@ -2191,11 +2221,9 @@ def most_consecutive_fails(season, racing_class):
                     
                     first_id_gp = df['id_grandprix'][i - current_succession]
                     last_id_gp = df['id_grandprix'][i - 1]
-                    first_name = get_name_for_id_gp(first_id_gp, cursor)
-                    last_name = get_name_for_id_gp(last_id_gp, cursor)
                     # if first_name !='Gauloises Grand Prix České republiky 2003' and first_name != 'Gauloises Pacific Grand Prix of Motegi 2002':
                     for rider in current_riders:
-                        successions.append((current_succession, rider, first_name, last_name))
+                        successions.append((current_succession, rider, first_id_gp, last_id_gp))
                     current_succession = 0
                     current_riders = set()
                     current_id_gp = None
@@ -2204,17 +2232,22 @@ def most_consecutive_fails(season, racing_class):
             first_id_gp = df['id_grandprix'].iloc[-current_succession]
 
             last_id_gp = df['id_grandprix'].iloc[-1]
-            first_name = get_name_for_id_gp(first_id_gp, cursor)
-            last_name = get_name_for_id_gp(last_id_gp, cursor)
             
             for rider in current_riders:
-                successions.append((current_succession, rider, first_name, last_name))
+                successions.append((current_succession, rider, first_id_gp, last_id_gp))
             current_succession = 0
             current_riders = set()
             current_id_gp = None
         # Sort the successions by length in descending order
         successions.sort(reverse=True)
-        return successions[:n]
+        successions = successions[:n].copy()
+
+        for i, (current_succession, rider, first_id_gp, last_id_gp) in enumerate(successions):
+            first_gp_name = get_name_for_id_gp(successions[i][2], cursor)
+            last_gp_name = get_name_for_id_gp(successions[i][3], cursor)
+            successions[i] = (current_succession, rider, first_gp_name, last_gp_name)
+
+        return successions
 
     
 
