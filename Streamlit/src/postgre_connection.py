@@ -70,8 +70,7 @@ def connect():
 
 def fetch_cummulative_sum_points(season, racing_class):
     
-    conn = connect()
-    cur = conn.cursor()
+    
     # racing_class = "250cc_moto2"
     
     if (racing_class == "250cc_moto2" and season > 2009):
@@ -99,6 +98,8 @@ def fetch_cummulative_sum_points(season, racing_class):
     if st.session_state.UsingCSV:
         df_bh =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
         df_bh = pd.DataFrame(result_args,columns=['num_round', 'rider_full_name', 'cummulative_sum'])
@@ -106,8 +107,7 @@ def fetch_cummulative_sum_points(season, racing_class):
     return df_bh
 
 def fetch_cummulative_sum_points_constructors(season, racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     # racing_class = "250cc_moto2"
     
     if (racing_class == "250cc_moto2" and season > 2009):
@@ -159,6 +159,8 @@ def fetch_cummulative_sum_points_constructors(season, racing_class):
     if st.session_state.UsingCSV:
         df_bh =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -167,8 +169,7 @@ def fetch_cummulative_sum_points_constructors(season, racing_class):
     return df_bh
 
 def fetch_cummulative_sum_points_teams(season, racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     # racing_class = "250cc_moto2"
     
     if (racing_class == "250cc_moto2" and season > 2009):
@@ -272,7 +273,8 @@ def fetch_cummulative_sum_points_teams(season, racing_class):
         df_bh = psql.sqldf(query2)
         # st.dataframe(df_bh)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchall()
         df_bh = pd.DataFrame(result_args,columns=['des_team', 'season', 'total_points'])
@@ -280,8 +282,7 @@ def fetch_cummulative_sum_points_teams(season, racing_class):
     return df_bh
 
 def fetch_season_bar_chart(season, racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     # racing_class = "250cc_moto2"
     # racing_class = str(racing_class)
 
@@ -309,7 +310,8 @@ def fetch_season_bar_chart(season, racing_class):
     if st.session_state.UsingCSV:
         df_bh =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -318,8 +320,7 @@ def fetch_season_bar_chart(season, racing_class):
     return df_bh
 
 def fetch_track_location(season):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     
     
@@ -330,7 +331,8 @@ def fetch_track_location(season):
     if st.session_state.UsingCSV:
         df_tracks =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -340,8 +342,6 @@ def fetch_track_location(season):
 
 def fetch_rider_location(season):
 
-    conn = connect()
-    cur = conn.cursor()
     
     
     
@@ -352,6 +352,9 @@ def fetch_rider_location(season):
     if st.session_state.UsingCSV:
         df_riders =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
+    
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -361,8 +364,7 @@ def fetch_rider_location(season):
 
 def fetch_total_num_gp(season):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     ini = season[0]
     end = season[1]
 
@@ -380,6 +382,8 @@ def fetch_total_num_gp(season):
     if st.session_state.UsingCSV:
         result_args =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchone()
 
@@ -387,8 +391,7 @@ def fetch_total_num_gp(season):
     return result_args
 
 def fetch_HP_races(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     ini = season[0]
     end = season[1]
 
@@ -421,6 +424,8 @@ def fetch_HP_races(season,racing_class):
     if st.session_state.UsingCSV:
         result_args =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchone()
 
@@ -428,8 +433,7 @@ def fetch_HP_races(season,racing_class):
     return result_args
 
 def fetch_night_races(season):
-    conn = connect()
-    cur = conn.cursor()
+    
     ini = season[0]
     end = season[1]
 
@@ -447,7 +451,8 @@ def fetch_night_races(season):
     if st.session_state.UsingCSV:
         result_args =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchone()
 
@@ -455,8 +460,7 @@ def fetch_night_races(season):
     return result_args
 
 def fetch_satruday_races(season):
-    conn = connect()
-    cur = conn.cursor()
+    
     ini = season[0]
     end = season[1]
 
@@ -474,7 +478,8 @@ def fetch_satruday_races(season):
     if st.session_state.UsingCSV:
         result_args =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchone()
 
@@ -486,8 +491,6 @@ def fetch_satruday_races(season):
 
 def fetch_num_postions(season,racing_class):
     
-    conn = connect()
-    cur = conn.cursor()
     
     if season=='any':
         season= (2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023)
@@ -527,7 +530,9 @@ def fetch_num_postions(season,racing_class):
     if st.session_state.UsingCSV:
         df =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()
+        
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -537,8 +542,6 @@ def fetch_num_postions(season,racing_class):
 
 def fetch_top_wins(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
     
     ini = season[0]
     end = season[1]
@@ -576,7 +579,9 @@ def fetch_top_wins(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_wins =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
+
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -586,8 +591,7 @@ def fetch_top_wins(season,racing_class):
       
 def fetch_top_podiums(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -626,7 +630,8 @@ def fetch_top_podiums(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -637,8 +642,6 @@ def fetch_top_podiums(season,racing_class):
   
 def fetch_top_wins_sprint(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
     
     ini = season[0]
     end = season[1]
@@ -676,7 +679,9 @@ def fetch_top_wins_sprint(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_wins =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()
+       
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -686,8 +691,7 @@ def fetch_top_wins_sprint(season,racing_class):
       
 def fetch_top_podiums_sprint(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -726,6 +730,8 @@ def fetch_top_podiums_sprint(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -735,8 +741,6 @@ def fetch_top_podiums_sprint(season,racing_class):
         
 def fetch_top_poles(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
     
     ini = season[0]
     end = season[1]
@@ -774,7 +778,9 @@ def fetch_top_poles(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_poles =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
+
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -784,8 +790,7 @@ def fetch_top_poles(season,racing_class):
       
 def fetch_top_fast_laps(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -824,7 +829,8 @@ def fetch_top_fast_laps(season,racing_class):
     if st.session_state.UsingCSV:
         top_fast_laps =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -833,8 +839,7 @@ def fetch_top_fast_laps(season,racing_class):
     return top_fast_laps
             
 def fetch_top_percentage_points(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -902,6 +907,8 @@ def fetch_top_percentage_points(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -910,8 +917,7 @@ def fetch_top_percentage_points(season,racing_class):
     return df_top_podiums
 
 def fetch_top_points_carrer(season, racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     ini = season[0]
     end = season[1]
 
@@ -949,7 +955,8 @@ def fetch_top_points_carrer(season, racing_class):
     if st.session_state.UsingCSV:
         df_bh =  psql.sqldf(query)
     else:
-            
+        conn = connect()
+        cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -959,8 +966,7 @@ def fetch_top_points_carrer(season, racing_class):
 
 
 def fetch_top_points_constructor(season, racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     ini = season[0]
     end = season[1]
 
@@ -1013,7 +1019,8 @@ def fetch_top_points_constructor(season, racing_class):
     if st.session_state.UsingCSV:
         df_bh =  psql.sqldf(query2)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1024,8 +1031,6 @@ def fetch_top_points_constructor(season, racing_class):
 
 def fetch_top_wins_constructor(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
     
     ini = season[0]
     end = season[1]
@@ -1065,7 +1070,9 @@ def fetch_top_wins_constructor(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_wins =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
+
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1075,8 +1082,7 @@ def fetch_top_wins_constructor(season,racing_class):
       
 def fetch_top_podiums_constructor(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1116,7 +1122,8 @@ def fetch_top_podiums_constructor(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1126,8 +1133,7 @@ def fetch_top_podiums_constructor(season,racing_class):
         
 def fetch_top_percentage_wins_season(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1191,7 +1197,8 @@ def fetch_top_percentage_wins_season(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1201,8 +1208,7 @@ def fetch_top_percentage_wins_season(season,racing_class):
 
 def fetch_top_percentage_podiums_season(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1266,7 +1272,8 @@ def fetch_top_percentage_podiums_season(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1276,8 +1283,7 @@ def fetch_top_percentage_podiums_season(season,racing_class):
 
 def fetch_top_percentage_wins_season_constructor(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1343,7 +1349,9 @@ def fetch_top_percentage_wins_season_constructor(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
+
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1353,8 +1361,7 @@ def fetch_top_percentage_wins_season_constructor(season,racing_class):
 
 def fetch_top_percentage_podiums_season_constructor(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1418,6 +1425,8 @@ def fetch_top_percentage_podiums_season_constructor(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1428,8 +1437,7 @@ def fetch_top_percentage_podiums_season_constructor(season,racing_class):
 
 def fetch_top_percentage_podiums_season_teams(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1493,6 +1501,8 @@ def fetch_top_percentage_podiums_season_teams(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1504,8 +1514,7 @@ def fetch_top_percentage_podiums_season_teams(season,racing_class):
 
 def fetch_top_different_winners(season,racing_class):
 
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1541,7 +1550,8 @@ def fetch_top_different_winners(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1551,8 +1561,7 @@ def fetch_top_different_winners(season,racing_class):
 
 
 def fetch_top_different_podium_finishers(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1588,7 +1597,8 @@ def fetch_top_different_podium_finishers(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1597,8 +1607,7 @@ def fetch_top_different_podium_finishers(season,racing_class):
     return df_top_podiums 
 
 def fetch_top_wins_by_track(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1646,7 +1655,8 @@ def fetch_top_wins_by_track(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1655,8 +1665,7 @@ def fetch_top_wins_by_track(season,racing_class):
     return df_top_podiums 
 
 def fetch_top_wins_by_track_constructor(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1703,7 +1712,8 @@ def fetch_top_wins_by_track_constructor(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1713,8 +1723,7 @@ def fetch_top_wins_by_track_constructor(season,racing_class):
 
 
 def fetch_top_percentage_points(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1782,7 +1791,8 @@ def fetch_top_percentage_points(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1792,8 +1802,7 @@ def fetch_top_percentage_points(season,racing_class):
 
 
 def fetch_top_percentage_points_carreer(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
+    
     
     ini = season[0]
     end = season[1]
@@ -1862,7 +1871,8 @@ def fetch_top_percentage_points_carreer(season,racing_class):
     if st.session_state.UsingCSV:
         df_top_podiums =  psql.sqldf(query)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
         cur.execute(query)
         result_args = cur.fetchall()
 
@@ -1872,8 +1882,6 @@ def fetch_top_percentage_points_carreer(season,racing_class):
 
 
 def fetch_consecutive_results_aux(season,racing_class):
-    conn = connect()
-    cur = conn.cursor()
     
     ini = season[0]
     end = season[1]
@@ -1930,24 +1938,31 @@ def fetch_consecutive_results_aux(season,racing_class):
     if st.session_state.UsingCSV:
         df =  psql.sqldf(query2)
     else:
-		
+        conn = connect()
+        cur = conn.cursor()
+
         cur.execute(query)        
         result_args = cur.fetchall()
-        
+
         df= pd.DataFrame(result_args,columns=[ 'rider_full_name', 'season','num_round','id_grandprix','race_type','final_position'])
     
     return df
     
-#############################Meterlo en un csv -> dataframe, es tonteria hacer query csv tarda un cojon
 
 def most_consecutive_finishes(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    conn = connect()
-    cursor = conn.cursor()
+    
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
-        cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
-        name = cursor.fetchone()[0]
+        if st.session_state.UsingCSV:
+            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
         return name
 
     # Example DataFrame
@@ -1997,8 +2012,7 @@ def most_consecutive_finishes(season, racing_class):
     result_df = pd.DataFrame(top_10_successions, columns=['Succession Length', 'Rider', 'First Name', 'Last Name'])
 
     # Close the cursor and connection
-    cursor.close()
-    conn.close()
+    
 
     # Output the DataFrame
     return result_df
@@ -2006,12 +2020,18 @@ def most_consecutive_finishes(season, racing_class):
 
 def most_consecutive_podiums(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    conn = connect()
-    cursor = conn.cursor()
+    
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
-        cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
-        name = cursor.fetchone()[0]
+        if st.session_state.UsingCSV:
+            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
         return name
 
     # Example DataFrame
@@ -2061,20 +2081,25 @@ def most_consecutive_podiums(season, racing_class):
     result_df = pd.DataFrame(top_10_successions, columns=['Succession Length', 'Rider', 'First Name', 'Last Name'])
 
     # Close the cursor and connection
-    cursor.close()
-    conn.close()
+    
 
     # Output the DataFrame
     return result_df
 
 def most_consecutive_wins(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    conn = connect()
-    cursor = conn.cursor()
+
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
-        cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
-        name = cursor.fetchone()[0]
+        if st.session_state.UsingCSV:
+            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
         return name
 
     # Example DataFrame
@@ -2123,9 +2148,7 @@ def most_consecutive_wins(season, racing_class):
     # Convert the list of tuples to a DataFrame
     result_df = pd.DataFrame(top_10_successions, columns=['Succession Length', 'Rider', 'First Name', 'Last Name'])
 
-    # Close the cursor and connection
-    cursor.close()
-    conn.close()
+    
 
     # Output the DataFrame
     return result_df
@@ -2133,12 +2156,18 @@ def most_consecutive_wins(season, racing_class):
 
 def most_consecutive_fails(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
-    conn = connect()
-    cursor = conn.cursor()
+
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
-        cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
-        name = cursor.fetchone()[0]
+        if st.session_state.UsingCSV:
+            name =  psql.sqldf(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
         return name
 
     # Example DataFrame
@@ -2195,9 +2224,7 @@ def most_consecutive_fails(season, racing_class):
     # Convert the list of tuples to a DataFrame
     result_df = pd.DataFrame(top_10_successions, columns=['Succession Length', 'Rider', 'First Name', 'Last Name'])
 
-    # Close the cursor and connection
-    cursor.close()
-    conn.close()
+    
 
     # Output the DataFrame
     return result_df
