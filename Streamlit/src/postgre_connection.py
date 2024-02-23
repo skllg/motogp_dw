@@ -8,7 +8,6 @@ import pandasql as psql
 
 load_dotenv()
 
-@st.cache_data
 def connect_csv():
     global dim_riders
     global dim_constructors
@@ -20,15 +19,15 @@ def connect_csv():
     global fact_results
     global consecutive_results
 
-    dim_riders= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_riders.csv"
-    dim_constructors= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_constructors.csv"
-    dim_tracks= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_tracks.csv"
-    dim_grand_prix= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_grand_prix.csv"
-    dim_date= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_date.csv"
-    dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv"
-    dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv"
-    fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv"
-    consecutive_results = "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fetch_consecutive_results_aux.csv"
+    dim_riders= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_riders.csv",
+    dim_constructors= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_constructors.csv",
+    dim_tracks= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_tracks.csv",
+    dim_grand_prix= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_grand_prix.csv",
+    dim_date= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_date.csv",
+    dim_positions= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_positions.csv",
+    dim_teams= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/dim_teams.csv",
+    fact_results= "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fact_results.csv",
+    consecutive_results = "https://raw.githubusercontent.com/skllg/motogp_dw/master/csv_tables/fetch_consecutive_results_aux2.csv",
 
     # st.write(dim_riders[0])
 
@@ -51,17 +50,19 @@ def connect_csv():
 
 
 def connect(): 
-    db_host = os.getenv('POSTGRES_HOST')
-    db_port = os.getenv('POSTGRES_PORT')
-    db_name = os.getenv('POSTGRES_DB')
-    db_user = os.getenv('POSTGRES_USER')
-    db_password = os.getenv('POSTGRES_PASSWORD')
-
-    # db_host = st.secrets['POSTGRES_HOST']
-    # db_port = st.secrets['POSTGRES_PORT']
-    # db_name = st.secrets['POSTGRES_DB']
-    # db_user =st.secrets['POSTGRES_USER']
-    # db_password = st.secrets['POSTGRES_PASSWORD']
+    # if st.secrets['is_deployed']:
+    #     db_host = os.getenv('POSTGRES_HOST')
+    #     db_port = os.getenv('POSTGRES_PORT')
+    #     db_name = os.getenv('POSTGRES_DB')
+    #     db_user = os.getenv('POSTGRES_USER')
+    #     db_password = os.getenv('POSTGRES_PASSWORD')
+        
+    # else:
+    db_host = st.secrets['POSTGRES_HOST']
+    db_port = st.secrets['POSTGRES_PORT']
+    db_name = st.secrets['POSTGRES_DB']
+    db_user =st.secrets['POSTGRES_USER']
+    db_password = st.secrets['POSTGRES_PASSWORD']
 
     conn = psycopg.connect(f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}") 
     
@@ -2149,22 +2150,13 @@ def most_consecutive_fails(season, racing_class):
         current_succession = 0
         current_riders = set()  # Using a set to store unique rider names
         current_id_gp = None
-        found=False
-        for i, value in enumerate(series):
-            if df['rider_full_name'][i]== 'Raúl Jara':
-                    found=True
-            if (not value.isnumeric()) and value !='' :
-                checked=False
-                
-                current_succession += 1
-                if found:
-                        st.write(f"current {current_succession}")
 
+        for i, value in enumerate(series):
+            if (not str(value).isnumeric()) and value !='' :
+                current_succession += 1
                 current_riders.add(df['rider_full_name'][i])
                 if current_id_gp is None:
                     current_id_gp = df['id_grandprix'][i]
-                    if found:
-                        st.write(f"primer gp {current_id_gp}")
             else:
                 if current_succession > 0:
                     
@@ -2172,16 +2164,12 @@ def most_consecutive_fails(season, racing_class):
                     last_id_gp = df['id_grandprix'][i - 1]
                     first_name = get_name_for_id_gp(first_id_gp, cursor)
                     last_name = get_name_for_id_gp(last_id_gp, cursor)
-                    if found:
-                        st.write(f"first_name {first_name}")
-                        st.write(f"last_name {last_name}")
                     # if first_name !='Gauloises Grand Prix České republiky 2003' and first_name != 'Gauloises Pacific Grand Prix of Motegi 2002':
                     for rider in current_riders:
                         successions.append((current_succession, rider, first_name, last_name))
                     current_succession = 0
                     current_riders = set()
                     current_id_gp = None
-            found=False
         # Check if the last sequence is included
         if current_succession > 0:
             first_id_gp = df['id_grandprix'].iloc[-current_succession]

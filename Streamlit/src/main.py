@@ -421,8 +421,14 @@ with main:
     # setup()
 
     #se muestra la página principal
+
     if 'UsingCSV' not in st.session_state:
-        st.session_state.UsingCSV = True
+        if st.secrets['UsingCSV']=='True':
+            st.session_state.UsingCSV =  True
+        else:
+            st.session_state.UsingCSV =  False
+
+
     if st.session_state.UsingCSV:
         connect_csv()
     show_main_page()
