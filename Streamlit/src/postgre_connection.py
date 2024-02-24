@@ -18,6 +18,7 @@ def connect_csv():
     global dim_teams
     global fact_results
     global consecutive_results
+    global winless_rider_results
 
     dim_riders= st.secrets['dim_riders'],
     dim_constructors= st.secrets['dim_constructors'],
@@ -28,7 +29,7 @@ def connect_csv():
     dim_teams= st.secrets['dim_teams'],
     fact_results= st.secrets['fact_results'],
     consecutive_results = st.secrets['consecutive_results'],
-
+    winless_rider_results = st.secrets['winless_rider_results'],
     # st.write(dim_riders[0])
 
     # Download the CSV files from the Streamlit sharing service
@@ -41,7 +42,7 @@ def connect_csv():
     dim_teams = pd.read_csv(dim_teams[0])
     fact_results = pd.read_csv(fact_results[0])
     consecutive_results =  pd.read_csv(consecutive_results[0])
-
+    winless_rider_results =  pd.read_csv(winless_rider_results[0])
     # st.dataframe(dim_riders)
     
 
@@ -1954,7 +1955,38 @@ def fetch_consecutive_results_aux(season,racing_class):
     df['final_position']=df['final_position'].astype(str)
     return df
     
+def fetch_winless_results_aux(season,racing_class):
+    ini = season[0]
+    end = season[1]
 
+    season_proc = '('
+    for x in range (ini, end+1):
+        season_proc = season_proc + str(x) + ','
+
+    season_proc = season_proc[:-1]
+    season_proc = season_proc+ ')'
+
+    if racing_class=='Any':
+        racing_class= ('motogp', '250cc','moto2', '125cc','moto3', 'moto-e')
+    
+    elif (racing_class == "250cc_moto2"):
+        racing_class=('moto2','250cc')
+        
+    elif racing_class == "125cc_moto3":
+        racing_class=('moto3','125cc')
+    elif racing_class == "motogp":
+        racing_class=('motogp','')
+    else:
+        racing_class=('moto-e','')
+
+    df = psql.sqldf(f"Select wrr.* from winless_rider_results wrr inner join (select dr.rider_full_name,count(id_result) from fact_results fr left join dim_riders dr on fr.id_rider_fk = dr.id_rider\
+                            group by dr.rider_full_name\
+                            order by count(id_result) desc\
+                            limit 200) as cut_off on cut_off.rider_full_name= wrr.rider_full_name\
+                            where  wrr.season in {season_proc} and  wrr.racing_class in {racing_class}")
+                    
+
+    return df
 def most_consecutive_finishes(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
     cursor="None"
@@ -2423,7 +2455,8 @@ def longest_win(season, racing_class):
     return result_df
 
 def longest_winless_streak(season, racing_class):
-    df = fetch_consecutive_results_aux(season,racing_class)
+    # df = fetch_consecutive_results_aux(season,racing_class)
+    df = fetch_winless_results_aux(season, racing_class)
     cursor=None
         # Function to fetch the name related to id_grandprix from the database
     def get_name_for_id_gp(id_grandprix, cursor):
@@ -2472,27 +2505,27 @@ def longest_winless_streak(season, racing_class):
         grouped = df.groupby('rider_full_name')
 
         for rider, data in grouped:
-            # if rider == 'José Antonio Rueda':
-            first_gp= data['id_grandprix'].iloc[0]
-            if any(data['final_position'] != '1') and first_gp > 1:
-                found=False
-                final_gp = 0
-                
-                first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
+            if rider != 'Colin Edwards':
+                first_gp= data['id_grandprix'].iloc[0]
+                if any(data['final_position'] != '1') and first_gp > 1:
+                    found=False
+                    final_gp = 0
+                    
+                    first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
 
-                
-                id_last_race = get_latest_id_gp(rider,cursor)
-                last_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == id_last_race)].index[0]
-                num_gp= last_gp_index - first_gp_index +1
+                    
+                    id_last_race = get_latest_id_gp(rider,cursor)
+                    last_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == id_last_race)].index[0]
+                    num_gp= last_gp_index - first_gp_index +1
 
-                id_grandprix_data = {
-                        'rider': rider,
-                        'first_gp':  first_gp,
-                        'last_gp': id_last_race,
-                        'num_gp':num_gp
-                    }
-                successions.append(id_grandprix_data)
-                current_riders = set()
+                    id_grandprix_data = {
+                            'rider': rider,
+                            'first_gp':  first_gp,
+                            'last_gp': id_last_race,
+                            'num_gp':num_gp
+                        }
+                    successions.append(id_grandprix_data)
+                    current_riders = set()
 
         successions.sort( key=lambda x: x['num_gp'],reverse=True)
         successions = successions[:n].copy()

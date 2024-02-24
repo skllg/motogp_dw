@@ -403,7 +403,7 @@ def show_main_page():
             longest_wins = longest_win(season2, racing_class)
             st.dataframe(longest_wins)
 
-            st.write("longest winless streak")
+            st.write("longest career without a win")
             winless_streak = longest_winless_streak(season2, racing_class)
             st.dataframe(winless_streak)
             
