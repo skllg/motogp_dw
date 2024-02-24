@@ -374,6 +374,10 @@ def show_main_page():
 
             consecutive_fails= most_consecutive_fails(season2, racing_class)
             st.dataframe(consecutive_fails)
+            
+            st.write("youngest winner")
+            youngest_winners = youngest_winner(season2, racing_class)
+            st.dataframe(youngest_winners)
 
         with S2_tab2:
             
@@ -388,7 +392,8 @@ def show_main_page():
             st.write("longest career without a win")
             winless_streak = longest_winless_streak(season2, racing_class)
             st.dataframe(winless_streak)
-        
+
+            
             
             
     if st.session_state.active_tab == 'Section1':
