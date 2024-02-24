@@ -223,7 +223,6 @@ def show_main_page():
         S2_tab1, S2_tab2, S2_tab3 = st.tabs(["Riders", "Constructors","Consecutives"])
 
         empty = st.empty()
-        S43_col1,S43_col2 = st.columns([0.2,0.2])
 
         with S4_col1:
             st.write("Season/Class specific statistics")
@@ -261,7 +260,7 @@ def show_main_page():
                 st.metric(label='number of saturday races', value=num_sat[0])
             
         with S2_tab1:
-        
+            S43_col1,S43_col2 = st.columns([0.2,0.2])
             with S43_col1:
                 top_wins = fetch_top_wins(season2,racing_class)
                 st.dataframe(top_wins)
@@ -332,34 +331,13 @@ def show_main_page():
             st.dataframe(top_wins_by_track_constructor)
 
 
-        # with S2_tab3:
-            
-        #     st.write("Top 10 Longest finishes:")   
 
-        #     consecutive_results= most_consecutive_finishes(season2, racing_class)
-        #     st.dataframe(consecutive_results)
-
-        #     st.write("Top 10 Podium Streaks:")   
-
-        #     consecutive_podiums= most_consecutive_podiums(season2, racing_class)
-        #     st.dataframe(consecutive_podiums)
-            
-        #     st.write("Top 10 Wins Streaks:")   
-
-        #     consecutive_wins= most_consecutive_wins(season2, racing_class)
-        #     st.dataframe(consecutive_wins)
-        
-        
-        #     st.write("Top 10 Fail Streaks:")   
-
-        #     consecutive_fails= most_consecutive_fails(season2, racing_class)
-        #     st.dataframe(consecutive_fails)
 
     def RenderSection5():
         S4_col1,S4_col2 = st.columns([0.2,0.2])
         S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
         
-        S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors"])
+        S2_tab1, S2_tab2 = st.tabs(["Streaks", "Longest/shortest time to"])
 
         S43_col1,S43_col2 = st.columns([0.2,0.2])
 
@@ -371,10 +349,11 @@ def show_main_page():
             #         'Temporada',
             #         ('Any',2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023))
             season2=st.slider('Select season', 2002, 2023,(2002, 2023))         
-        placeholderX, Y = st.columns([0.8,0.2])
-        
-        with placeholderX:  
-            
+        placeholderX = st.container()
+        placeholderY = st.container()
+
+        with S2_tab1:
+
             st.write("Top 10 Finish Streaks:")   
 
             consecutive_results= most_consecutive_finishes(season2, racing_class)
@@ -395,6 +374,8 @@ def show_main_page():
             consecutive_fails= most_consecutive_fails(season2, racing_class)
             st.dataframe(consecutive_fails)
 
+        with S2_tab2:
+            
             st.write("Least time to first win")
             wins = soonest_win(season2, racing_class)
             st.dataframe(wins)
@@ -406,7 +387,7 @@ def show_main_page():
             st.write("longest career without a win")
             winless_streak = longest_winless_streak(season2, racing_class)
             st.dataframe(winless_streak)
-            
+        
             
             
     if st.session_state.active_tab == 'Section1':

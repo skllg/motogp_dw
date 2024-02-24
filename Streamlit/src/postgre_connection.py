@@ -1012,7 +1012,7 @@ def fetch_top_points_constructor(season, racing_class):
             left join dim_constructors dc on dc.id_constructor = dt.id_constructor_fk\
             left join dim_positions dp on dp.id_position = f.id_position_fk \
             where f.racing_class in {racing_class} and f.season in {season_proc}\
-            and f.num_round IN ( dr.rounds_participated)\
+            and  ',' || dr.rounds_string || ',' LIKE '%,' || f.num_round || ',%'\
             group by  dc.des_constructor\
             order by points desc)\
             where points > 0\
