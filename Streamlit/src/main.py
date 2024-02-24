@@ -33,7 +33,7 @@ def show_main_page():
     if 'active_tab' not in st.session_state:
         st.session_state.active_tab = 'Section1'
 
-    st.title("Bienvenido al Dashboard de MotoGP!")
+    st.title("Welcome to the MotoGP Dashboard!")
     with st.sidebar:
         logo_path = os.path.join(base_directory, 'imgs', 'motogp_logo.png')
 
@@ -394,6 +394,20 @@ def show_main_page():
 
             consecutive_fails= most_consecutive_fails(season2, racing_class)
             st.dataframe(consecutive_fails)
+
+            st.write("Least time to first win")
+            wins = soonest_win(season2, racing_class)
+            st.dataframe(wins)
+
+            st.write("longest time to first win")
+            longest_wins = longest_win(season2, racing_class)
+            st.dataframe(longest_wins)
+
+            st.write("longest winless streak")
+            winless_streak = longest_winless_streak(season2, racing_class)
+            st.dataframe(winless_streak)
+            
+            
             
     if st.session_state.active_tab == 'Section1':
         RenderSection1()

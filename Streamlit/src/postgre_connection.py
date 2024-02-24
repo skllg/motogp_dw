@@ -2263,4 +2263,277 @@ def most_consecutive_fails(season, racing_class):
     return result_df
 
 
+def soonest_win(season, racing_class):
+    df = fetch_consecutive_results_aux(season,racing_class)
+    cursor=None
+        # Function to fetch the name related to id_grandprix from the database
+    def get_name_for_id_gp(id_grandprix, cursor):
+        if st.session_state.UsingCSV:
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
+        return name
+
+    # Example DataFrame
+    # df = pd.DataFrame(result_args, columns=['rider_full_name', 'season', 'num_round', 'id_grandprix', 'race_type', 'final_position'])
+
+    # Function to find the top N longest continuous successions of numeric strings and their respective riders
+    def top_n_longest_successions(series, n, cursor):
+        successions = []
+        current_succession = 0
+        current_riders = set()  # Using a set to store unique rider names
+        current_id_gp = None
+
+        grouped = df.groupby('rider_full_name')
+
+        for rider, data in grouped:
+            # if rider == 'Aaron Polanco':
+                found=False
+                final_gp = 0
+                first_gp= data['id_grandprix'].iloc[0]
+                first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
+
+                if any(data['final_position'] == '1') and first_gp>66:
+                    first_position_index = data[data['final_position'] == '1'].index[0]
+                    id_grandprix_first_position = data.loc[first_position_index, 'id_grandprix']
+
+                    num_gp= first_position_index - first_gp_index
+
+                    id_grandprix_data = {
+                        'rider': rider,
+                        'first_gp':  first_gp,
+                        'win_gp': id_grandprix_first_position,
+                        'num_gp':num_gp
+                    }
+                    successions.append(id_grandprix_data)
+                else:
+                    first_position_index='-'
+                    id_grandprix_first_position = None
+               
+                current_riders = set()
+
+        successions.sort( key=lambda x: x['num_gp'],reverse=False)
+        successions = successions[:n].copy()
+
+        for data in successions:
+            data["first_gp"] = get_name_for_id_gp(data["first_gp"], cursor)
+            data["win_gp"]= get_name_for_id_gp(data["win_gp"], cursor)
+
+        return successions
+
+    
+
+    # Get the top 10 longest successions and their respective riders with names for the first and last id_grandprix
+    top_10_successions = top_n_longest_successions(df['final_position'], 10, cursor)
+    
+    # Convert the list of tuples to a DataFrame
+    
+    result_df = pd.DataFrame(top_10_successions, columns=['rider', 'first_gp', 'win_gp','num_gp'])
+
+    
+
+    # Output the DataFrame
+    return result_df
+
+
+def longest_win(season, racing_class):
+    df = fetch_consecutive_results_aux(season,racing_class)
+    cursor=None
+        # Function to fetch the name related to id_grandprix from the database
+    def get_name_for_id_gp(id_grandprix, cursor):
+        if st.session_state.UsingCSV:
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
+        return name
+
+    # Example DataFrame
+    # df = pd.DataFrame(result_args, columns=['rider_full_name', 'season', 'num_round', 'id_grandprix', 'race_type', 'final_position'])
+
+    # Function to find the top N longest continuous successions of numeric strings and their respective riders
+    def top_n_longest_successions(series, n, cursor):
+        successions = []
+        current_succession = 0
+        current_riders = set()  # Using a set to store unique rider names
+        current_id_gp = None
+
+        grouped = df.groupby('rider_full_name')
+
+        for rider, data in grouped:
+            if rider != 'Randy Krummenacher':
+                found=False
+                final_gp = 0
+                first_gp= data['id_grandprix'].iloc[0]
+                first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
+
+                if any(data['final_position'] == '1') and first_gp>66:
+                    first_position_index = data[data['final_position'] == '1'].index[0]
+                    id_grandprix_first_position = data.loc[first_position_index, 'id_grandprix']
+
+                    # num_gp = id_grandprix_first_position - first_gp
+                    num_gp= first_position_index - first_gp_index
+                    id_grandprix_data = {
+                        'rider': rider,
+                        'first_gp':  first_gp,
+                        'win_gp': id_grandprix_first_position,
+                        'num_gp':num_gp
+                    }
+                    successions.append(id_grandprix_data)
+                else:
+                    first_position_index='-'
+                    id_grandprix_first_position = None
+               
+                current_riders = set()
+
+        successions.sort( key=lambda x: x['num_gp'],reverse=True)
+        successions = successions[:n].copy()
+
+        for data in successions:
+            data["first_gp"] = get_name_for_id_gp(data["first_gp"], cursor)
+            data["win_gp"]= get_name_for_id_gp(data["win_gp"], cursor)
+
+        return successions
+
+    
+
+    # Get the top 10 longest successions and their respective riders with names for the first and last id_grandprix
+    top_10_successions = top_n_longest_successions(df['final_position'], 10, cursor)
+    
+    # Convert the list of tuples to a DataFrame
+    
+    result_df = pd.DataFrame(top_10_successions, columns=['rider', 'first_gp', 'win_gp','num_gp'])
+
+    
+
+    # Output the DataFrame
+    return result_df
+
+def longest_winless_streak(season, racing_class):
+    df = fetch_consecutive_results_aux(season,racing_class)
+    cursor=None
+        # Function to fetch the name related to id_grandprix from the database
+    def get_name_for_id_gp(id_grandprix, cursor):
+        if st.session_state.UsingCSV:
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
+        return name
+
+    def get_latest_id_gp(rider_name,cursor):
+        if st.session_state.UsingCSV:
+            query=f"SELECT id_grandprix from dim_grand_prix dgp left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+                        left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
+                        where dr.rider_full_name = '{rider_name}'\
+                        order by id_grandprix desc limit 1"
+            id_gp =  psql.sqldf(query)
+            id_gp=id_gp.iloc[0,0]
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT TOP(1) id_grandprix from dim_grand_prix dgp left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+                            left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
+                            where dr.rider_full_name = '{rider_name}'\
+                            order by id_grandprix desc ")
+            id_gp = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
+        return id_gp
+    # Example DataFrame
+
+
+    # Function to find the top N longest continuous successions of numeric strings and their respective riders
+    def top_n_longest_successions(series, n, cursor):
+        successions = []
+        current_succession = 0
+        current_riders = set()  # Using a set to store unique rider names
+        current_id_gp = None
+
+        grouped = df.groupby('rider_full_name')
+
+        for rider, data in grouped:
+            if rider == 'José Antonio Rueda':
+                found=False
+                final_gp = 0
+                first_gp= data['id_grandprix'].iloc[0]
+                counter=0
+
+                if any(data['final_position'] != '1') and first_gp > 1:
+                    id_grandprix_first_position = get_latest_id_gp(rider,cursor)
+                    num_gp = id_grandprix_first_position - first_gp
+
+                id_grandprix_data = {
+                        'rider': rider,
+                        'first_gp':  first_gp,
+                        'win_gp': id_grandprix_first_position,
+                        'num_gp':num_gp
+                    }
+                successions.append(id_grandprix_data)
+                current_riders = set()
+
+        successions.sort( key=lambda x: x['num_gp'],reverse=True)
+        successions = successions[:n].copy()
+
+        for data in successions:
+            data["first_gp"] = get_name_for_id_gp(data["first_gp"], cursor)
+            data["win_gp"]= get_name_for_id_gp(data["win_gp"], cursor)
+
+        return successions
+
+    
+
+    # Get the top 10 longest successions and their respective riders with names for the first and last id_grandprix
+    top_10_successions = top_n_longest_successions(df['final_position'], 10, cursor)
+    
+    # Convert the list of tuples to a DataFrame
+    
+    result_df = pd.DataFrame(top_10_successions, columns=['rider', 'first_gp', 'win_gp','num_gp'])
+
+    
+
+    # Output the DataFrame
+    return result_df
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
