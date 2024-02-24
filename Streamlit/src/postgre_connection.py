@@ -2442,19 +2442,19 @@ def longest_winless_streak(season, racing_class):
 
     def get_latest_id_gp(rider_name,cursor):
         if st.session_state.UsingCSV:
-            query=f"SELECT id_grandprix from dim_grand_prix dgp left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+            query=f'SELECT id_grandprix from dim_grand_prix dgp left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
                         left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
-                        where dr.rider_full_name = '{rider_name}'\
-                        order by id_grandprix desc limit 1"
+                        where dr.rider_full_name = "{rider_name}"\
+                        order by id_grandprix desc limit 1'
             id_gp =  psql.sqldf(query)
             id_gp=id_gp.iloc[0,0]
         else:
             conn = connect()
             cursor = conn.cursor()
-            cursor.execute(f"SELECT TOP(1) id_grandprix from dim_grand_prix dgp left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+            cursor.execute(f'SELECT TOP(1) id_grandprix from dim_grand_prix dgp left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
                             left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
-                            where dr.rider_full_name = '{rider_name}'\
-                            order by id_grandprix desc ")
+                            where dr.rider_full_name = "{rider_name}"\
+                            order by id_grandprix desc ')
             id_gp = cursor.fetchone()[0]
             cursor.close()
             conn.close()
@@ -2473,15 +2473,17 @@ def longest_winless_streak(season, racing_class):
 
         for rider, data in grouped:
             # if rider == 'José Antonio Rueda':
+            first_gp= data['id_grandprix'].iloc[0]
+            if any(data['final_position'] != '1') and first_gp > 1:
                 found=False
                 final_gp = 0
-                first_gp= data['id_grandprix'].iloc[0]
+                
                 first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
 
-                if any(data['final_position'] != '1') and first_gp > 1:
-                    id_last_race = get_latest_id_gp(rider,cursor)
-                    last_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == id_last_race)].index[0]
-                    num_gp= last_gp_index - first_gp_index +1
+                
+                id_last_race = get_latest_id_gp(rider,cursor)
+                last_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == id_last_race)].index[0]
+                num_gp= last_gp_index - first_gp_index +1
 
                 id_grandprix_data = {
                         'rider': rider,
