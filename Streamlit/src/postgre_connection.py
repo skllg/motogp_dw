@@ -2476,16 +2476,17 @@ def longest_winless_streak(season, racing_class):
                 found=False
                 final_gp = 0
                 first_gp= data['id_grandprix'].iloc[0]
-                counter=0
+                first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
 
                 if any(data['final_position'] != '1') and first_gp > 1:
-                    id_grandprix_first_position = get_latest_id_gp(rider,cursor)
-                    num_gp = id_grandprix_first_position - first_gp
+                    id_last_race = get_latest_id_gp(rider,cursor)
+                    last_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == id_last_race)].index[0]
+                    num_gp= last_gp_index - first_gp_index
 
                 id_grandprix_data = {
                         'rider': rider,
                         'first_gp':  first_gp,
-                        'win_gp': id_grandprix_first_position,
+                        'last_gp': id_last_race,
                         'num_gp':num_gp
                     }
                 successions.append(id_grandprix_data)
@@ -2496,7 +2497,7 @@ def longest_winless_streak(season, racing_class):
 
         for data in successions:
             data["first_gp"] = get_name_for_id_gp(data["first_gp"], cursor)
-            data["win_gp"]= get_name_for_id_gp(data["win_gp"], cursor)
+            data["last_gp"]= get_name_for_id_gp(data["last_gp"], cursor)
 
         return successions
 
@@ -2507,7 +2508,7 @@ def longest_winless_streak(season, racing_class):
     
     # Convert the list of tuples to a DataFrame
     
-    result_df = pd.DataFrame(top_10_successions, columns=['rider', 'first_gp', 'win_gp','num_gp'])
+    result_df = pd.DataFrame(top_10_successions, columns=['rider', 'first_gp', 'last_gp','num_gp'])
 
     
 
