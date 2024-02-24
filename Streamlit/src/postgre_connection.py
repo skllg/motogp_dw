@@ -2472,7 +2472,7 @@ def longest_winless_streak(season, racing_class):
         grouped = df.groupby('rider_full_name')
 
         for rider, data in grouped:
-            if rider == 'José Antonio Rueda':
+            # if rider == 'José Antonio Rueda':
                 found=False
                 final_gp = 0
                 first_gp= data['id_grandprix'].iloc[0]
@@ -2481,7 +2481,7 @@ def longest_winless_streak(season, racing_class):
                 if any(data['final_position'] != '1') and first_gp > 1:
                     id_last_race = get_latest_id_gp(rider,cursor)
                     last_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == id_last_race)].index[0]
-                    num_gp= last_gp_index - first_gp_index
+                    num_gp= last_gp_index - first_gp_index +1
 
                 id_grandprix_data = {
                         'rider': rider,
