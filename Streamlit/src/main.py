@@ -344,7 +344,7 @@ def show_main_page():
 
         with S4_col1:
             st.write("Season/Class specific statistics")
-            racing_class = st.radio("select racing class:", key="racing_class",options= ["Any","motogp", "250cc_moto2", "125cc_moto3", "moto-e"],index=0)
+            racing_class = st.radio("select racing class:", key="racing_class",options= ["Any","motogp", "250cc_moto2", "125cc_moto3"],index=0)
         with S4_col2:
             # season= st.selectbox(
             #         'Temporada',
