@@ -2665,6 +2665,119 @@ def youngest_winner(season, racing_class):
     return result_df
 
 
+def oldest_winner(season, racing_class):
+    df = fetch_consecutive_results_aux(season,racing_class)
+    cursor=None
+        # Function to fetch the name related to id_grandprix from the database
+    def get_name_for_id_gp(id_grandprix, cursor):
+        if st.session_state.UsingCSV:
+            query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
+            name =  psql.sqldf(query)
+            name=name.iloc[0,0]
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT CONCAT(des_grandprix,' ', season) FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
+        return name
+
+    def fetch_age(id_gp,rider_name):
+        if st.session_state.UsingCSV:
+            query=f"SELECT \
+                        CAST((julianday(dgp.gp_date) - julianday(dr.date_birth)) / 365 AS INT) || ' years ' ||\
+                        CAST(((julianday(dgp.gp_date) - julianday(dr.date_birth)) % 365) / 30 AS INT) || ' months ' ||\
+                        CAST(((julianday(dgp.gp_date) - julianday(dr.date_birth)) % 365) % 30 AS INT) || ' days' AS years_months_days,\
+                        (julianday(dgp.gp_date) - julianday(dr.date_birth)) AS total_days\
+                        FROM \
+                         dim_grand_prix dgp \
+                            left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+                            left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
+                            where fr.id_grand_prix_fk = {id_gp} and dr.rider_full_name = '{rider_name}'\
+                            group by dr.rider_full_name,dgp.gp_date, dr.date_birth"
+            name =  psql.sqldf(query)
+            # st.dataframe(name)
+            name['total_days'] = name['total_days'].fillna(0)
+            name['total_days'] = name['total_days'].astype(int)
+            name_filtered = name[name['years_months_days'].notna()]
+            return name_filtered
+        else:
+            conn = connect()
+            cursor = conn.cursor()
+            cursor.execute(f"select \
+                            EXTRACT(YEAR FROM age(dgp.gp_date, dr.date_birth)) || ' years ' ||\
+                                EXTRACT(MONTH FROM age(dgp.gp_date, dr.date_birth)) || ' months ' ||\
+                                EXTRACT(DAY FROM age(dgp.gp_date, dr.date_birth)) || ' days' AS years_months_days,\
+                                dgp.gp_date-dr.date_birth AS total_days\
+                            from dim_grand_prix dgp \
+                            left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
+                            left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
+                            where fr.id_grand_prix_fk = {id_gp} and dr.rider_full_name = '{rider_name}'\
+                            group by dr.rider_full_name,dgp.gp_date, dr.date_birth")
+            name = cursor.fetchone()[0]
+            cursor.close()
+            conn.close()
+        return name
+
+    # Function to find the top N longest continuous successions of numeric strings and their respective riders
+    def top_n_longest_successions(series, n, cursor):
+        successions = []
+        current_succession = 0
+        current_riders = set()  # Using a set to store unique rider names
+        current_id_gp = None
+
+        grouped = df.groupby('rider_full_name')
+
+        for rider, data in grouped:
+            #  if rider == 'Andrea Ballerini':
+                
+                found=False
+                final_gp = 0
+                first_gp= data['id_grandprix'].iloc[0]
+                first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
+
+                if any(data['final_position'] == '1'):
+                    first_position_index = data[data['final_position'] == '1'].index[0]
+                    id_grandprix_first_position = data.loc[first_position_index, 'id_grandprix']
+
+                    age = fetch_age(id_grandprix_first_position, rider)
+                    if not age.empty:
+                        id_grandprix_data = {
+                            'rider': rider,
+                            'win_gp': id_grandprix_first_position,
+                            'age':age.iloc[0, 0],
+                            'days': age.iloc[0, 1]
+                        }
+                        successions.append(id_grandprix_data)
+                else:
+                    first_position_index='-'
+                    id_grandprix_first_position = None
+               
+                current_riders = set()
+
+        successions.sort( key=lambda x: x['days'],reverse=True)
+        successions = successions[:n].copy()
+
+        for data in successions:
+            data["win_gp"]= get_name_for_id_gp(data["win_gp"], cursor)
+
+        return successions
+
+    
+
+    # Get the top 10 longest successions and their respective riders with names for the first and last id_grandprix
+    top_10_successions = top_n_longest_successions(df['final_position'], 10, cursor)
+    
+    # Convert the list of tuples to a DataFrame
+    
+    result_df = pd.DataFrame(top_10_successions, columns=['rider', 'win_gp', 'age','days'])
+
+    
+
+    # Output the DataFrame
+    return result_df
+
 
 
 
