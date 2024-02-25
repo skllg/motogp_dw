@@ -375,9 +375,7 @@ def show_main_page():
             consecutive_fails= most_consecutive_fails(season2, racing_class)
             st.dataframe(consecutive_fails)
 
-            st.write("oldest winner")
-            oldest_winners = oldest_winner(season2, racing_class)
-            st.dataframe(oldest_winners)
+            
             
             
 
@@ -399,6 +397,9 @@ def show_main_page():
             youngest_winners = youngest_winner(season2, racing_class)
             st.dataframe(youngest_winners)
 
+            st.write("oldest winner")
+            oldest_winners = oldest_winner(season2, racing_class)
+            st.dataframe(oldest_winners)
             
                 
             
