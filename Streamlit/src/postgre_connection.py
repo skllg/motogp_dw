@@ -2752,7 +2752,7 @@ def oldest_winner(season, racing_class):
         old_riders = ['Troy Bayliss',
             'Johann Zarco',
             'Osamu Miyazaki',
-            'Danilo Petrucci',
+            'Valentino Rossi',
             'Aleix Espargaró',
             'Alex Barros',
             'Max Biaggi',
