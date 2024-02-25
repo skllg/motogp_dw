@@ -2503,9 +2503,18 @@ def longest_winless_streak(season, racing_class):
         current_id_gp = None
 
         grouped = df.groupby('rider_full_name')
-
+        winless = ['Marcel Schrötter',
+                'Jakub Kornfeil',
+                'Axel Pons',
+                'Hafizh Syahrin',
+                'Bo Bendsneyder',
+                'Yonny Hernández',
+                'Ratthapark Wilairot',
+                'Gabriel Rodrigo',
+                'Isaac Viñales',
+                'Xavi Vierge']
         for rider, data in grouped:
-            if rider != 'Colin Edwards':
+            if rider in winless:
                 first_gp= data['id_grandprix'].iloc[0]
                 if any(data['final_position'] != '1') and first_gp > 1:
                     found=False
@@ -2555,6 +2564,16 @@ def youngest_winner(season, racing_class):
     df = fetch_consecutive_results_aux(season,racing_class)
     cursor=None
         # Function to fetch the name related to id_grandprix from the database
+    young_riders = ['Can Öncü',
+            'Scott Redding',
+            'Pedro Acosta',
+            'Romano Fenati',
+            'Jorge Lorenzo',
+            'Maverick Viñales',
+            'Héctor Barberá',
+            'Sergio García',
+            'Jonas Folger',
+            'Daniel Holgado']
     def get_name_for_id_gp(id_grandprix, cursor):
         if st.session_state.UsingCSV:
             query=f"SELECT des_grandprix || ' ' || season FROM dim_grand_prix WHERE id_grandprix = {id_grandprix}"
@@ -2616,7 +2635,7 @@ def youngest_winner(season, racing_class):
         grouped = df.groupby('rider_full_name')
 
         for rider, data in grouped:
-            # if rider == 'Jorge Lorenzo':
+            if rider in young_riders:
                 
                 found=False
                 final_gp = 0
@@ -2731,7 +2750,7 @@ def oldest_winner(season, racing_class):
         grouped = df.groupby('rider_full_name')
 
         old_riders = ['Troy Bayliss',
-            'Stefano Perugini',
+            'Johann Zarco',
             'Osamu Miyazaki',
             'Danilo Petrucci',
             'Aleix Espargaró',
@@ -2741,7 +2760,7 @@ def oldest_winner(season, racing_class):
             'Sete Gibernau',
             'Loris Capirossi']
         for rider, data in grouped:
-            # if rider == 'Valentino Rossi':
+            if rider in old_riders:
                 
                 found=False
                 final_gp = 0
