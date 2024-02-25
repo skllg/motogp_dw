@@ -2695,7 +2695,8 @@ def oldest_winner(season, racing_class):
                             left join fact_results fr on fr.id_grand_prix_fk = dgp.id_grandprix \
                             left join dim_riders dr on dr.id_rider = fr.id_rider_fk \
                             where fr.id_grand_prix_fk = {id_gp} and dr.rider_full_name = '{rider_name}'\
-                            group by dr.rider_full_name,dgp.gp_date, dr.date_birth"
+                            group by dr.rider_full_name,dgp.gp_date, dr.date_birth\
+                            "
             name =  psql.sqldf(query)
             # st.dataframe(name)
             name['total_days'] = name['total_days'].fillna(0)
@@ -2729,8 +2730,18 @@ def oldest_winner(season, racing_class):
 
         grouped = df.groupby('rider_full_name')
 
+        old_riders = ['Troy Bayliss',
+            'Stefano Perugini',
+            'Osamu Miyazaki',
+            'Danilo Petrucci',
+            'Aleix Espargaró',
+            'Alex Barros',
+            'Max Biaggi',
+            'Cal Crutchlow',
+            'Sete Gibernau',
+            'Loris Capirossi']
         for rider, data in grouped:
-            #  if rider == 'Andrea Ballerini':
+            # if rider == 'Valentino Rossi':
                 
                 found=False
                 final_gp = 0
@@ -2738,7 +2749,7 @@ def oldest_winner(season, racing_class):
                 first_gp_index = df[(df['rider_full_name'] == rider) & (df['id_grandprix'] == first_gp)].index[0]
 
                 if any(data['final_position'] == '1'):
-                    first_position_index = data[data['final_position'] == '1'].index[0]
+                    first_position_index = data[data['final_position'] == '1'].index[-1]
                     id_grandprix_first_position = data.loc[first_position_index, 'id_grandprix']
 
                     age = fetch_age(id_grandprix_first_position, rider)
