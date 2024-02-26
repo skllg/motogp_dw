@@ -96,21 +96,24 @@ def show_main_page():
         with S1_tab1:
             
             df = fetch_cummulative_sum_points(season, racing_class)
-            
-            fig = px.line(df, x="num_round", y="cummulative_sum", color='rider_full_name', symbol="rider_full_name")
+            category_order1 = df.groupby('rider_full_name').size().sort_values(ascending=False).index
+
+            fig = px.line(df, x="num_round", y="cummulative_sum", color='rider_full_name', symbol="rider_full_name",category_orders={'category': category_order1})
             # fig.show()
             st.plotly_chart(fig)
 
         with S1_tab2:
             df2 = fetch_cummulative_sum_points_constructors(season, racing_class)
-            fig2 = px.bar(df2, x="des_constructor", y="total_points", color='des_constructor',)
+            category_order2 = df2.groupby('des_constructor').size().sort_values(ascending=False).index
+            fig2 = px.bar(df2, x="des_constructor", y="total_points", color='des_constructor',category_orders={'category': category_order2})
             # fig.show() 
             st.plotly_chart(fig2)
 
         with S1_tab3:
             
             df3 = fetch_cummulative_sum_points_teams(season, racing_class)
-            fig3 = px.bar(df3, x="des_team", y="total_points", color='des_team',)
+            category_order3 = df3.groupby('des_team').size().sort_values(ascending=False).index
+            fig3 = px.bar(df3, x="des_team", y="total_points", color='des_team',category_orders={'category': category_order3})
             # fig.show() 
             st.plotly_chart(fig3)
 
@@ -137,8 +140,9 @@ def show_main_page():
             st.write(f'{season} MotoGP rider points and classification')
             df1 = fetch_season_bar_chart(season, motogp)
             
+            category_order1 = df1.groupby('rider_name').size().sort_values(ascending=False).index
 
-            fig1 = px.bar(df1, x='rider_name', y="total_points", color='rider_name')
+            fig1 = px.bar(df1, x='rider_name', y="total_points", color='rider_name',category_orders={'category': category_order1})
                                 
 
             # fig.show()
@@ -150,8 +154,9 @@ def show_main_page():
             inter = "Intermediate"
             st.write(f'{season} Moto2/250cc rider points and classification')
             df2 = fetch_season_bar_chart(season, inter)
-            
-            fig2 = px.bar(df2, x="rider_name", y="total_points", color='rider_name')
+
+            category_order2 = df2.groupby('rider_name').size().sort_values(ascending=False).index
+            fig2 = px.bar(df2, x="rider_name", y="total_points", color='rider_name',category_orders={'category': category_order2})
             
             st.plotly_chart(fig2)
 
@@ -163,9 +168,9 @@ def show_main_page():
             
             df3 = fetch_season_bar_chart(season, lower)
             
-
+            category_order3 = df3.groupby('rider_name').size().sort_values(ascending=False).index
             
-            fig3 = px.bar(df3, x="rider_name", y="total_points", color='rider_name')
+            fig3 = px.bar(df3, x="rider_name", y="total_points", color='rider_name',category_orders={'category': category_order3})
             
 
             
@@ -176,9 +181,9 @@ def show_main_page():
             motoe = "'moto-e'"
             st.write(f'{season} MotoE rider points and classification')
             df4 = fetch_season_bar_chart(season, motoe)
-
+            category_order3 = df4.groupby('rider_name').size().sort_values(ascending=False).index
             
-            fig4 = px.bar(df4, x="rider_name", y="total_points", color='rider_name')
+            fig4 = px.bar(df4, x="rider_name", y="total_points", color='rider_name',category_orders={'category': category_order3})
 
             
             st.plotly_chart(fig4)
@@ -201,7 +206,7 @@ def show_main_page():
             df= fetch_track_location(season)
             fig5 = px.scatter_mapbox(df, lon= df['latitude'], lat= df['longitude'], zoom=1, color = df['des_track'],
                                      height=900, width=900, title= f'Track locatioin map in {season}')
-
+            
             fig5.update_layout(mapbox_style="open-street-map")
             st.plotly_chart(fig5)
         
@@ -260,76 +265,93 @@ def show_main_page():
                 st.metric(label='number of saturday races', value=num_sat[0])
             
         with S2_tab1:
-            S43_col1,S43_col2 = st.columns([0.2,0.2])
-            with S43_col1:
-                top_wins = fetch_top_wins(season2,racing_class)
-                st.dataframe(top_wins)
 
-                top_wins_sprint = fetch_top_wins_sprint(season2,racing_class)
-                st.dataframe(top_wins_sprint)
+            top_wins = fetch_top_wins(season2,racing_class)
+            top_wins.index = top_wins.index + 1
+            st.dataframe(top_wins,use_container_width=True)
 
-                top_poles = fetch_top_poles(season2,racing_class)
-                st.dataframe(top_poles)
-                
-                top_fast_laps = fetch_top_percentage_points(season2,racing_class)
-                st.dataframe(top_fast_laps)
+            top_wins_sprint = fetch_top_wins_sprint(season2,racing_class)
+            top_wins_sprint.index = top_wins_sprint.index + 1
+            st.dataframe(top_wins_sprint,use_container_width=True)
 
-                top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
-                st.dataframe(top_percentage_wins_season)
+            top_poles = fetch_top_poles(season2,racing_class)
+            top_poles.index = top_poles.index + 1
+            st.dataframe(top_poles,use_container_width=True)
+            
+            top_fast_laps = fetch_top_percentage_points(season2,racing_class)
+            top_fast_laps.index = top_fast_laps.index + 1
+            st.dataframe(top_fast_laps,use_container_width=True)
 
-                top_different_podium_finishers =fetch_top_different_podium_finishers(season2, racing_class)
-                st.dataframe(top_different_podium_finishers)
+            top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
+            top_percentage_wins_season.index = top_percentage_wins_season.index + 1
+            st.dataframe(top_percentage_wins_season,use_container_width=True)
 
-                top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
-                st.dataframe(top_percentage_points_carreer)
+            top_different_podium_finishers =fetch_top_different_podium_finishers(season2, racing_class)
+            top_different_podium_finishers.index = top_different_podium_finishers.index + 1
+            st.dataframe(top_different_podium_finishers,use_container_width=True)
 
-            with S43_col2:
-                top_podiums = fetch_top_podiums(season2,racing_class)
-                st.dataframe(top_podiums)
-                st.divider()
+            top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
+            top_percentage_points_carreer.index = top_percentage_points_carreer.index + 1
+            st.dataframe(top_percentage_points_carreer,use_container_width=True)
 
-                top_podiums_sprint = fetch_top_podiums_sprint(season2,racing_class)
-                st.dataframe(top_podiums_sprint)
 
-                top_fast_laps = fetch_top_fast_laps(season2,racing_class)
-                st.dataframe(top_fast_laps)
+            top_podiums = fetch_top_podiums(season2,racing_class)
+            top_podiums.index = top_podiums.index + 1
+            st.dataframe(top_podiums,use_container_width=True)
 
-                top_points_career =fetch_top_points_carrer(season2, racing_class)
-                st.dataframe(top_points_career)
+            top_podiums_sprint = fetch_top_podiums_sprint(season2,racing_class)
+            top_podiums_sprint.index = top_podiums_sprint.index + 1
+            st.dataframe(top_podiums_sprint,use_container_width=True)
 
-                top_different_winners =fetch_top_different_winners(season2, racing_class)
-                st.dataframe(top_different_winners)
+            top_fast_laps = fetch_top_fast_laps(season2,racing_class)
+            top_fast_laps.index = top_fast_laps.index + 1
+            st.dataframe(top_fast_laps,use_container_width=True)
 
-                top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
-                st.dataframe(top_wins_by_track)
+            top_points_career =fetch_top_points_carrer(season2, racing_class)
+            top_points_career.index = top_points_career.index + 1
+            st.dataframe(top_points_career,use_container_width=True)
+
+            top_different_winners =fetch_top_different_winners(season2, racing_class)
+            top_different_winners.index = top_different_winners.index + 1
+            st.dataframe(top_different_winners,use_container_width=True)
+
+            top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
+            top_wins_by_track.index = top_wins_by_track.index + 1
+            st.dataframe(top_wins_by_track,use_container_width=True)
               
 
         with S2_tab2:   
-            S43_col1,S43_col2 = st.columns([0.2,0.2])
-            with S43_col1:
-                top_points_constructor =fetch_top_points_constructor(season2, racing_class)
-                st.dataframe(top_points_constructor)
+            
+            top_points_constructor =fetch_top_points_constructor(season2, racing_class)
+            top_points_constructor.index = top_points_constructor.index + 1
+            st.dataframe(top_points_constructor,use_container_width=True,hide_index=True)
 
 
-                top_wins_constructor =fetch_top_wins_constructor(season2, racing_class)
-                st.dataframe(top_wins_constructor)
+            top_wins_constructor =fetch_top_wins_constructor(season2, racing_class)
+            top_wins_constructor.index = top_wins_constructor.index + 1
+            st.dataframe(top_wins_constructor,use_container_width=True,hide_index=True)
 
-                
-                top_podiums_constructor =fetch_top_podiums_constructor(season2, racing_class)
-                st.dataframe(top_podiums_constructor)
+            
+            top_podiums_constructor =fetch_top_podiums_constructor(season2, racing_class)
+            top_podiums_constructor.index = top_podiums_constructor.index + 1
+            st.dataframe(top_podiums_constructor,use_container_width=True,hide_index=True)
 
-                top_percentage_wins_season_constructor =fetch_top_percentage_wins_season_constructor(season2, racing_class)
-                st.dataframe(top_percentage_wins_season_constructor)
+            top_percentage_wins_season_constructor =fetch_top_percentage_wins_season_constructor(season2, racing_class)
+            top_percentage_wins_season_constructor.index = top_percentage_wins_season_constructor.index + 1
+            st.dataframe(top_percentage_wins_season_constructor,use_container_width=True,hide_index=True)
 
-            with S43_col2:
-                top_percentage_podiums_season_constructor =fetch_top_percentage_podiums_season_constructor(season2, racing_class)
-                st.dataframe(top_percentage_podiums_season_constructor)
+        
+            top_percentage_podiums_season_constructor =fetch_top_percentage_podiums_season_constructor(season2, racing_class)
+            top_percentage_podiums_season_constructor.index = top_percentage_podiums_season_constructor.index + 1
+            st.dataframe(top_percentage_podiums_season_constructor,use_container_width=True,hide_index=True)
 
-                top_percentage_podiums_season_teams =fetch_top_percentage_podiums_season_teams(season2, racing_class)
-                st.dataframe(top_percentage_podiums_season_teams)
+            top_percentage_podiums_season_teams =fetch_top_percentage_podiums_season_teams(season2, racing_class)
+            top_percentage_podiums_season_teams.index = top_percentage_podiums_season_teams.index + 1
+            st.dataframe(top_percentage_podiums_season_teams,use_container_width=True,hide_index=True)
 
-                top_wins_by_track_constructor =fetch_top_wins_by_track_constructor(season2, racing_class)
-                st.dataframe(top_wins_by_track_constructor)
+            top_wins_by_track_constructor =fetch_top_wins_by_track_constructor(season2, racing_class)
+            top_wins_by_track_constructor.index = top_wins_by_track_constructor.index + 1
+            st.dataframe(top_wins_by_track_constructor,use_container_width=True)
 
 
 

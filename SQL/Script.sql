@@ -1,1 +1,0 @@
-select * from dim_grand_prix dgp where dgp.season = 2022
