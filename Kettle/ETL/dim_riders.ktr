@@ -440,37 +440,16 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>cuando se pase a sql el id puede calcularse como un autogenerado al insertarse</note>
-      <xloc>192</xloc>
-      <yloc>656</yloc>
-      <width>428</width>
-      <heigth>26</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>motogp_dw</name>
-    <server>aws-0-us-west-1.pooler.supabase.com</server>
+    <server>${MOTOGP_HOST}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>postgres</database>
-    <port>5432</port>
-    <username>postgres.rjsugwqpmaleskakbhbh</username>
-    <password>Encrypted 2be98defd289083dca35f9c71cd94a699</password>
+    <database>${MOTOGP_DATABASE}</database>
+    <port>${MOTOGP_PORT}</port>
+    <username>${MOTOGP_USER}</username>
+    <password>${MOTOGP_PASS}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -489,7 +468,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
+        <attribute>${MOTOGP_PORT}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -515,52 +494,52 @@
   </connection>
   <order>
     <hop>
-      <from>Microsoft Excel input</from>
+      <from>MotoGP</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
-      <to>Replace in string</to>
+      <from>delete source:</from>
+      <to>Delete '/' from teams</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Split fields</from>
-      <to>Concat fields</to>
+      <from>Split name and last name</from>
+      <to>get full name</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Unique rows</from>
-      <to>Replace in string 2</to>
+      <to>Join compound names</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string 2</from>
-      <to>Split fields</to>
+      <from>Join compound names</from>
+      <to>Split name and last name</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Concat fields</from>
-      <to>Replace in string 3</to>
+      <from>get full name</from>
+      <to>remove _</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string 3</from>
-      <to>Filter rows</to>
+      <from>remove _</from>
+      <to>delete source:</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get variables</from>
-      <to>Database lookup</to>
+      <from>Get SEASON</from>
+      <to>Team lookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Microsoft Excel input 2</from>
+      <from>Moto2/250cc</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Microsoft Excel input 3</from>
+      <from>Moto3/125cc</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
@@ -571,11 +550,11 @@
     </hop>
     <hop>
       <from>Select values</from>
-      <to>Filter rows 2</to>
+      <to>Filter rows 3</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows 2</from>
+      <from>Filter rows 3</from>
       <to>String operations</to>
       <enabled>Y</enabled>
     </hop>
@@ -585,62 +564,62 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Microsoft Excel input 4</from>
+      <from>MotoE</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Write to log</from>
-      <to>Microsoft Excel input 3</to>
+      <to>Moto3/125cc</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Write to log</from>
-      <to>Microsoft Excel input 4</to>
+      <to>MotoE</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Write to log</from>
-      <to>Microsoft Excel input 2</to>
+      <to>Moto2/250cc</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Write to log</from>
-      <to>Microsoft Excel input</to>
+      <to>MotoGP</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string 4</from>
-      <to>Split fields 2</to>
+      <from>normalize format</from>
+      <to>Split url</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Split fields 2</from>
-      <to>Split fields 2 2</to>
+      <from>Split url</from>
+      <to>Split rider data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Split fields 2 2</from>
-      <to>Replace in string 2 2</to>
+      <from>Split rider data</from>
+      <to>normalize format 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string 2 2</from>
-      <to>Split fields 2 2 2</to>
+      <from>normalize format 2</from>
+      <to>Get city of birth</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Split fields 2 2 2</from>
-      <to>Filter rows 2 2</to>
+      <from>Get city of birth</from>
+      <to>get rows with data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string</from>
-      <to>Formula</to>
+      <from>Delete '/' from teams</from>
+      <to>get lowercase name</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Formula</from>
+      <from>get lowercase name</from>
       <to>Sort rows 3</to>
       <enabled>Y</enabled>
     </hop>
@@ -651,56 +630,51 @@
     </hop>
     <hop>
       <from>Select values 3</from>
-      <to>Sort rows 2 2</to>
+      <to>Sort rows 5</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Table input</from>
+      <from>Get max_rounds</from>
       <to>Multiway merge join</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Modified JavaScript value 2</from>
+      <from>Get rounds_participated</from>
       <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Insert / update</from>
-      <to>Execute SQL script</to>
+      <to>Update rounds_strings</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
+      <from>Team lookup</from>
       <to>Multiway merge join</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Multiway merge join</from>
-      <to>If field value is null</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows 2</from>
-      <to>Fuzzy match</to>
+      <to>If rounds is null</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Sort rows 3</from>
-      <to>Fuzzy match</to>
+      <to>Fuzzy match riders</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>JSON input</from>
-      <to>Replace in string 4</to>
+      <from>JSON rider bios</from>
+      <to>normalize format</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows 2 2</from>
+      <from>get rows with data</from>
       <to>Select values 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>CSV file input 2</from>
+      <from>CSV GeoData</from>
       <to>Unique rows 2</to>
       <enabled>Y</enabled>
     </hop>
@@ -710,112 +684,43 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Fuzzy match</from>
-      <to>Sort rows 3 2</to>
+      <from>Fuzzy match riders</from>
+      <to>Sort rows 4</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 3 2</from>
-      <to>Fuzzy match 2</to>
+      <from>Sort rows 4</from>
+      <to>Fuzzy match GeoData</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 2 2</from>
-      <to>Fuzzy match 2</to>
+      <from>Sort rows 5</from>
+      <to>Fuzzy match GeoData</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Fuzzy match 2</from>
-      <to>Get variables</to>
+      <from>Fuzzy match GeoData</from>
+      <to>Get SEASON</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>If field value is null</from>
+      <from>If rounds is null</from>
       <to>Replace in string 5</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Replace in string 5</from>
-      <to>Modified JavaScript value 2</to>
+      <to>Get rounds_participated</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>Fuzzy match riders</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>CSV file input</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>C:\Users\zaka\Desktop\MOTOGP\Streamlit\riders.txt</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
-        <name>rider_name</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>19</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>lat</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>18</length>
-        <precision>10</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>long</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>20</length>
-        <precision>10</precision>
-        <trim_type>both</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>784</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>CSV file input 2</name>
+    <name>CSV GeoData</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -883,13 +788,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>320</yloc>
+      <xloc>688</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Concat fields</name>
+    <name>get full name</name>
     <type>ConcatFields</type>
     <description/>
     <distribute>Y</distribute>
@@ -975,7 +880,7 @@
     </GUI>
   </step>
   <step>
-    <name>Database lookup</name>
+    <name>Team lookup</name>
     <type>DBLookup</type>
     <description/>
     <distribute>N</distribute>
@@ -1029,13 +934,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>512</yloc>
+      <xloc>928</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Execute SQL script</name>
+    <name>Update rounds_strings</name>
     <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
@@ -1068,13 +973,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1504</xloc>
-      <yloc>1120</yloc>
+      <xloc>1488</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filter rows</name>
+    <name>delete source:</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1084,7 +989,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Replace in string</send_true_to>
+    <send_true_to>Delete '/' from teams</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -1112,13 +1017,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>880</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filter rows 2</name>
+    <name>Filter rows 3</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1147,13 +1052,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>128</yloc>
+      <xloc>528</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filter rows 2 2</name>
+    <name>get rows with data</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1209,13 +1114,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>32</yloc>
+      <xloc>1088</xloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Formula</name>
+    <name>get lowercase name</name>
     <type>Formula</type>
     <description/>
     <distribute>Y</distribute>
@@ -1242,13 +1147,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
+      <xloc>1072</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Fuzzy match</name>
+    <name>Fuzzy match riders</name>
     <type>FuzzyMatch</type>
     <description/>
     <distribute>N</distribute>
@@ -1297,12 +1202,12 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>128</yloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Fuzzy match 2</name>
+    <name>Fuzzy match GeoData</name>
     <type>FuzzyMatch</type>
     <description/>
     <distribute>N</distribute>
@@ -1312,7 +1217,7 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>Sort rows 2 2</from>
+    <from>Sort rows 5</from>
     <lookupfield>rider_full_name</lookupfield>
     <mainstreamfield>rider_full_name</mainstreamfield>
     <outputmatchfield>match</outputmatchfield>
@@ -1342,13 +1247,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>320</yloc>
+      <xloc>1088</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Get variables</name>
+    <name>Get SEASON</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -1381,13 +1286,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
+      <xloc>816</xloc>
       <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>If field value is null</name>
+    <name>If rounds is null</name>
     <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
@@ -1421,8 +1326,8 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>768</yloc>
+      <xloc>1120</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1547,13 +1452,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>1120</yloc>
+      <xloc>1408</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>JSON input</name>
+    <name>JSON rider bios</name>
     <type>JsonInput</type>
     <description/>
     <distribute>N</distribute>
@@ -1631,13 +1536,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>32</yloc>
+      <xloc>544</xloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel input</name>
+    <name>MotoGP</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1807,13 +1712,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>0</xloc>
-      <yloc>192</yloc>
+      <xloc>400</xloc>
+      <yloc>576</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel input 2</name>
+    <name>Moto2/250cc</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1983,13 +1888,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>112</xloc>
-      <yloc>224</yloc>
+      <xloc>480</xloc>
+      <yloc>576</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel input 3</name>
+    <name>Moto3/125cc</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -2164,13 +2069,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>240</yloc>
+      <xloc>576</xloc>
+      <yloc>576</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel input 4</name>
+    <name>MotoE</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -2340,13 +2245,13 @@ SET rounds_participated  =  CAST(rounds_string AS INTEGER[]);</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>208</yloc>
+      <xloc>656</xloc>
+      <yloc>576</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Modified JavaScript value 2</name>
+    <name>Get rounds_participated</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -2432,7 +2337,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>1040</yloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2464,13 +2369,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>688</yloc>
+      <xloc>1024</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Replace in string</name>
+    <name>Delete '/' from teams</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>N</distribute>
@@ -2503,13 +2408,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1056</xloc>
-      <yloc>128</yloc>
+      <xloc>976</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Replace in string 2</name>
+    <name>Join compound names</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>Y</distribute>
@@ -3274,13 +3179,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>128</yloc>
+      <xloc>528</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Replace in string 2 2</name>
+    <name>normalize format 2</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>N</distribute>
@@ -3481,13 +3386,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>944</xloc>
-      <yloc>32</yloc>
+      <xloc>896</xloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Replace in string 3</name>
+    <name>remove _</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>Y</distribute>
@@ -3544,13 +3449,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>128</yloc>
+      <xloc>816</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Replace in string 4</name>
+    <name>normalize format</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>N</distribute>
@@ -3682,8 +3587,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>864</yloc>
+      <xloc>1200</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3734,8 +3639,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>128</xloc>
-      <yloc>128</yloc>
+      <xloc>528</xloc>
+      <yloc>496</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3753,21 +3658,27 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     <fields>
       <field>
         <name>name</name>
+        <rename/>
       </field>
       <field>
         <name>bike</name>
+        <rename/>
       </field>
       <field>
         <name>date_birth</name>
+        <rename/>
       </field>
       <field>
         <name>city_birth</name>
+        <rename/>
       </field>
       <field>
         <name>height</name>
+        <rename/>
       </field>
       <field>
         <name>weigth</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -3831,7 +3742,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1232</xloc>
+      <xloc>1184</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
@@ -3902,8 +3813,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
-      <yloc>320</yloc>
+      <xloc>880</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3960,8 +3871,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
-      <yloc>128</yloc>
+      <xloc>528</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4003,12 +3914,12 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
     </remotesteps>
     <GUI>
       <xloc>1312</xloc>
-      <yloc>32</yloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows 2 2</name>
+    <name>Sort rows 5</name>
     <type>SortRows</type>
     <description/>
     <distribute>N</distribute>
@@ -4044,8 +3955,8 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1104</xloc>
-      <yloc>320</yloc>
+      <xloc>976</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4086,13 +3997,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>128</yloc>
+      <xloc>1168</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort rows 3 2</name>
+    <name>Sort rows 4</name>
     <type>SortRows</type>
     <description/>
     <distribute>N</distribute>
@@ -4128,13 +4039,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
+      <xloc>1088</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Split fields</name>
+    <name>Split name and last name</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>Y</distribute>
@@ -4188,13 +4099,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>128</yloc>
+      <xloc>640</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Split fields 2</name>
+    <name>Split url</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>N</distribute>
@@ -4233,13 +4144,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>32</yloc>
+      <xloc>720</xloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Split fields 2 2</name>
+    <name>Split rider data</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>Y</distribute>
@@ -4338,13 +4249,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
+      <xloc>800</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Split fields 2 2 2</name>
+    <name>Get city of birth</name>
     <type>FieldSplitter</type>
     <description/>
     <distribute>N</distribute>
@@ -4383,7 +4294,7 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1056</xloc>
+      <xloc>992</xloc>
       <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
@@ -4423,13 +4334,13 @@ rounds_participated = "{" + resultArray + "}"; // Replace OUTPUT_FIELD_NAME with
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>128</yloc>
+      <xloc>528</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Table input</name>
+    <name>Get max_rounds</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -4506,8 +4417,8 @@ group  by season
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1168</xloc>
-      <yloc>688</yloc>
+      <xloc>1024</xloc>
+      <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4536,8 +4447,8 @@ group  by season
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>128</yloc>
+      <xloc>528</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4566,8 +4477,8 @@ group  by season
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>320</yloc>
+      <xloc>784</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4598,8 +4509,8 @@ group  by season
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
-      <yloc>384</yloc>
+      <xloc>528</xloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

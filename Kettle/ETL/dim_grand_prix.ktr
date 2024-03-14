@@ -485,13 +485,13 @@
   </notepads>
   <connection>
     <name>motogp_dw</name>
-    <server>aws-0-us-west-1.pooler.supabase.com</server>
+    <server>${MOTOGP_HOST}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>postgres</database>
-    <port>5432</port>
-    <username>postgres.rjsugwqpmaleskakbhbh</username>
-    <password>Encrypted 2be98defd289083dca35f9c71cd94a699</password>
+    <database>${MOTOGP_DATABASE}</database>
+    <port>${MOTOGP_PORT}</port>
+    <username>${MOTOGP_USER}</username>
+    <password>${MOTOGP_PASS}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -510,7 +510,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
+        <attribute>${MOTOGP_PORT}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -536,7 +536,7 @@
   </connection>
   <order>
     <hop>
-      <from>Microsoft Excel input</from>
+      <from>Calendar input</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
@@ -572,7 +572,7 @@
     </hop>
     <hop>
       <from>Write to log</from>
-      <to>Microsoft Excel input</to>
+      <to>Calendar input</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -627,8 +627,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>144</yloc>
+      <xloc>352</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -687,8 +687,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>144</yloc>
+      <xloc>336</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -728,7 +728,7 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
+      <xloc>448</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
@@ -767,8 +767,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>144</yloc>
+      <xloc>464</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -806,8 +806,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>144</yloc>
+      <xloc>208</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -885,8 +885,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>528</yloc>
+      <xloc>208</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -933,13 +933,13 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>368</yloc>
+      <xloc>320</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel input</name>
+    <name>Calendar input</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1056,8 +1056,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>144</yloc>
+      <xloc>144</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1100,8 +1100,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
-      <yloc>144</yloc>
+      <xloc>240</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1140,8 +1140,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>144</yloc>
+      <xloc>96</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1216,8 +1216,8 @@ output_field = outputDate;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>144</yloc>
+      <xloc>448</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

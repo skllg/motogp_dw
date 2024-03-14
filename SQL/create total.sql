@@ -203,5 +203,6 @@ values ('1','main',FALSE,25),('2','main',FALSE,20),('3','main',FALSE,16),('4','m
 ('22','sprint',TRUE,0),('23','sprint',TRUE,0),('24','sprint',TRUE,0),('25','sprint',TRUE,0),('26','sprint',TRUE,0),('27','sprint',TRUE,0),
 ('DNF','sprint',TRUE,0), ('DNS','sprint',TRUE,0), ('DSQ','sprint',TRUE,0),
 ('WD','sprint',TRUE,0), ('NC','sprint',TRUE,0), ('DNPQ','sprint',TRUE,0),
-('DNP','sprint',TRUE,0), ('DNA','sprint',TRUE,0), ('EX','sprint',TRUE,0), ('Ret','sprint',TRUE,0),('null','sprint',TRUE,0), ('C','sprint',TRUE,0);
+('DNP','sprint',TRUE,0), ('DNA','sprint',TRUE,0), ('EX','sprint',TRUE,0), ('Ret','sprint',TRUE,0),('null','sprint',TRUE,0), ('C','sprint',TRUE,0),
+('WLD','main',FALSE,0),('WLD','sprint',FALSE,0),('WLD','main',TRUE,0),('WLD','sprint',TRUE,0);
 

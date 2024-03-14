@@ -205,7 +205,7 @@ def show_main_page():
         with S3_tab1:
             df= fetch_track_location(season)
             fig5 = px.scatter_mapbox(df, lon= df['latitude'], lat= df['longitude'], zoom=1, color = df['des_track'],
-                                     height=900, width=900, title= f'Track locatioin map in {season}')
+                                     height=1200, width=1200, title= f'Track location map in {season}')
             
             fig5.update_layout(mapbox_style="open-street-map")
             st.plotly_chart(fig5)
@@ -215,7 +215,7 @@ def show_main_page():
             
             df= fetch_rider_location(season)
             fig5 = px.scatter_mapbox(df, lon= df['latitude'], lat= df['longitude'], zoom=1, color = df['rider_full_name'],
-                                     height=900, width=900, title= f'Rider Birth Location map in {season}')
+                                     height=1200, width=1200, title= f'Rider Birth Location map in {season}')
 
             fig5.update_layout(mapbox_style="open-street-map")
             # fig5.show()
@@ -225,7 +225,7 @@ def show_main_page():
         S4_col1,S4_col2 = st.columns([0.2,0.2])
         S42_col1,S42_col2,S42_col3,S42_col4 = st.columns([0.2,0.2,0.2,0.2])
         
-        S2_tab1, S2_tab2, S2_tab3 = st.tabs(["Riders", "Constructors","Consecutives"])
+        S2_tab1, S2_tab2 = st.tabs(["Riders", "Constructors/Teams"])
 
         empty = st.empty()
 
@@ -265,90 +265,104 @@ def show_main_page():
                 st.metric(label='number of saturday races', value=num_sat[0])
             
         with S2_tab1:
-
+            st.write('Top number of main race wins')
             top_wins = fetch_top_wins(season2,racing_class)
             top_wins.index = top_wins.index + 1
             st.dataframe(top_wins,use_container_width=True)
 
+            st.write('Top number of sprint race wins')
             top_wins_sprint = fetch_top_wins_sprint(season2,racing_class)
             top_wins_sprint.index = top_wins_sprint.index + 1
             st.dataframe(top_wins_sprint,use_container_width=True)
 
+            st.write('Top number of pole positions (since 2022)')
             top_poles = fetch_top_poles(season2,racing_class)
             top_poles.index = top_poles.index + 1
             st.dataframe(top_poles,use_container_width=True)
             
+            st.write('Top percentage of total points earned in a season')
             top_fast_laps = fetch_top_percentage_points(season2,racing_class)
             top_fast_laps.index = top_fast_laps.index + 1
             st.dataframe(top_fast_laps,use_container_width=True)
 
+            st.write('Top percentage of total main race wins in a season')
             top_percentage_wins_season =fetch_top_percentage_wins_season(season2, racing_class)
             top_percentage_wins_season.index = top_percentage_wins_season.index + 1
             st.dataframe(top_percentage_wins_season,use_container_width=True)
 
+            st.write('Fetch seasons with the highest number of different podium finishers')
             top_different_podium_finishers =fetch_top_different_podium_finishers(season2, racing_class)
             top_different_podium_finishers.index = top_different_podium_finishers.index + 1
             st.dataframe(top_different_podium_finishers,use_container_width=True)
 
+            st.write('Top percentage of total points earned over a carreer')
             top_percentage_points_carreer =fetch_top_percentage_points_carreer(season2, racing_class)
             top_percentage_points_carreer.index = top_percentage_points_carreer.index + 1
             st.dataframe(top_percentage_points_carreer,use_container_width=True)
 
-
+            st.write('Top number of main race podiums earned in a carreer')
             top_podiums = fetch_top_podiums(season2,racing_class)
             top_podiums.index = top_podiums.index + 1
             st.dataframe(top_podiums,use_container_width=True)
 
+            st.write('Top number of sprint race podiums earned in a carreer')
             top_podiums_sprint = fetch_top_podiums_sprint(season2,racing_class)
             top_podiums_sprint.index = top_podiums_sprint.index + 1
             st.dataframe(top_podiums_sprint,use_container_width=True)
 
+            st.write('Top number of fastest race laps (Since 2022)')
             top_fast_laps = fetch_top_fast_laps(season2,racing_class)
             top_fast_laps.index = top_fast_laps.index + 1
             st.dataframe(top_fast_laps,use_container_width=True)
 
+            st.write('Top points earned over an entire carreer')
             top_points_career =fetch_top_points_carrer(season2, racing_class)
             top_points_career.index = top_points_career.index + 1
             st.dataframe(top_points_career,use_container_width=True)
 
+            st.write('Seasons with the highest number of different winners')
             top_different_winners =fetch_top_different_winners(season2, racing_class)
             top_different_winners.index = top_different_winners.index + 1
             st.dataframe(top_different_winners,use_container_width=True)
 
+            st.write('Top Wins by rider in a track')
             top_wins_by_track =fetch_top_wins_by_track(season2, racing_class)
             top_wins_by_track.index = top_wins_by_track.index + 1
             st.dataframe(top_wins_by_track,use_container_width=True)
               
 
         with S2_tab2:   
-            
+            st.write('Constuctors with the most points')
             top_points_constructor =fetch_top_points_constructor(season2, racing_class)
             top_points_constructor.index = top_points_constructor.index + 1
             st.dataframe(top_points_constructor,use_container_width=True,hide_index=True)
 
-
+            st.write('Constructors with the most wins')
             top_wins_constructor =fetch_top_wins_constructor(season2, racing_class)
             top_wins_constructor.index = top_wins_constructor.index + 1
             st.dataframe(top_wins_constructor,use_container_width=True,hide_index=True)
 
-            
+            st.write('Constructors with the highest number of podium finishes')
             top_podiums_constructor =fetch_top_podiums_constructor(season2, racing_class)
             top_podiums_constructor.index = top_podiums_constructor.index + 1
             st.dataframe(top_podiums_constructor,use_container_width=True,hide_index=True)
 
+            st.write('Top percentage of wins out of all the possible in a season')
             top_percentage_wins_season_constructor =fetch_top_percentage_wins_season_constructor(season2, racing_class)
             top_percentage_wins_season_constructor.index = top_percentage_wins_season_constructor.index + 1
             st.dataframe(top_percentage_wins_season_constructor,use_container_width=True,hide_index=True)
 
-        
+            st.write('Top percentage of podiums out of all the possible in a season')
             top_percentage_podiums_season_constructor =fetch_top_percentage_podiums_season_constructor(season2, racing_class)
             top_percentage_podiums_season_constructor.index = top_percentage_podiums_season_constructor.index + 1
             st.dataframe(top_percentage_podiums_season_constructor,use_container_width=True,hide_index=True)
 
+            st.write('Top percentage of wins out of all the possible in a season (Teams)')
             top_percentage_podiums_season_teams =fetch_top_percentage_podiums_season_teams(season2, racing_class)
             top_percentage_podiums_season_teams.index = top_percentage_podiums_season_teams.index + 1
             st.dataframe(top_percentage_podiums_season_teams,use_container_width=True,hide_index=True)
 
+            st.write('Top wins by constructors in a track')
             top_wins_by_track_constructor =fetch_top_wins_by_track_constructor(season2, racing_class)
             top_wins_by_track_constructor.index = top_wins_by_track_constructor.index + 1
             st.dataframe(top_wins_by_track_constructor,use_container_width=True)
