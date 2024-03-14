@@ -19,17 +19,19 @@ def connect_csv():
     global fact_results
     global consecutive_results
     global winless_rider_results
+    
+    current_directory = os.getcwd()
 
-    dim_riders= st.secrets['dim_riders'],
-    dim_constructors= st.secrets['dim_constructors'],
-    dim_tracks= st.secrets['dim_tracks'],
-    dim_grand_prix= st.secrets['dim_grand_prix'],
-    dim_date= st.secrets['dim_date'],
-    dim_positions= st.secrets['dim_positions'],
-    dim_teams= st.secrets['dim_teams'],
-    fact_results= st.secrets['fact_results'],
-    consecutive_results = st.secrets['consecutive_results'],
-    winless_rider_results = st.secrets['winless_rider_results'],
+    dim_riders= os.path.join(current_directory,  st.secrets['dim_riders']),
+    dim_constructors= os.path.join(current_directory,  st.secrets['dim_constructors']),
+    dim_tracks= os.path.join(current_directory,  st.secrets['dim_tracks']),
+    dim_grand_prix= os.path.join(current_directory,  st.secrets['dim_grand_prix']),
+    dim_date= os.path.join(current_directory,  st.secrets['dim_date']),
+    dim_positions= os.path.join(current_directory,  st.secrets['dim_positions']),
+    dim_teams= os.path.join(current_directory,  st.secrets['dim_teams']),
+    fact_results= os.path.join(current_directory,  st.secrets['fact_results']),
+    consecutive_results = os.path.join(current_directory,  st.secrets['consecutive_results']),
+    winless_rider_results = os.path.join(current_directory,  st.secrets['winless_rider_results']),
     # st.write(dim_riders[0])
 
     # Download the CSV files from the Streamlit sharing service
