@@ -39,11 +39,11 @@ def show_main_page():
 
         logo = Image.open(logo_path)
         st.image(logo, width=(200))
-        st.header('Secciones')
+        st.header('Sections')
 
         selected = option_menu(
             menu_title=None,
-            options=["Section1", "Section2", "Section3", "Section4", "Section5"],
+            options=["Section 1", "Section 2", "Section 3", "Section 4", "Section 5"],
             icons=["1-square", "2-square", "3-square","4-square", "5-square"],
             styles={
                 "container": {"padding": ".5rem !important", "background-color": "#fff"},
