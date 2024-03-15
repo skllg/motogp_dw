@@ -3,7 +3,7 @@ import scrapy
 
 class WikipediaSpider(scrapy.Spider):
     name = 'wikipedia_spider'
-    # https://en.wikipedia.org/wiki/2003_Grand_Prix_motorcycle_racing_season
+    
 
     def start_requests(self):
         for season in range(2002,2024):

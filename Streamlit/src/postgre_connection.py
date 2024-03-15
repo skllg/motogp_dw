@@ -22,16 +22,6 @@ def connect_csv():
     
     current_directory = os.getcwd()
 
-    # dim_riders= os.path.join(current_directory,  st.secrets['dim_riders']),
-    # dim_constructors= os.path.join(current_directory,  st.secrets['dim_constructors']),
-    # dim_tracks= os.path.join(current_directory,  st.secrets['dim_tracks']),
-    # dim_grand_prix= os.path.join(current_directory,  st.secrets['dim_grand_prix']),
-    # dim_date= os.path.join(current_directory,  st.secrets['dim_date']),
-    # dim_positions= os.path.join(current_directory,  st.secrets['dim_positions']),
-    # dim_teams= os.path.join(current_directory,  st.secrets['dim_teams']),
-    # fact_results= os.path.join(current_directory,  st.secrets['fact_results']),
-    # consecutive_results = os.path.join(current_directory,  st.secrets['consecutive_results']),
-    # winless_rider_results = os.path.join(current_directory,  st.secrets['winless_rider_results']),
     dim_riders= st.secrets['dim_riders'],
     dim_constructors= st.secrets['dim_constructors'],
     dim_tracks= st.secrets['dim_tracks'],
@@ -55,22 +45,11 @@ def connect_csv():
     fact_results = pd.read_csv(fact_results[0])
     consecutive_results =  pd.read_csv(consecutive_results[0])
     winless_rider_results =  pd.read_csv(winless_rider_results[0])
-    # st.dataframe(dim_riders)
-    
 
-    # sdf =  psql.sqldf("SELECT des_team FROM dim_riders dr left join dim_teams dt on dr.id_team_fk=dt.id_team")
-    # st.dataframe(sdf)
 
 
 def connect(): 
-    # if st.secrets['is_deployed']:
-    #     db_host = os.getenv('POSTGRES_HOST')
-    #     db_port = os.getenv('POSTGRES_PORT')
-    #     db_name = os.getenv('POSTGRES_DB')
-    #     db_user = os.getenv('POSTGRES_USER')
-    #     db_password = os.getenv('POSTGRES_PASSWORD')
-        
-    # else:
+
     db_host = st.secrets['POSTGRES_HOST']
     db_port = st.secrets['POSTGRES_PORT']
     db_name = st.secrets['POSTGRES_DB']
