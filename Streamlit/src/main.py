@@ -105,7 +105,7 @@ def show_main_page():
         with S1_tab2:
             df2 = fetch_cummulative_sum_points_constructors(season, racing_class)
             category_order2 = df2.groupby('des_constructor').size().sort_values(ascending=False).index
-            fig2 = px.bar(df2, x="des_constructor", y="total_points", color='des_constructor',category_orders={'category': category_order2})
+            fig2 = px.line(df2, x="num_round", y="cummulative_sum", color='des_constructor', symbol="des_constructor",category_orders={'category': category_order1})
             # fig.show() 
             st.plotly_chart(fig2)
 
@@ -113,7 +113,8 @@ def show_main_page():
             
             df3 = fetch_cummulative_sum_points_teams(season, racing_class)
             category_order3 = df3.groupby('des_team').size().sort_values(ascending=False).index
-            fig3 = px.bar(df3, x="des_team", y="total_points", color='des_team',category_orders={'category': category_order3})
+            fig3 = px.line(df3, x="num_round", y="cummulative_sum", color='des_team', symbol="des_team",category_orders={'category': category_order1})
+
             # fig.show() 
             st.plotly_chart(fig3)
 

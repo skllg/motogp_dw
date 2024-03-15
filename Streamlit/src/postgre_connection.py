@@ -136,39 +136,35 @@ def fetch_cummulative_sum_points_constructors(season, racing_class):
     
 
     
-    query = f"WITH BestResults AS ( \
-                select\
-                    distinct\
-                    dc.des_constructor,\
+    query = f"select distinct\
+                num_round,\
+                des_constructor,\
+                SUM(top_points) OVER (PARTITION BY subquery.des_constructor ORDER BY num_round) AS cummulative_sum\
+            FROM (\
+                SELECT\
                     fr.num_round,\
-                    fr.race_type,\
-                    fr.season,\
-                    MAX(dp.num_points) AS best_points\
+                    dc.des_constructor,\
+                    CASE\
+                        WHEN rank() OVER (PARTITION BY fr.num_round, dc.des_constructor ORDER BY dp.num_points DESC) <= 1 THEN dp.num_points\
+                        ELSE 0\
+                    END AS top_points\
                 FROM\
                     fact_results fr\
-                JOIN dim_positions dp ON fr.id_position_fk = dp.id_position\
-                left join dim_riders dr on dr.id_rider = fr.id_rider_fk\
-                left join dim_teams dt on dt.id_team = dr.id_team_fk\
-                left join dim_constructors dc on dc.id_constructor = dt.id_constructor_fk\
-                where dr.season={season} and dr.racing_class='{racing_class}'\
-                GROUP by \
-                    dc.des_constructor,\
-                    fr.num_round,\
-                    fr.race_type,\
-                    fr.season \
-                )\
-                select\
-                distinct\
-                    dc.des_constructor,\
-                    dc.season,\
-                    SUM(br.best_points) AS total_points\
-                FROM\
-                    dim_constructors dc \
-                JOIN BestResults br ON dc.des_constructor  = br.des_constructor AND dc.season = br.season\
-                GROUP BY\
-                    dc.id_constructor,\
-                    dc.season\
-                order by total_points desc"
+                    LEFT JOIN dim_riders dr ON dr.id_rider = fr.id_rider_fk\
+                    LEFT JOIN dim_teams dt ON dt.id_team = dr.id_team_fk\
+                    left join dim_constructors dc on dc.id_constructor = dt.id_constructor_fk\
+                    LEFT JOIN dim_positions dp ON dp.id_position = fr.id_position_fk\
+                    LEFT JOIN dim_grand_prix dgp ON dgp.id_grandprix = fr.id_grand_prix_fk\
+                WHERE\
+                    fr.season = 2003\
+                    AND fr.racing_class = 'motogp'\
+            ) AS subquery\
+            GROUP BY\
+                num_round,\
+                des_constructor,top_points\
+            ORDER BY\
+                num_round,\
+                cummulative_sum DESC;"
     if st.session_state.UsingCSV:
         df_bh =  psql.sqldf(query)
     else:
@@ -177,7 +173,7 @@ def fetch_cummulative_sum_points_constructors(season, racing_class):
         cur.execute(query)
         result_args = cur.fetchall()
 
-        df_bh = pd.DataFrame(result_args,columns=['des_constructor', 'season', 'total_points'])
+        df_bh = pd.DataFrame(result_args,columns=['num_round', 'des_constructor', 'cummulative_sum'])
 
     return df_bh
 
@@ -198,88 +194,97 @@ def fetch_cummulative_sum_points_teams(season, racing_class):
     
 
     
-    query = f" SELECT \
-                    des_team,\
-                    season,\
-                    SUM(total_best_points) AS total_points\
-                FROM (\
-                    SELECT \
-                        dt.des_team,\
-                        fr.season,\
-                        fr.num_round,\
-                        dr.rider_full_name,\
-                        fr.race_type,\
-                        ROW_NUMBER() OVER (PARTITION BY dt.des_team, fr.num_round, fr.race_type ORDER BY dp.num_points DESC) AS rank,\
-                        SUM(dp.num_points) AS total_best_points\
-                    FROM \
-                        fact_results fr\
-                    JOIN \
-                        dim_positions dp ON fr.id_position_fk = dp.id_position\
-                    LEFT JOIN \
-                        dim_riders dr ON dr.id_rider = fr.id_rider_fk\
-                    LEFT JOIN \
-                        dim_teams dt ON dt.id_team = dr.id_team_fk\
-                    WHERE \
-                        dr.season = {season} \
-                        AND dr.racing_class = '{racing_class}'\
-                        and fr.num_round = ANY (dr.rounds_participated)\
-                        AND fr.is_wildcard = false\
-                    GROUP BY\
-                        dt.des_team,\
-                        fr.season,\
-                        fr.num_round,\
-                        dr.rider_full_name,\
-                        fr.race_type,\
-                        dp.num_points\
-                ) AS ranked_points\
-                WHERE rank <= 2\
-                GROUP BY \
-                    des_team, \
-                    season\
-                having SUM(total_best_points) >0 \
-                order by total_points desc"
-    query2  = f"""
-            SELECT 
-                des_team,
-                season,
-                SUM(total_best_points) AS total_points
-            FROM (
-                SELECT 
-                    dt.des_team,
-                    fr.season,
-                    fr.num_round,
-                    dr.rider_full_name,
-                    fr.race_type,
-                    ROW_NUMBER() OVER (PARTITION BY dt.des_team, fr.num_round, fr.race_type ORDER BY dp.num_points DESC) AS rank,
-                    SUM(dp.num_points) AS total_best_points
-                FROM 
-                    fact_results fr
-                JOIN 
-                    dim_positions dp ON fr.id_position_fk = dp.id_position
-                LEFT JOIN 
-                    dim_riders dr ON dr.id_rider = fr.id_rider_fk
-                LEFT JOIN 
-                    dim_teams dt ON dt.id_team = dr.id_team_fk
-                WHERE 
-                    dr.season = {season}
-                    AND dr.racing_class = '{racing_class}'
-                    AND fr.is_wildcard = 0
-                GROUP BY
-                    dt.des_team,
-                    fr.season,
-                    fr.num_round,
-                    dr.rider_full_name,
-                    fr.race_type,
-                    dp.num_points
-            ) AS ranked_points
-            WHERE rank <= 2
-            GROUP BY 
-                des_team, 
-                season
-            HAVING SUM(total_best_points) > 0
-            ORDER BY total_points DESC;
-            """
+    # query = f" SELECT \
+    #                 des_team,\
+    #                 season,\
+    #                 SUM(total_best_points) AS total_points\
+    #             FROM (\
+    #                 SELECT \
+    #                     dt.des_team,\
+    #                     fr.season,\
+    #                     fr.num_round,\
+    #                     dr.rider_full_name,\
+    #                     fr.race_type,\
+    #                     ROW_NUMBER() OVER (PARTITION BY dt.des_team, fr.num_round, fr.race_type ORDER BY dp.num_points DESC) AS rank,\
+    #                     SUM(dp.num_points) AS total_best_points\
+    #                 FROM \
+    #                     fact_results fr\
+    #                 JOIN \
+    #                     dim_positions dp ON fr.id_position_fk = dp.id_position\
+    #                 LEFT JOIN \
+    #                     dim_riders dr ON dr.id_rider = fr.id_rider_fk\
+    #                 LEFT JOIN \
+    #                     dim_teams dt ON dt.id_team = dr.id_team_fk\
+    #                 WHERE \
+    #                     dr.season = {season} \
+    #                     AND dr.racing_class = '{racing_class}'\
+    #                     and fr.num_round = ANY (dr.rounds_participated)\
+    #                     AND fr.is_wildcard = false\
+    #                 GROUP BY\
+    #                     dt.des_team,\
+    #                     fr.season,\
+    #                     fr.num_round,\
+    #                     dr.rider_full_name,\
+    #                     fr.race_type,\
+    #                     dp.num_points\
+    #             ) AS ranked_points\
+    #             WHERE rank <= 2\
+    #             GROUP BY \
+    #                 des_team, \
+    #                 season\
+    #             having SUM(total_best_points) >0 \
+    #             order by total_points desc"
+    # query2  = f"""
+    #         SELECT 
+    #             des_team,
+    #             season,
+    #             SUM(total_best_points) AS total_points
+    #         FROM (
+    #             SELECT 
+    #                 dt.des_team,
+    #                 fr.season,
+    #                 fr.num_round,
+    #                 dr.rider_full_name,
+    #                 fr.race_type,
+    #                 ROW_NUMBER() OVER (PARTITION BY dt.des_team, fr.num_round, fr.race_type ORDER BY dp.num_points DESC) AS rank,
+    #                 SUM(dp.num_points) AS total_best_points
+    #             FROM 
+    #                 fact_results fr
+    #             JOIN 
+    #                 dim_positions dp ON fr.id_position_fk = dp.id_position
+    #             LEFT JOIN 
+    #                 dim_riders dr ON dr.id_rider = fr.id_rider_fk
+    #             LEFT JOIN 
+    #                 dim_teams dt ON dt.id_team = dr.id_team_fk
+    #             WHERE 
+    #                 dr.season = {season}
+    #                 AND dr.racing_class = '{racing_class}'
+    #                 AND fr.is_wildcard = 0
+    #             GROUP BY
+    #                 dt.des_team,
+    #                 fr.season,
+    #                 fr.num_round,
+    #                 dr.rider_full_name,
+    #                 fr.race_type,
+    #                 dp.num_points
+    #         ) AS ranked_points
+    #         WHERE rank <= 2
+    #         GROUP BY 
+    #             des_team, 
+    #             season
+    #         HAVING SUM(total_best_points) > 0
+    #         ORDER BY total_points DESC;
+    #         """
 
+    query2= f"select distinct fr.num_round, dt.des_team  , SUM(dp.num_points) over (partition by dt.id_team  order by fr.num_round) as cummulative_sum \
+                from fact_results fr \
+                left join dim_riders dr ON dr.id_rider = fr.id_rider_fk \
+                left join dim_teams dt on dt.id_team = dr.id_team_fk \
+                left join dim_positions dp on dp.id_position =fr.id_position_fk \
+                left join dim_grand_prix dgp on dgp.id_grandprix = fr.id_grand_prix_fk\
+                where fr.season = {season} and fr.racing_class = '{racing_class}'\
+                group by fr.num_round, dgp.des_grandprix,dt.des_team,dp.num_points, fr.id_result,dt.id_team\
+                order by fr.num_round, cummulative_sum desc"
 
 
     if  st.session_state.UsingCSV:
@@ -290,7 +295,7 @@ def fetch_cummulative_sum_points_teams(season, racing_class):
         cur = conn.cursor()    
         cur.execute(query)
         result_args = cur.fetchall()
-        df_bh = pd.DataFrame(result_args,columns=['des_team', 'season', 'total_points'])
+        df_bh = pd.DataFrame(result_args,columns=['num_round', 'des_team', 'cummulative_sum'])
 
     return df_bh
 
