@@ -62,18 +62,18 @@ def show_main_page():
             },
         )
 
-    if selected == "Section1":
+    if selected == "Section 1":
         st.session_state.active_tab = 'Section1'
 
-    elif selected == "Section2":
+    elif selected == "Section 2":
         st.session_state.active_tab = 'Section2'
 
-    elif selected == "Section3":
+    elif selected == "Section 3":
         st.session_state.active_tab = 'Section3'
 
-    elif selected == "Section4":
+    elif selected == "Section 4":
         st.session_state.active_tab = 'Section4'
-    elif selected == "Section5":
+    elif selected == "Section 5":
         st.session_state.active_tab = 'Section5'
 
         
